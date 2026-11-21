@@ -1,1 +1,627 @@
-
+{
+"version": 214,
+"updated_at": "2026-11-21T00:00:00Z",
+"primary_source": "github_raw",
+"base_url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/",
+"mtk": {
+"da": [
+{
+"name": "MTK_AllInOne_DA_2625.bin",
+"path": "Da/MTK_AllInOne_DA_2625.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Da/MTK_AllInOne_DA_2625.bin"
+},
+{
+"name": "MTK_AllInOne_DA_7687.bin",
+"path": "Da/MTK_AllInOne_DA_7687.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Da/MTK_AllInOne_DA_7687.bin"
+},
+{
+"name": "MTK_AllInOne_DA_iot.bin",
+"path": "Da/MTK_AllInOne_DA_iot.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Da/MTK_AllInOne_DA_iot.bin"
+},
+{
+"name": "MTK_AllInOne_DA_mt6590.bin",
+"path": "Da/MTK_AllInOne_DA_mt6590.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Da/MTK_AllInOne_DA_mt6590.bin"
+},
+{
+"name": "MTK_DA_V5.bin",
+"path": "Da/MTK_DA_V5.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Da/MTK_DA_V5.bin"
+},
+{
+"name": "MTK_DA_V6.bin",
+"path": "Da/MTK_DA_V6.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Da/MTK_DA_V6.bin"
+},
+{
+"name": "DA_BR.bin",
+"path": "Da/DA_BR.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Da/DA_BR.bin"
+},
+{
+"name": "MT6886_NOTHING_0.bin",
+"path": "Da/MT6886_NOTHING_0.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Da/MT6886_NOTHING_0.bin"
+}
+],
+"loader_payloads": [
+{
+"name": "da_x.bin",
+"path": "payloads/da_x.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/da_x.bin"
+},
+{
+"name": "da_xml.bin",
+"path": "payloads/da_xml.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/da_xml.bin"
+},
+{
+"name": "da_xml_64.bin",
+"path": "payloads/da_xml_64.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/da_xml_64.bin"
+},
+{
+"name": "generic_dump_payload.bin",
+"path": "payloads/generic_dump_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/generic_dump_payload.bin"
+},
+{
+"name": "generic_loader_payload.bin",
+"path": "payloads/generic_loader_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/generic_loader_payload.bin"
+},
+{
+"name": "generic_patcher_payload.bin",
+"path": "payloads/generic_patcher_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/generic_patcher_payload.bin"
+},
+{
+"name": "generic_stage1_payload.bin",
+"path": "payloads/generic_stage1_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/generic_stage1_payload.bin"
+},
+{
+"name": "pl.bin",
+"path": "payloads/pl.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/pl.bin"
+},
+{
+"name": "stage2.bin",
+"path": "payloads/stage2.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/stage2.bin"
+},
+{
+"name": "mt6580_payload.bin",
+"path": "payloads/mt6580_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/mt6580_payload.bin"
+},
+{
+"name": "mt6735_payload.bin",
+"path": "payloads/mt6735_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/mt6735_payload.bin"
+},
+{
+"name": "mt6737_payload.bin",
+"path": "payloads/mt6737_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/mt6737_payload.bin"
+},
+{
+"name": "mt6739_payload.bin",
+"path": "payloads/mt6739_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/mt6739_payload.bin"
+},
+{
+"name": "mt6761_payload.bin",
+"path": "payloads/mt6761_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/mt6761_payload.bin"
+},
+{
+"name": "mt6765_payload.bin",
+"path": "payloads/mt6765_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/mt6765_payload.bin"
+},
+{
+"name": "mt6768_payload.bin",
+"path": "payloads/mt6768_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/mt6768_payload.bin"
+},
+{
+"name": "mt6771_payload.bin",
+"path": "payloads/mt6771_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/mt6771_payload.bin"
+},
+{
+"name": "mt6785_payload.bin",
+"path": "payloads/mt6785_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/mt6785_payload.bin"
+},
+{
+"name": "mt6833_payload.bin",
+"path": "payloads/mt6833_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/mt6833_payload.bin"
+},
+{
+"name": "mt6853_payload.bin",
+"path": "payloads/mt6853_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/mt6853_payload.bin"
+},
+{
+"name": "mt6873_payload.bin",
+"path": "payloads/mt6873_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/mt6873_payload.bin"
+},
+{
+"name": "mt6877_payload.bin",
+"path": "payloads/mt6877_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/mt6877_payload.bin"
+},
+{
+"name": "mt6885_payload.bin",
+"path": "payloads/mt6885_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/mt6885_payload.bin"
+},
+{
+"name": "mt6893_payload.bin",
+"path": "payloads/mt6893_payload.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/payloads/mt6893_payload.bin"
+}
+],
+"preloader": [
+{
+"name": "preloader.bin",
+"path": "Preloader/preloader.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/preloader.bin"
+},
+{
+"name": "A15s_preloader_oppo6765.bin",
+"path": "Preloader/A15s_preloader_oppo6765.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/A15s_preloader_oppo6765.bin"
+},
+{
+"name": "A7x_preloader_oppo6771_18011.bin",
+"path": "Preloader/A7x_preloader_oppo6771_18011.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/A7x_preloader_oppo6771_18011.bin"
+},
+{
+"name": "F11_PRO_preloader_oppo6771_18531.bin",
+"path": "Preloader/F11_PRO_preloader_oppo6771_18531.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/F11_PRO_preloader_oppo6771_18531.bin"
+},
+{
+"name": "OPPO_A3_preloader_oppo6771_17331.bin",
+"path": "Preloader/OPPO_A3_preloader_oppo6771_17331.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/OPPO_A3_preloader_oppo6771_17331.bin"
+},
+{
+"name": "OPPO_A91_preloader_oppo6771_19350.bin",
+"path": "Preloader/OPPO_A91_preloader_oppo6771_19350.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/OPPO_A91_preloader_oppo6771_19350.bin"
+},
+{
+"name": "Realme_3_preloader_oppo6771_18601.bin",
+"path": "Preloader/Realme_3_preloader_oppo6771_18601.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/Realme_3_preloader_oppo6771_18601.bin"
+},
+{
+"name": "Redmi_Note_10s_preloader.bin",
+"path": "Preloader/Redmi_Note_10s_preloader.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/Redmi_Note_10s_preloader.bin"
+},
+{
+"name": "Reno_2F_preloader_oppo6771.bin",
+"path": "Preloader/Reno_2F_preloader_oppo6771.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/Reno_2F_preloader_oppo6771.bin"
+},
+{
+"name": "Samsung_A32_Preloader.bin",
+"path": "Preloader/Samsung_A32_Preloader.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/Samsung_A32_Preloader.bin"
+},
+{
+"name": "preloader_begonia.bin",
+"path": "Preloader/preloader_begonia.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/preloader_begonia.bin"
+},
+{
+"name": "preloader_camellia.bin",
+"path": "Preloader/preloader_camellia.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/preloader_camellia.bin"
+},
+{
+"name": "preloader_lancelot.bin",
+"path": "Preloader/preloader_lancelot.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/preloader_lancelot.bin"
+},
+{
+"name": "preloader_merlin.bin",
+"path": "Preloader/preloader_merlin.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/preloader_merlin.bin"
+},
+{
+"name": "preloader_redmi9a_Hydra_V2.bin",
+"path": "Preloader/preloader_redmi9a_Hydra_V2.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/preloader_redmi9a_Hydra_V2.bin"
+},
+{
+"name": "preloader_Vivo_6750_66_V3.bin",
+"path": "Preloader/preloader_Vivo_6750_66_V3.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/preloader_Vivo_6750_66_V3.bin"
+},
+{
+"name": "preloader_Vivo_6750_66_Y69.bin",
+"path": "Preloader/preloader_Vivo_6750_66_Y69.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/preloader_Vivo_6750_66_Y69.bin"
+},
+{
+"name": "preloader_Vivo_6762_Y8X_k62v1_64_bsp.bin",
+"path": "Preloader/preloader_Vivo_6762_Y8X_k62v1_64_bsp.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/preloader_Vivo_6762_Y8X_k62v1_64_bsp.bin"
+},
+{
+"name": "preloader_k68v1_64_Vivo_MT6768.bin",
+"path": "Preloader/preloader_k68v1_64_Vivo_MT6768.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Preloader/preloader_k68v1_64_Vivo_MT6768.bin"
+}
+],
+"targets": [
+{
+"name": "mt6572.h",
+"path": "targets/mt6572.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6572.h"
+},
+{
+"name": "mt6580.h",
+"path": "targets/mt6580.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6580.h"
+},
+{
+"name": "mt6735.h",
+"path": "targets/mt6735.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6735.h"
+},
+{
+"name": "mt6737.h",
+"path": "targets/mt6737.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6737.h"
+},
+{
+"name": "mt6739.h",
+"path": "targets/mt6739.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6739.h"
+},
+{
+"name": "mt6755.h",
+"path": "targets/mt6755.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6755.h"
+},
+{
+"name": "mt6761.h",
+"path": "targets/mt6761.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6761.h"
+},
+{
+"name": "mt6763.h",
+"path": "targets/mt6763.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6763.h"
+},
+{
+"name": "mt6765.h",
+"path": "targets/mt6765.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6765.h"
+},
+{
+"name": "mt6768.h",
+"path": "targets/mt6768.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6768.h"
+},
+{
+"name": "mt6771.h",
+"path": "targets/mt6771.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6771.h"
+},
+{
+"name": "mt6779.h",
+"path": "targets/mt6779.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6779.h"
+},
+{
+"name": "mt6781.h",
+"path": "targets/mt6781.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6781.h"
+},
+{
+"name": "mt6785.h",
+"path": "targets/mt6785.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6785.h"
+},
+{
+"name": "mt6833.h",
+"path": "targets/mt6833.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6833.h"
+},
+{
+"name": "mt6853.h",
+"path": "targets/mt6853.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6853.h"
+},
+{
+"name": "mt6873.h",
+"path": "targets/mt6873.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6873.h"
+},
+{
+"name": "mt6877.h",
+"path": "targets/mt6877.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6877.h"
+},
+{
+"name": "mt6885.h",
+"path": "targets/mt6885.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6885.h"
+},
+{
+"name": "mt6893.h",
+"path": "targets/mt6893.h",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/targets/mt6893.h"
+}
+]
+},
+"qualcomm": {
+"loaders": {
+"xiaomi": [
+{
+"name": "0000000000030000_467f3020c4cc788d_fhprg_8E_noauth.bin",
+"path": "Loaders/xiaomi/0000000000030000_467f3020c4cc788d_fhprg_8E_noauth.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/xiaomi/0000000000030000_467f3020c4cc788d_fhprg_8E_noauth.bin"
+},
+{
+"name": "000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin",
+"path": "Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin"
+},
+{
+"name": "001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin",
+"path": "Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin"
+},
+{
+"name": "daisy_prog_emmc_firehose_8953_ddr.mbn",
+"path": "Loaders/xiaomi/daisy_prog_emmc_firehose_8953_ddr.mbn",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/xiaomi/daisy_prog_emmc_firehose_8953_ddr.mbn"
+},
+{
+"name": "jasmine_prog_emmc_firehose_Sdm660_ddr.elf",
+"path": "Loaders/xiaomi/jasmine_prog_emmc_firehose_Sdm660_ddr.elf",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/xiaomi/jasmine_prog_emmc_firehose_Sdm660_ddr.elf"
+},
+{
+"name": "prog_ufs_firehose_sm6250_ddr.elf",
+"path": "Loaders/xiaomi/prog_ufs_firehose_sm6250_ddr.elf",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/xiaomi/prog_ufs_firehose_sm6250_ddr.elf"
+},
+{
+"name": "rosy_prog_emmc_firehose_8953_ddr.mbn",
+"path": "Loaders/xiaomi/rosy_prog_emmc_firehose_8953_ddr.mbn",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/xiaomi/rosy_prog_emmc_firehose_8953_ddr.mbn"
+},
+{
+"name": "0008b0e100720000_c924a35f39ce1cdd_fhprg_edlauth_poco_f1.bin",
+"path": "Loaders/xiaomi/EDLAuth/0008b0e100720000_c924a35f39ce1cdd_fhprg_edlauth_poco_f1.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/xiaomi/EDLAuth/0008b0e100720000_c924a35f39ce1cdd_fhprg_edlauth_poco_f1.bin"
+},
+{
+"name": "000a50e100720000_1bebe3863a6781db_fhprg_sdm855_edlauth_xiaomi.bin",
+"path": "Loaders/xiaomi/EDLAuth/000a50e100720000_1bebe3863a6781db_fhprg_sdm855_edlauth_xiaomi.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/xiaomi/EDLAuth/000a50e100720000_1bebe3863a6781db_fhprg_sdm855_edlauth_xiaomi.bin"
+}
+],
+"oppo": [
+{
+"name": "0000000000510000_22f415bec935e3cb_fhprg_rmx3471_695_SM6375.bin",
+"path": "Loaders/oppo/0000000000510000_22f415bec935e3cb_fhprg_rmx3471_695_SM6375.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/oppo/0000000000510000_22f415bec935e3cb_fhprg_rmx3471_695_SM6375.bin"
+},
+{
+"name": "0000000000510000_401e4aff39a09344_fhprg.bin",
+"path": "Loaders/oppo/0000000000510000_401e4aff39a09344_fhprg.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/oppo/0000000000510000_401e4aff39a09344_fhprg.bin"
+},
+{
+"name": "0000000000514d6d_7c15a98db4e70963_fhprg.bin",
+"path": "Loaders/oppo/0000000000514d6d_7c15a98db4e70963_fhprg.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/oppo/0000000000514d6d_7c15a98db4e70963_fhprg.bin"
+},
+{
+"name": "prog_firehose_ddr.elf",
+"path": "Loaders/oppo/prog_firehose_ddr.elf",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/oppo/prog_firehose_ddr.elf"
+}
+],
+"vivo": [
+{
+"name": "0000000000730003_a7df36ffd7ab557c_fhprg_vivo_pd2020.bin",
+"path": "Loaders/vivo/0000000000730003_a7df36ffd7ab557c_fhprg_vivo_pd2020.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/vivo/0000000000730003_a7df36ffd7ab557c_fhprg_vivo_pd2020.bin"
+},
+{
+"name": "000460e100000000_60ba997fef6da9f0_fhprg_peek.bin",
+"path": "Loaders/vivo/000460e100000000_60ba997fef6da9f0_fhprg_peek.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/vivo/000460e100000000_60ba997fef6da9f0_fhprg_peek.bin"
+},
+{
+"name": "6000000000010000_2c0a52ffbd8db687_fhprg_vivo_dual_1813.bin",
+"path": "Loaders/vivo/6000000000010000_2c0a52ffbd8db687_fhprg_vivo_dual_1813.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/vivo/6000000000010000_2c0a52ffbd8db687_fhprg_vivo_dual_1813.bin"
+},
+{
+"name": "6004000000010000_2c0a52ffbd8db687_fhprg.bin",
+"path": "Loaders/vivo/6004000000010000_2c0a52ffbd8db687_fhprg.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/vivo/6004000000010000_2c0a52ffbd8db687_fhprg.bin"
+}
+],
+"samsung": [
+{
+"name": "a525f_bitc.elf",
+"path": "Loaders/samsung/a525f_bitc.elf",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/samsung/a525f_bitc.elf"
+},
+{
+"name": "000b80e100200000_bd0eb2e36a4b2881_fhprg_sc8180xp.bin",
+"path": "Loaders/samsung/000b80e100200000_bd0eb2e36a4b2881_fhprg_sc8180xp.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/samsung/000b80e100200000_bd0eb2e36a4b2881_fhprg_sc8180xp.bin"
+},
+{
+"name": "001920E100200000_4A14C27B518909E1_fhprg.elf",
+"path": "Loaders/samsung/001920E100200000_4A14C27B518909E1_fhprg.elf",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/samsung/001920E100200000_4A14C27B518909E1_fhprg.elf"
+}
+],
+"oneplus": [
+{
+"name": "0000000000020000_467f3020c4cc788d_fhprg_op10pro.bin",
+"path": "Loaders/oneplus/0000000000020000_467f3020c4cc788d_fhprg_op10pro.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/oneplus/0000000000020000_467f3020c4cc788d_fhprg_op10pro.bin"
+},
+{
+"name": "0008b0e10051459b_dd7c5f2e53176bee_fhprg_op6t.bin",
+"path": "Loaders/oneplus/0008b0e10051459b_dd7c5f2e53176bee_fhprg_op6t.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/oneplus/0008b0e10051459b_dd7c5f2e53176bee_fhprg_op6t.bin"
+},
+{
+"name": "000a50e100514985_2acf3a85fde334e2_fhprg_op7t.bin",
+"path": "Loaders/oneplus/000a50e100514985_2acf3a85fde334e2_fhprg_op7t.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/oneplus/000a50e100514985_2acf3a85fde334e2_fhprg_op7t.bin"
+},
+{
+"name": "0011e0e100515141_e5d0b832cebbf1c6_fhprg_opnord.bin",
+"path": "Loaders/oneplus/0011e0e100515141_e5d0b832cebbf1c6_fhprg_opnord.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/oneplus/0011e0e100515141_e5d0b832cebbf1c6_fhprg_opnord.bin"
+},
+{
+"name": "001350e100514d67_a26bc25799770106_fhprg_op9.bin",
+"path": "Loaders/oneplus/001350e100514d67_a26bc25799770106_fhprg_op9.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/oneplus/001350e100514d67_a26bc25799770106_fhprg_op9.bin"
+}
+],
+"huawei": [
+{
+"name": "000510e100150063_0c4261f370982e1f_fhprg_peek_leo_l09s.bin",
+"path": "Loaders/huawei/000510e100150063_0c4261f370982e1f_fhprg_peek_leo_l09s.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/huawei/000510e100150063_0c4261f370982e1f_fhprg_peek_leo_l09s.bin"
+},
+{
+"name": "009400e100150020_6bc369511da9cadb_fhprg_angler6p_peek.bin",
+"path": "Loaders/huawei/009400e100150020_6bc369511da9cadb_fhprg_angler6p_peek.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/huawei/009400e100150020_6bc369511da9cadb_fhprg_angler6p_peek.bin"
+},
+{
+"name": "009720e100150058_6bc369511da9cadb_fhprg_g9_peek.bin",
+"path": "Loaders/huawei/009720e100150058_6bc369511da9cadb_fhprg_g9_peek.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/huawei/009720e100150058_6bc369511da9cadb_fhprg_g9_peek.bin"
+}
+],
+"lenovo_motorola": [
+{
+"name": "001b80e102e80000_8b2d1c830d9d8576_fhprg_moto_g52.bin",
+"path": "Loaders/lenovo_motorola/001b80e102e80000_8b2d1c830d9d8576_fhprg_moto_g52.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/lenovo_motorola/001b80e102e80000_8b2d1c830d9d8576_fhprg_moto_g52.bin"
+},
+{
+"name": "009470e100000000_cab02552dc28f562_fhprg_lenovo_zuk.bin",
+"path": "Loaders/lenovo_motorola/009470e100000000_cab02552dc28f562_fhprg_lenovo_zuk.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/lenovo_motorola/009470e100000000_cab02552dc28f562_fhprg_lenovo_zuk.bin"
+}
+],
+"qualcomm_factory": [
+{
+"chipset": "msm8916",
+"name": "007050e100000000_394a2e47cf830150_fhprg_peek.bin",
+"path": "Loaders/qualcomm/factory/msm8916/007050e100000000_394a2e47cf830150_fhprg_peek.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/msm8916/007050e100000000_394a2e47cf830150_fhprg_peek.bin"
+},
+{
+"chipset": "msm8917",
+"name": "000560e100000000_49d087ca08c6e2ca_fhprg_peek.bin",
+"path": "Loaders/qualcomm/factory/msm8917/000560e100000000_49d087ca08c6e2ca_fhprg_peek.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/msm8917/000560e100000000_49d087ca08c6e2ca_fhprg_peek.bin"
+},
+{
+"chipset": "msm8937",
+"name": "0004f0e100000000_49d087ca08c6e2ca_fhprg_peek.bin",
+"path": "Loaders/qualcomm/factory/msm8937/0004f0e100000000_49d087ca08c6e2ca_fhprg_peek.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/msm8937/0004f0e100000000_49d087ca08c6e2ca_fhprg_peek.bin"
+},
+{
+"chipset": "msm8953",
+"name": "000460e100000000_60be3e96593bd105_fhprg_peek.bin",
+"path": "Loaders/qualcomm/factory/msm8953/000460e100000000_60be3e96593bd105_fhprg_peek.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/msm8953/000460e100000000_60be3e96593bd105_fhprg_peek.bin"
+},
+{
+"chipset": "sd765",
+"name": "0000000000720000_1bebe3863a6781db_fhprg.bin",
+"path": "Loaders/qualcomm/factory/sd765/0000000000720000_1bebe3863a6781db_fhprg.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sd765/0000000000720000_1bebe3863a6781db_fhprg.bin"
+},
+{
+"chipset": "sdm660",
+"name": "3006000000010000_54736aebeaaf4167_fhprg.bin",
+"path": "Loaders/qualcomm/factory/sdm660/3006000000010000_54736aebeaaf4167_fhprg.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm660/3006000000010000_54736aebeaaf4167_fhprg.bin"
+},
+{
+"chipset": "sdm662",
+"name": "0014d0e100000000_d40eee56f3194665_FHPRG.bin",
+"path": "Loaders/qualcomm/factory/sdm662/0014d0e100000000_d40eee56f3194665_FHPRG.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm662/0014d0e100000000_d40eee56f3194665_FHPRG.bin"
+},
+{
+"chipset": "sdm710",
+"name": "6004000000010000_f8ab20526358c4fa_fhprg.bin",
+"path": "Loaders/qualcomm/factory/sdm710/6004000000010000_f8ab20526358c4fa_fhprg.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm710/6004000000010000_f8ab20526358c4fa_fhprg.bin"
+},
+{
+"chipset": "sdm845",
+"name": "0008e0e100000000_afca69d4235117e5_fhprg.bin",
+"path": "Loaders/qualcomm/factory/sdm845_sdm850_sda845/0008e0e100000000_afca69d4235117e5_fhprg.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm845_sdm850_sda845/0008e0e100000000_afca69d4235117e5_fhprg.bin"
+},
+{
+"chipset": "sdm855",
+"name": "000a50e10029003c_ec70ff124179a138_fhprg.bin",
+"path": "Loaders/qualcomm/factory/sdm855/000a50e10029003c_ec70ff124179a138_fhprg.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm855/000a50e10029003c_ec70ff124179a138_fhprg.bin"
+},
+{
+"chipset": "sm8350",
+"name": "firehoseRM6R.elf",
+"path": "Loaders/qualcomm/factory/sm8350/firehoseRM6R.elf",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sm8350/firehoseRM6R.elf"
+}
+],
+"qualcomm_generic": [
+{
+"chipset": "qcm2290",
+"name": "001860e100000000_d9357db88795b5a8_Qcm2290_ddr_fhprg.elf",
+"path": "Loaders/qualcomm/model_generic/qcm2290/001860e100000000_d9357db88795b5a8_Qcm2290_ddr_fhprg.elf",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/model_generic/qcm2290/001860e100000000_d9357db88795b5a8_Qcm2290_ddr_fhprg.elf"
+},
+{
+"chipset": "QCM6125",
+"name": "001750e100000000_d40eee56f3194665574109a39267724ae7944134cd53cb767e293d3c40497955bc8a4519ff992b031fadc6355015ac87.bin",
+"path": "Loaders/qualcomm/model_generic/QCM6125/001750e100000000_d40eee56f3194665574109a39267724ae7944134cd53cb767e293d3c40497955bc8a4519ff992b031fadc6355015ac87.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/model_generic/QCM6125/001750e100000000_d40eee56f3194665574109a39267724ae7944134cd53cb767e293d3c40497955bc8a4519ff992b031fadc6355015ac87.bin"
+},
+{
+"chipset": "SDM855LA",
+"name": "000a50e100000000_d40eee56f3194665_fhprg.bin",
+"path": "Loaders/qualcomm/model_generic/SDM855LA/000a50e100000000_d40eee56f3194665_fhprg.bin",
+"url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/model_generic/SDM855LA/000a50e100000000_d40eee56f3194665_fhprg.bin"
+}
+]
+}
+}
+}
