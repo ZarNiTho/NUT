@@ -1,0 +1,188 @@
+name: Auto Generate main.json
+​on:
+​GitHub Actions tab ကနေ ကိုယ်တိုင် ခလုတ်နှိပ်ပြီး Run နိုင်ရန်
+​workflow_dispatch:
+​အောက်ပါ Folder တွေထဲ ဖိုင်အသစ်တင်/ပြင်တိုင်း အလိုအလျောက် Run ရန်
+​push:
+branches:
+- main
+paths:
+- "Da/"
+- "payloads/"
+- "Preloader/"
+- "targets/"
+- "Loaders/"
+​Repo ထဲကို main.json ပြန် Commit & Push လုပ်ခွင့်ပေးခြင်း
+​permissions:
+contents: write
+​jobs:
+build-json:
+runs-on: ubuntu-latest
+​steps:
+- name: Checkout Repository
+uses: actions/checkout@v4
+​- name: Set up Python
+uses: actions/setup-python@v5
+with:
+python-version: "3.11"
+​- name: Scan Files and Generate main.json
+run: |
+python3 - << 'EOF'
+import json
+import os
+from datetime import datetime, timezone
+from urllib.parse import quote
+​# GitHub Repo အချက်အလက်များ
+REPO_OWNER = os.environ.get("GITHUB_REPOSITORY_OWNER", "ZarNiTho")
+REPO_FULL = os.environ.get("GITHUB_REPOSITORY", "ZarNiTho/NUT")
+BRANCH = "main"
+BASE_URL = f"https://raw.githubusercontent.com/{REPO_FULL}/{BRANCH}/"
+​# မလိုအပ်သော စာသား/Script ဖိုင်များကို ကျော်သွားရန်
+IGNORED_FILES = {
+".gitignore",
+".DS_Store",
+"README.md",
+"putyourloadersinhere.txt",
+"init.py",
+}
+IGNORED_EXTENSIONS = {".py", ".md", ".txt"}
+​def make_url(rel_path: str) -> str:
+"""Space ပါသော ဖိုင်နာမည်များ URL မပျက်စေရန် Encode လုပ်ပေးခြင်း"""
+return BASE_URL + quote(rel_path, safe="/")
+​def scan_flat_folder(folder_name: str, allow_all_ext: bool = False) -> list:
+"""MTK ဖိုဒါများ (Da, payloads, Preloader, targets) ကို စကင်ဖတ်ခြင်း"""
+items = []
+if not os.path.isdir(folder_name):
+return items
+​for root, dirs, files in os.walk(folder_name):
+dirs.sort()
+for filename in sorted(files):
+if filename in IGNORED_FILES or filename.startswith("."):
+continue
+ext = os.path.splitext(filename)[1].lower()
+if not allow_all_ext and ext in IGNORED_EXTENSIONS:
+continue
+​rel_path = os.path.join(root, filename).replace("\", "/")
+items.append({
+"name": filename,
+"path": rel_path,
+"url": make_url(rel_path),
+})
+return items
+​def scan_qualcomm_loaders(base_folder: str = "Loaders") -> dict:
+"""Loaders ဖိုဒါထဲမှ Brand နှင့် Chipset အလိုက် အားလုံးကို စကင်ဖတ်ခြင်း"""
+loaders = {}
+if not os.path.isdir(base_folder):
+return loaders
+​for root, dirs, files in os.walk(base_folder):
+dirs.sort()
+for filename in sorted(files):
+if filename in IGNORED_FILES or filename.startswith("."):
+continue
+ext = os.path.splitext(filename)[1].lower()
+if ext in IGNORED_EXTENSIONS:
+continue
+​rel_path = os.path.join(root, filename).replace("\", "/")
+# Loaders/ နောက်က လမ်းကြောင်းအပိုင်းများကို ခွဲထုတ်ခြင်း
+parts = rel_path.split("/")
+# parts[0] = "Loaders"
+if len(parts) < 3:
+group_key = "root"
+entry = {
+"name": filename,
+"path": rel_path,
+"url": make_url(rel_path),
+}
+else:
+brand = parts[1]
+​# qualcomm/factory, qualcomm/model_generic, qualcomm/patched များကို သီးသန့်ခွဲပေးခြင်း
+if brand.lower() == "qualcomm" and len(parts) >= 4:
+sub_category = parts[2]  # factory, model_generic, patched
+if sub_category == "model_generic":
+group_key = "qualcomm_generic"
+else:
+group_key = f"qualcomm_{sub_category}"
+​entry = {
+"chipset": parts[3] if len(parts) >= 5 else "general",
+"name": filename,
+"path": rel_path,
+"url": make_url(rel_path),
+}
+else:
+group_key = brand
+entry = {
+"name": filename,
+"path": rel_path,
+"url": make_url(rel_path),
+}
+# EDLAuth, broken စသည့် Subfolder ရှိပါက ထည့်မှတ်ပေးခြင်း
+if len(parts) >= 4:
+entry["subfolder"] = "/".join(parts[2:-1])
+​loaders.setdefault(group_key, []).append(entry)
+​# Brand နာမည်များကို A-Z အစဉ်လိုက် စီပေးခြင်း
+return dict(sorted(loaders.items(), key=lambda x: x[0].lower()))
+​def get_next_version(json_path: str = "main.json") -> int:
+"""လက်ရှိ main.json ထဲမှ version ကို ၁ တိုးပေးခြင်း"""
+default_ver = 214
+if not os.path.isfile(json_path):
+return default_ver
+try:
+with open(json_path, "r", encoding="utf-8") as f:
+old_data = json.load(f)
+old_ver = old_data.get("version")
+if isinstance(old_ver, int):
+return old_ver + 1
+except Exception:
+pass
+return default_ver
+​def main():
+# MTK ဖိုင်များ (DA script ဖိုဒါကို မယူဘဲ Da ဖိုဒါကိုသာ ယူမည်)
+mtk_da = scan_flat_folder("Da")
+mtk_payloads = scan_flat_folder("payloads")
+mtk_preloader = scan_flat_folder("Preloader")
+mtk_targets = scan_flat_folder("targets", allow_all_ext=True)
+​# Qualcomm Loaders ဖိုင်အားလုံး
+qc_loaders = scan_qualcomm_loaders("Loaders")
+qc_total = sum(len(v) for v in qc_loaders.values())
+​data = {
+"version": get_next_version("main.json"),
+"updated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+"primary_source": "github_raw",
+"base_url": BASE_URL,
+"stats": {
+"mtk_da": len(mtk_da),
+"mtk_payloads": len(mtk_payloads),
+"mtk_preloader": len(mtk_preloader),
+"mtk_targets": len(mtk_targets),
+"qualcomm_brands": len(qc_loaders),
+"qualcomm_loaders": qc_total,
+"total_files": len(mtk_da) + len(mtk_payloads) + len(mtk_preloader) + len(mtk_targets) + qc_total,
+},
+"mtk": {
+"da": mtk_da,
+"loader_payloads": mtk_payloads,
+"preloader": mtk_preloader,
+"targets": mtk_targets,
+},
+"qualcomm": {
+"loaders": qc_loaders,
+},
+}
+​with open("main.json", "w", encoding="utf-8") as f:
+json.dump(data, f, indent=2, ensure_ascii=False)
+​print("Generated main.json successfully!")
+print(json.dumps(data["stats"], indent=2))
+​if name == "main":
+main()
+EOF
+​- name: Commit and Push updated main.json
+run: |
+git config --local user.name "github-actions[bot]"
+git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+git add main.json
+if git diff --staged --quiet; then
+echo "No changes to main.json"
+else
+git commit -m "Auto-update main.json with all MTK and Qualcomm files"
+git push
+fi
