@@ -1,16 +1,16 @@
 {
-  "version": 216,
-  "updated_at": "2026-11-22T06:37:05Z",
+  "version": 217,
+  "updated_at": "2026-11-22T06:39:10Z",
   "primary_source": "github_raw",
   "base_url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/",
   "stats": {
-    "mtk_da": 5,
+    "mtk_da": 6,
     "mtk_payloads": 58,
     "mtk_preloader": 838,
     "mtk_targets": 42,
     "qualcomm_brands": 50,
     "qualcomm_loaders": 878,
-    "total_files": 1821
+    "total_files": 1822
   },
   "mtk": {
     "da": [
@@ -38,6 +38,11 @@
         "name": "MTK_DA_V5.bin",
         "path": "Da/MTK_DA_V5.bin",
         "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Da/MTK_DA_V5.bin"
+      },
+      {
+        "name": "MTK_DA_V6.bin",
+        "path": "Da/MTK_DA_V6.bin",
+        "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Da/MTK_DA_V6.bin"
       }
     ],
     "loader_payloads": [
