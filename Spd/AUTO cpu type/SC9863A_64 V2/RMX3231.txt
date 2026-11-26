@@ -1,0 +1,2 @@
+FDL1Address : 0x00005000
+FDL2Address : 0x9EFFFE00
