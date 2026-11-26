@@ -5,12 +5,9 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "Da/**"
-      - "payloads/**"
-      - "Preloader/**"
-      - "targets/**"
-      - "Loaders/**"
+    paths-ignore:
+      - "main.json"
+      - ".github/**"
 
 permissions:
   contents: write
@@ -28,7 +25,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Scan Files and Generate main.json
+      - name: Scan All Folders and Generate main.json
         run: |
           python3 - << 'EOF'
           import json
@@ -40,99 +37,26 @@ jobs:
           BRANCH = "main"
           BASE_URL = f"https://raw.githubusercontent.com/{REPO_FULL}/{BRANCH}/"
 
+          IGNORED_DIRS = {".git", ".github", "__pycache__", "node_modules"}
           IGNORED_FILES = {
+              "main.json",
               ".gitignore",
               ".DS_Store",
               "README.md",
+              "LICENSE",
               "putyourloadersinhere.txt",
               "init.py",
               "__init__.py",
           }
-          IGNORED_EXTENSIONS = {".py", ".md", ".txt"}
+          IGNORED_EXTENSIONS = {".py", ".md", ".yml", ".yaml"}
 
 
           def make_url(rel_path: str) -> str:
               return BASE_URL + quote(rel_path, safe="/")
 
 
-          def scan_flat_folder(folder_name: str, allow_all_ext: bool = False) -> list:
-              items = []
-              if not os.path.isdir(folder_name):
-                  return items
-
-              for root, dirs, files in os.walk(folder_name):
-                  dirs.sort()
-                  for filename in sorted(files):
-                      if filename in IGNORED_FILES or filename.startswith("."):
-                          continue
-                      ext = os.path.splitext(filename)[1].lower()
-                      if not allow_all_ext and ext in IGNORED_EXTENSIONS:
-                          continue
-
-                      rel_path = os.path.join(root, filename).replace("\\", "/")
-                      items.append({
-                          "name": filename,
-                          "path": rel_path,
-                          "url": make_url(rel_path),
-                      })
-              return items
-
-
-          def scan_qualcomm_loaders(base_folder: str = "Loaders") -> dict:
-              loaders = {}
-              if not os.path.isdir(base_folder):
-                  return loaders
-
-              for root, dirs, files in os.walk(base_folder):
-                  dirs.sort()
-                  for filename in sorted(files):
-                      if filename in IGNORED_FILES or filename.startswith("."):
-                          continue
-                      ext = os.path.splitext(filename)[1].lower()
-                      if ext in IGNORED_EXTENSIONS:
-                          continue
-
-                      rel_path = os.path.join(root, filename).replace("\\", "/")
-                      parts = rel_path.split("/")
-                      if len(parts) < 3:
-                          group_key = "root"
-                          entry = {
-                              "name": filename,
-                              "path": rel_path,
-                              "url": make_url(rel_path),
-                          }
-                      else:
-                          brand = parts[1]
-                          if brand.lower() == "qualcomm" and len(parts) >= 4:
-                              sub_category = parts[2]
-                              if sub_category == "model_generic":
-                                  group_key = "qualcomm_generic"
-                              else:
-                                  group_key = f"qualcomm_{sub_category}"
-
-                              entry = {
-                                  "chipset": parts[3] if len(parts) >= 5 else "general",
-                                  "name": filename,
-                                  "path": rel_path,
-                                  "url": make_url(rel_path),
-                              }
-                          else:
-                              group_key = brand
-                              entry = {
-                                  "name": filename,
-                                  "path": rel_path,
-                                  "url": make_url(rel_path),
-                              }
-                              if len(parts) >= 4:
-                                  entry["subfolder"] = "/".join(parts[2:-1])
-
-                      loaders.setdefault(group_key, []).append(entry)
-
-              return dict(sorted(loaders.items(), key=lambda x: x[0].lower()))
-
-
           def get_next_version(json_path: str = "main.json") -> int:
-              default_ver = 214
+              default_ver = 1
               if not os.path.isfile(json_path):
                   return default_ver
               try:
@@ -146,14 +70,52 @@ jobs:
               return default_ver
 
 
-          def main():
-              mtk_da = scan_flat_folder("Da")
-              mtk_payloads = scan_flat_folder("payloads")
-              mtk_preloader = scan_flat_folder("Preloader")
-              mtk_targets = scan_flat_folder("targets", allow_all_ext=True)
+          def scan_repository() -> tuple:
+              folders = {}
+              root_files = []
 
-              qc_loaders = scan_qualcomm_loaders("Loaders")
-              qc_total = sum(len(v) for v in qc_loaders.values())
+              for root, dirs, files in os.walk("."):
+                  # Hidden folders နဲ့ ignored folders တွေကို ကျော်မယ်
+                  dirs[:] = sorted(
+                      d for d in dirs
+                      if d not in IGNORED_DIRS and not d.startswith(".")
+                  )
+
+                  for filename in sorted(files):
+                      if filename in IGNORED_FILES or filename.startswith("."):
+                          continue
+                      ext = os.path.splitext(filename)[1].lower()
+                      if ext in IGNORED_EXTENSIONS:
+                          continue
+
+                      full_path = os.path.join(root, filename)
+                      rel_path = os.path.relpath(full_path, ".").replace("\\", "/")
+                      parts = rel_path.split("/")
+
+                      entry = {
+                          "name": filename,
+                          "path": rel_path,
+                          "size": os.path.getsize(full_path),
+                          "url": make_url(rel_path),
+                      }
+
+                      if len(parts) == 1:
+                          root_files.append(entry)
+                      else:
+                          top_folder = parts[0]
+                          if len(parts) > 2:
+                              entry["subfolder"] = "/".join(parts[1:-1])
+                          folders.setdefault(top_folder, []).append(entry)
+
+              sorted_folders = dict(sorted(folders.items(), key=lambda x: x[0].lower()))
+              return sorted_folders, root_files
+
+
+          def main():
+              folders, root_files = scan_repository()
+
+              folder_counts = {k: len(v) for k, v in folders.items()}
+              total_files = sum(folder_counts.values()) + len(root_files)
 
               data = {
                   "version": get_next_version("main.json"),
@@ -161,30 +123,20 @@ jobs:
                   "primary_source": "github_raw",
                   "base_url": BASE_URL,
                   "stats": {
-                      "mtk_da": len(mtk_da),
-                      "mtk_payloads": len(mtk_payloads),
-                      "mtk_preloader": len(mtk_preloader),
-                      "mtk_targets": len(mtk_targets),
-                      "qualcomm_brands": len(qc_loaders),
-                      "qualcomm_loaders": qc_total,
-                      "total_files": len(mtk_da) + len(mtk_payloads) + len(mtk_preloader) + len(mtk_targets) + qc_total,
+                      "total_folders": len(folders),
+                      "total_files": total_files,
+                      "root_files": len(root_files),
+                      "by_folder": folder_counts,
                   },
-                  "mtk": {
-                      "da": mtk_da,
-                      "loader_payloads": mtk_payloads,
-                      "preloader": mtk_preloader,
-                      "targets": mtk_targets,
-                  },
-                  "qualcomm": {
-                      "loaders": qc_loaders,
-                  },
+                  "folders": folders,
+                  "root_files": root_files,
               }
 
               with open("main.json", "w", encoding="utf-8") as f:
                   json.dump(data, f, indent=2, ensure_ascii=False)
 
               print("Generated main.json successfully!")
-              print(json.dumps(data["stats"], indent=2))
+              print(json.dumps(data["stats"], indent=2, ensure_ascii=False))
 
 
           if __name__ == "__main__":
@@ -199,6 +151,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to main.json"
           else
-            git commit -m "Auto-update main.json with all MTK and Qualcomm files"
+            git commit -m "Auto-update main.json [skip ci]"
             git push
           fi
