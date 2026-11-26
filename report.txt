@@ -1,0 +1,1219 @@
+APP CATALOG BUILD REPORT
+================================================================================
+Generated UTC: 2026-11-26T11:43:08Z
+Repository: ZarNiTho/NUT
+Branch: main
+Expert catalogue: device_catalog.json
+
+IMPORTANT REMARKS
+- This workflow evaluates expert-catalogue models only; unknown models are excluded.
+- Matching is based on repository file evidence. It is not a real-hardware test.
+- MATCH means strong static evidence. NEED_TEST means usable candidate evidence exists but hardware confirmation is still required.
+- No model is called hardware_verified or guaranteed ready by this workflow.
+
+SUMMARY
+- Scanned files: 2269
+- Scan errors/skipped files: 0
+- Expert catalogue models: 1396
+- Included models: 296
+- MATCH: 40
+- NEED_TEST: 256
+- Omitted/no sufficient evidence: 1100
+
+SCANNED FILE TYPES
+- mtk/mtk_da: 6
+- mtk/mtk_payload: 57
+- mtk/mtk_preloader: 839
+- mtk/mtk_target: 42
+- qcom/qcom_loader: 870
+- spd/spd_fdl: 399
+- unknown/other: 12
+- unknown/possible_elf_loader: 36
+- unknown/possible_qcom_mbn: 6
+- unknown/unknown_bin: 2
+
+INCLUDED MODEL REMARKS
+[CATALOG_MATCH] itel — iTel Vision 1 Pro (L6502) | score=90 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:l6502,vision; model_or_codename_token:vision; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel Vision 1 Pro (L6502)  SC9832E/$LaPyae iTel Vision 1 Pro (L6502) Erase (Frp+Userdata).pac, Spd/ITEL/itel Vision 1 Pro (L6502)  SC9832E/fdl1-sign.bin, Spd/ITEL/itel Vision 1 Pro (L6502)  SC9832E/fdl2-sign.bin, Spd/ITEL/itel Vision 1 Pro (L6502)  SC9832E/sp9832e_1h10.xml, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/$LaPyae iTel Vision 2 Plus (P681L) FRP Remote.pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel Vision 1 Pro v2 (L6502) | score=90 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:l6502,vision; model_or_codename_token:vision; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel Vision 1 Pro (L6502)  SC9832E/$LaPyae iTel Vision 1 Pro (L6502) Erase (Frp+Userdata).pac, Spd/ITEL/itel Vision 1 Pro (L6502)  SC9832E/fdl1-sign.bin, Spd/ITEL/itel Vision 1 Pro (L6502)  SC9832E/fdl2-sign.bin, Spd/ITEL/itel Vision 1 Pro (L6502)  SC9832E/sp9832e_1h10.xml, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/$LaPyae iTel Vision 2 Plus (P681L) FRP Remote.pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel Vision 2 Plus (P681L) | score=90 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:p681l,vision; model_or_codename_token:vision; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/$LaPyae iTel Vision 2 Plus (P681L) FRP Remote.pac, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl1-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl2-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/s9863a1h10.xml, Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/P682LP.xml
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel Vision 3 Plus (P682LP) | score=90 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:p682lp,vision; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/P682LP.xml, Spd/ITEL/itel Vision3 Plus (P682LP)  SC9863A/$LaPyae iTel Vision 3 Plus (P682LP) FRP Remote.pac, Spd/ITEL/itel Vision3 Plus (P682LP)  SC9863A/P682LP.xml, Spd/ITEL/itel Vision3 Plus (P682LP)  SC9863A/fdl1-sign.bin, Spd/ITEL/itel Vision3 Plus (P682LP)  SC9863A/fdl2-sign.bin
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Realme — Realme C21Y (RMX3261 | RMX3262) | score=90 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:c21y; model_or_codename_token:c21y,rmx3261; platform_match; spd_fdl_present
+  Best files: Spd/REALME/Realme C21Y  (RMX3261)  Unisoc T610 (12 nm)/S19610AA1.xml, Spd/REALME/Realme C21Y  (RMX3261)  Unisoc T610 (12 nm)/fdl1-sign.bin, Spd/REALME/Realme C21Y  (RMX3261)  Unisoc T610 (12 nm)/fdl2-sign.bin, Spd/REALME/Realme C21Y (RMX3263)  Unisoc T610 (12 nm)/S19610AA1.xml, Spd/REALME/Realme C21Y (RMX3263)  Unisoc T610 (12 nm)/fdl1-sign.bin
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Realme — Realme C21Y v2 (RMX3261 | RMX3262) | score=90 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:c21y; model_or_codename_token:c21y,rmx3261; platform_match; spd_fdl_present
+  Best files: Spd/REALME/Realme C21Y  (RMX3261)  Unisoc T610 (12 nm)/S19610AA1.xml, Spd/REALME/Realme C21Y  (RMX3261)  Unisoc T610 (12 nm)/fdl1-sign.bin, Spd/REALME/Realme C21Y  (RMX3261)  Unisoc T610 (12 nm)/fdl2-sign.bin, Spd/REALME/Realme C21Y (RMX3263)  Unisoc T610 (12 nm)/S19610AA1.xml, Spd/REALME/Realme C21Y (RMX3263)  Unisoc T610 (12 nm)/fdl1-sign.bin
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Realme — Realme C21Y v3 (RMX3261 | RMX3262) | score=90 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:c21y; model_or_codename_token:c21y,rmx3261; platform_match; spd_fdl_present
+  Best files: Spd/REALME/Realme C21Y  (RMX3261)  Unisoc T610 (12 nm)/S19610AA1.xml, Spd/REALME/Realme C21Y  (RMX3261)  Unisoc T610 (12 nm)/fdl1-sign.bin, Spd/REALME/Realme C21Y  (RMX3261)  Unisoc T610 (12 nm)/fdl2-sign.bin, Spd/REALME/Realme C21Y (RMX3263)  Unisoc T610 (12 nm)/S19610AA1.xml, Spd/REALME/Realme C21Y (RMX3263)  Unisoc T610 (12 nm)/fdl1-sign.bin
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Realme — Realme C25Y (RMX3269) | score=90 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:c25y; model_or_codename_token:c25y,rmx3269; platform_match; spd_fdl_present
+  Best files: Spd/REALME/Realme C25Y (RMX3269 )  Unisoc T610 (12nm)/RMX3269.xml, Spd/REALME/Realme C25Y (RMX3269 )  Unisoc T610 (12nm)/fdl1-sign.bin, Spd/REALME/Realme C25Y (RMX3269 )  Unisoc T610 (12nm)/fdl2-sign.bin, Spd/REALME/Realme C25Y (RMX3265)  Unisoc T610 (12nm)/RMX3265.xml, Spd/REALME/Realme C25Y (RMX3265)  Unisoc T610 (12nm)/fdl1-sign.bin
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Samsung — Samsung Galaxy A03 (A035F) | score=90 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:a035f,galaxy; model_or_codename_token:galaxy; platform_match; spd_fdl_present
+  Best files: Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/A035F.txt, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/fdl1-signdddd.bin, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/fdl2-signeee.bin, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/ums9230_4h10.xml, Spd/SAMSUNG/Samsung Galaxy A03 Core (SM-A032F)  SC9863A (28 nm)/fdl1-sign.bin
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Samsung — Samsung Galaxy A03 bit2_wipe+frp (A035F) | score=90 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:a035f,galaxy; model_or_codename_token:galaxy; platform_match; spd_fdl_present
+  Best files: Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/A035F.txt, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/fdl1-signdddd.bin, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/fdl2-signeee.bin, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/ums9230_4h10.xml, Spd/SAMSUNG/Samsung Galaxy A03 Core (SM-A032F)  SC9863A (28 nm)/fdl1-sign.bin
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Samsung — Samsung Galaxy A03 Core (A032F) | score=90 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:a032f,galaxy; model_or_codename_token:galaxy; platform_match; spd_fdl_present
+  Best files: Spd/SAMSUNG/Samsung Galaxy A03 Core (SM-A032F)  SC9863A (28 nm)/fdl1-sign.bin, Spd/SAMSUNG/Samsung Galaxy A03 Core (SM-A032F)  SC9863A (28 nm)/fdl2-sign.bin, Spd/SAMSUNG/Samsung Galaxy A03 Core (SM-A032F)  SC9863A (28 nm)/m168.xml, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/A035F.txt, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/fdl1-signdddd.bin
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Tecno — Tecno Spark 7 (PR651) | score=90 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:pr651,spark; platform_match; spd_fdl_present
+  Best files: Spd/TECNO/Tecno Spark 7 (PR651)  SC9863A (28 nm)/$LaPyae Tecno Spark 7 (PR651) FRP Remote File.pac, Spd/TECNO/Tecno Spark 7 (PR651)  SC9863A (28 nm)/fdl1-sign.bin, Spd/TECNO/Tecno Spark 7 (PR651)  SC9863A (28 nm)/fdl2-sign.bin, Spd/TECNO/Tecno Spark 7 (PR651)  SC9863A (28 nm)/s9863a1h10.xml, Spd/TECNO/Tecno Spark 7 (PR651E)  SC9863A (28 nm)/$LaPyae Tecno Spark 7 (PR651E) FRP Remote File.pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Tecno — Tecno Spark 7 v2 (PR651E) | score=90 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:pr651e,spark; model_or_codename_token:spark; platform_match; spd_fdl_present
+  Best files: Spd/TECNO/Tecno Spark 7 (PR651E)  SC9863A (28 nm)/$LaPyae Tecno Spark 7 (PR651E) FRP Remote File.pac, Spd/TECNO/Tecno Spark 7 (PR651E)  SC9863A (28 nm)/fdl1-sign.bin, Spd/TECNO/Tecno Spark 7 (PR651E)  SC9863A (28 nm)/fdl2-sign.bin, Spd/TECNO/Tecno Spark 7 (PR651E)  SC9863A (28 nm)/s9863a1h10.xml, Spd/TECNO/Tecno Spark 10C  - 1 (KI5k)  Unisoc T606 (12 nm)/$LaPyae Tecno Spark 10C (KI5k) FRP Remote.pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Infinix — Infinix Hot 10i (PR652b) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:pr652b; platform_match; spd_fdl_present
+  Best files: Spd/INFINIX/Infinix Hot 10i (PR652B)  SC9863A/$LaPyae Infinix Hot 10i (PR652B) FRP Remote.pac, Spd/INFINIX/Infinix Hot 10i (PR652B)  SC9863A/PR652B.xml, Spd/INFINIX/Infinix Hot 10i (PR652B)  SC9863A/fdl1-sign.bin, Spd/INFINIX/Infinix Hot 10i (PR652B)  SC9863A/fdl2-sign.bin, Spd/AUTO cpu type/SC9863A  V1/PR652B.xml
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Infinix — Infinix Hot 12 Play (X6816C) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:x6816c; platform_match; spd_fdl_present
+  Best files: Spd/INFINIX/Infinix Hot 12 Play (X6816C)  Unisoc T610 (12 nm)/$LaPyae infinix Hot 12 Play (X6816C) FRP Remote.pac, Spd/INFINIX/Infinix Hot 12 Play (X6816C)  Unisoc T610 (12 nm)/X6816C.xml, Spd/INFINIX/Infinix Hot 12 Play (X6816C)  Unisoc T610 (12 nm)/fdl1-sign.bin, Spd/INFINIX/Infinix Hot 12 Play (X6816C)  Unisoc T610 (12 nm)/fdl2-sign.bin, Spd/INFINIX/Infinix HOT 30i (X669C)  Unisoc T606 (12 nm)/X669C.txt
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Infinix — Infinix Smart 6 Plus (X6823) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:smart; platform_match; spd_fdl_present
+  Best files: Spd/INFINIX/Infinix Smart 6 (X6511)  SC9863A/$LaPyae Infinix Smart 6 (X6511) FRP Remote.pac, Spd/INFINIX/Infinix Smart 6 (X6511)  SC9863A/fdl1-sign.bin, Spd/INFINIX/Infinix Smart 6 (X6511)  SC9863A/fdl2-sign.bin, Spd/INFINIX/Infinix Smart 6 (X6511)  SC9863A/s9863a1h10.xml, Spd/INFINIX/Infinix Smart 6 (X6511B)  SC9863A/$LaPyae Infinix Smart 6 (X6511B) FRP Remote.pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel A23 Pro (L5006) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:l5006; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel A23 Pro (L5006C)  SC9832E/$LaPyae iTel A23 Jio (L5006c) FRP Remote.pac, Spd/ITEL/itel A23 Pro (L5006C)  SC9832E/fdl1-sign.bin, Spd/ITEL/itel A23 Pro (L5006C)  SC9832E/fdl2-sign.bin, Spd/ITEL/itel A23 Pro (L5006C)  SC9832E/sp9832e_1h10.xml, Spd/ITEL/Itel A23 (A23R)  SC9832E/$LaPyae iTel A23  Erase (Frp+Userdata).pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel A25 (L5002) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:l5002; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel A25 (L5002)  SC9832E/$LaPyae iTel A25 (L5002) FRP Remote.pac, Spd/ITEL/itel A25 (L5002)  SC9832E/fdl1-sign.bin, Spd/ITEL/itel A25 (L5002)  SC9832E/fdl2-sign.bin, Spd/ITEL/itel A25 (L5002)  SC9832E/sp9832e_1h10.xml, Spd/ITEL/itel A25 Pro (L5002P)  SC9832E/$LaPyae iTel A25 Pro (L5002P) Erase (Frp+Userdata).pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel A25 Pro (L5002P) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:l5002p; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel A25 Pro (L5002P)  SC9832E/$LaPyae iTel A25 Pro (L5002P) Erase (Frp+Userdata).pac, Spd/ITEL/itel A25 Pro (L5002P)  SC9832E/fdl1-sign.bin, Spd/ITEL/itel A25 Pro (L5002P)  SC9832E/fdl2-sign.bin, Spd/ITEL/itel A25 Pro (L5002P)  SC9832E/sp9832e_1h10.xml, Spd/ITEL/Itel A23 (A23R)  SC9832E/$LaPyae iTel A23  Erase (Frp+Userdata).pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel A26 (A571L) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:a571l; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel A26 (A571L)  SC9832E/$LaPyae iTel_A26 (A571L) Erase (Frp+Userdata).pac, Spd/ITEL/itel A26 (A571L)  SC9832E/fdl1-sign.bin, Spd/ITEL/itel A26 (A571L)  SC9832E/fdl2-sign.bin, Spd/ITEL/itel A26 (A571L)  SC9832E/sp9832e_1h10.xml, Spd/ITEL/Itel A23 (A23R)  SC9832E/$LaPyae iTel A23  Erase (Frp+Userdata).pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel A33 (W5001P) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:w5001p; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel A33 (W5001P)  SC7731E/$LaPyae iTel A33 (W5001P) FRP Remote.pac, Spd/ITEL/itel A33 (W5001P)  SC7731E/fdl1-sign.bin, Spd/ITEL/itel A33 (W5001P)  SC7731E/fdl2-sign.bin, Spd/ITEL/itel A33 (W5001P)  SC7731E/itel-W5001P.xml, Spd/ITEL/Itel A23 (A23R)  SC9832E/$LaPyae iTel A23  Erase (Frp+Userdata).pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel A48 (L6006) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:l6006; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel A48 (L6006)  SC9832E/$LaPyae iTel A48 (L6006) FRP Remote.pac, Spd/ITEL/itel A48 (L6006)  SC9832E/fdl1-sign.bin, Spd/ITEL/itel A48 (L6006)  SC9832E/fdl2-sign.bin, Spd/ITEL/itel A48 (L6006)  SC9832E/sp9832e_1h10.xml, Spd/ITEL/Itel A23 (A23R)  SC9832E/$LaPyae iTel A23  Erase (Frp+Userdata).pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel A49 (A661L) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:a661l; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel A49 (A661L)  SC9832E/$LaPyae iTel A49 (A661L) Erase (Frp+Userdata).pac, Spd/ITEL/itel A49 (A661L)  SC9832E/A661L.xml, Spd/ITEL/itel A49 (A661L)  SC9832E/fdl1-sign.bin, Spd/ITEL/itel A49 (A661L)  SC9832E/fdl2-sign.bin, Spd/ITEL/Itel A23 (A23R)  SC9832E/$LaPyae iTel A23  Erase (Frp+Userdata).pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel A56 Pro (W6004P) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:w6004p; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel A56 Pro (W6004P)  SC7731E/$LaPyae iTel A56 Pro (W6004P) FRP Remote.pac, Spd/ITEL/itel A56 Pro (W6004P)  SC7731E/fdl1-sign.bin, Spd/ITEL/itel A56 Pro (W6004P)  SC7731E/fdl2-sign.bin, Spd/ITEL/itel A56 Pro (W6004P)  SC7731E/sp7731e_1h10.xml, Spd/ITEL/Itel A23 (A23R)  SC9832E/$LaPyae iTel A23  Erase (Frp+Userdata).pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel A57 (A611WP) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:a611wp; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel A57  2GB  (A611WP)  SC7731E/A611WP.xml, Spd/ITEL/itel A57  2GB  (A611WP)  SC7731E/LaPyae iTel A57 (A611WP) FRP Remote.pac, Spd/ITEL/itel A57  2GB  (A611WP)  SC7731E/fdl1-sign.bin, Spd/ITEL/itel A57  2GB  (A611WP)  SC7731E/fdl2-sign.bin, Spd/ITEL/Itel A23 (A23R)  SC9832E/$LaPyae iTel A23  Erase (Frp+Userdata).pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel A60 (A662L) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:a662l; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel A60 (A662L)  SC9832E/A662LQ.xml, Spd/ITEL/itel A60 (A662L)  SC9832E/Itel A60 A662L SHRESHTH MOBILE.pac, Spd/ITEL/itel A60 (A662L)  SC9832E/fdl1-sign.bin, Spd/ITEL/itel A60 (A662L)  SC9832E/fdl2-sign.bin, Spd/ITEL/Itel A23 (A23R)  SC9832E/$LaPyae iTel A23  Erase (Frp+Userdata).pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel P38 Pro (P682L) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:p682l; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/P682LP.xml, Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/fdl1-sign.bin, Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/fdl2-sign.bin, Spd/ITEL/itel Vision3 Plus (P682LP)  SC9863A/$LaPyae iTel Vision 3 Plus (P682LP) FRP Remote.pac, Spd/ITEL/itel Vision3 Plus (P682LP)  SC9863A/P682LP.xml
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel S16 Pro (Vision 2) (W6503) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:vision; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/$LaPyae iTel Vision 2 Plus (P681L) FRP Remote.pac, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl1-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl2-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/s9863a1h10.xml, Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/P682LP.xml
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel S662LC | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:s662lc; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/tel Vision 5 Plus (S662LC)  Unisoc T606 (12 nm)/$LaPyae iTel Vision 5 Plus(S662LC) FRP Remote.pac, Spd/ITEL/tel Vision 5 Plus (S662LC)  Unisoc T606 (12 nm)/S662LC.xml, Spd/ITEL/tel Vision 5 Plus (S662LC)  Unisoc T606 (12 nm)/fdl1-sign.bin, Spd/ITEL/tel Vision 5 Plus (S662LC)  Unisoc T606 (12 nm)/fdl2-sign.bin, Spd/ITEL/Itel A23 (A23R)  SC9832E/$LaPyae iTel A23  Erase (Frp+Userdata).pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel Vision 1 (A571W) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:vision; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/$LaPyae iTel Vision 2 Plus (P681L) FRP Remote.pac, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl1-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl2-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/s9863a1h10.xml, Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/P682LP.xml
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel Vision 1 P36 Play | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:vision; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/$LaPyae iTel Vision 2 Plus (P681L) FRP Remote.pac, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl1-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl2-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/s9863a1h10.xml, Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/P682LP.xml
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel Vision 1 P36 Play Pro | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:vision; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/$LaPyae iTel Vision 2 Plus (P681L) FRP Remote.pac, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl1-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl2-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/s9863a1h10.xml, Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/P682LP.xml
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] itel — iTel Vision 1 Plus (P36 Pro) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:vision; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/$LaPyae iTel Vision 2 Plus (P681L) FRP Remote.pac, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl1-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl2-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/s9863a1h10.xml, Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/P682LP.xml
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Realme — Realme C11 (RMX3231) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:rmx3231; platform_match; spd_fdl_present
+  Best files: Spd/REALME/Realme C11 2021 (RMX3231)  SC9863A/RMX3231 by Bypassfrpfiles.com.pac, Spd/REALME/Realme C11 2021 (RMX3231)  SC9863A/RMX3231.txt, Spd/REALME/Realme C11 2021 (RMX3231)  SC9863A/fdl1-sign.bin, Spd/REALME/Realme C11 2021 (RMX3231)  SC9863A/fdl2-sign.bin, Spd/AUTO cpu type/SC9863A_64 V2/RMX3231.txt
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Realme — Realme C30 (RMX3581) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:rmx3581; platform_match; spd_fdl_present
+  Best files: Spd/REALME/Realme C30 (RMX3581)  Unisoc Tiger T612 (12 nm)/RMX3581.xml, Spd/REALME/Realme C30 (RMX3581)  Unisoc Tiger T612 (12 nm)/fdl1-sign.bin, Spd/REALME/Realme C30 (RMX3581)  Unisoc Tiger T612 (12 nm)/fdl2-sign.bin, Spd/AUTO cpu type/T612_64/RMX3581.xml, Spd/REALME/Realme C11 2021 (RMX3231)  SC9863A/RMX3231 by Bypassfrpfiles.com.pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Realme — Realme C33 (RMX3624) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:rmx3624; platform_match; spd_fdl_present
+  Best files: Spd/REALME/Realme C33 (RMX3624)  Unisoc Tiger T612 (12 nm)/RMX3624.txt, Spd/REALME/Realme C33 (RMX3624)  Unisoc Tiger T612 (12 nm)/fdl1-sign.bin, Spd/REALME/Realme C33 (RMX3624)  Unisoc Tiger T612 (12 nm)/fdl2-sign.bin, Spd/REALME/Realme C33 (RMX3624)  Unisoc Tiger T612 (12 nm)/unlock_ufs.bat, Spd/REALME/Realme C11 2021 (RMX3231)  SC9863A/RMX3231 by Bypassfrpfiles.com.pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Realme — Realme C35 (RMX3511) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:rmx3511; platform_match; spd_fdl_present
+  Best files: Spd/REALME/Realme C35 (RMX3511)  Unisoc Tiger T616 (12 nm)/fdl1-sign.bin, Spd/REALME/Realme C35 (RMX3511)  Unisoc Tiger T616 (12 nm)/fdl2-sign.bin, Spd/REALME/Realme C35 (RMX3511)  Unisoc Tiger T616 (12 nm)/ums9230_nico.xml, Spd/REALME/Realme C11 2021 (RMX3231)  SC9863A/RMX3231 by Bypassfrpfiles.com.pac, Spd/REALME/Realme C11 2021 (RMX3231)  SC9863A/RMX3231.txt
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Samsung — Samsung Galaxy S7 (SM-G930F) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:galaxy; platform_match; spd_fdl_present
+  Best files: Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/A035F.txt, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/fdl1-signdddd.bin, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/fdl2-signeee.bin, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/ums9230_4h10.xml, Spd/SAMSUNG/Samsung Galaxy A03 Core (SM-A032F)  SC9863A (28 nm)/fdl1-sign.bin
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Tecno — Tecno Pop 4_V008 (BC2C) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:bc2c; platform_match; spd_fdl_present
+  Best files: Spd/TECNO/Tecno Pop 4 (BC2c)  SC7731E/$LaPyae Tecno Pop 4 (BC2c) FRP Remote.pac, Spd/TECNO/Tecno Pop 5 (BD2)  SC7721E/$LaPyae Tecno Pop 5 (BD2) FRP Remote.pac, Spd/TECNO/Tecno Pop 5 (BD2)  SC7721E/fdl1-sign.bin, Spd/TECNO/Tecno Pop 5 (BD2)  SC7721E/fdl2-sign.bin, Spd/TECNO/Tecno Pop 5 (BD2)  SC7721E/sp7731e_1h10.xml
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[CATALOG_MATCH] Tecno — Tecno Pop 5_RGo-OP-210825V8 (BD2p) | score=82 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:bd2p; platform_match; spd_fdl_present
+  Best files: Spd/TECNO/Tecno Pop 5 (BD2p)  SC7731E/$LaPyae Tecno Pop 5 (BD2p) FRP Remote.pac, Spd/TECNO/Tecno Pop 5 (BD2p)  SC7731E/fdl1-sign.bin, Spd/TECNO/Tecno Pop 5 (BD2p)  SC7731E/fdl2-sign.bin, Spd/TECNO/Tecno Pop 5 (BD2p)  SC7731E/sp7731e_1h10.xml, Spd/TECNO/Tecno Pop 4 (BC2c)  SC7731E/$LaPyae Tecno Pop 4 (BC2c) FRP Remote.pac
+  Remark: MATCH: static evidence is strong enough for catalog use; real hardware test was not performed.
+[NEED_TEST] Xiaomi — Redmi 3 (ido) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 3S (land) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 4 (prada) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 4 Prime (markw) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 4A (rolex) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 4X (santoni) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 5 (rosy) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 5 Plus (Vince) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 5A (riva) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 6 Pro (M1805D1SI) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 6 Pro2 (M1805D1SI) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 7 (pine) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9 Power (M2010J19SI, M2010J19SL) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9T (M2010J19SG, M2010J19SY) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 10 Pro (M2101K6G, M2101K6R) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 9 4G (M2010J19SC) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 9 Pro (M2010J19SC) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note1 | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note3 (kate) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note3 V2 (kate) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note4 (imdo) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note5 (whyred) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note5A (Ugg) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note5A V2 (ugglite) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note6 (tulip) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note7 (lavender) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note8 (ginkgo) | score=76 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Alcatel — Alcatel 1S 2020 (5028Y, 5028D, 5028A) | score=74 | files=944
+  Evidence: auth_requirement_consistent; brand_path_match; connection_family_match; model_or_codename_token:5028a; platform_match; preloader_present
+  Best files: Preloader/alcatel_OT-5028A_preloader.bin, Preloader/preloader_k62v1_64_bsp_alcatel_OT-5028A.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Infinix — Infinix Hot 4 Pro (X5010) | score=74 | files=944
+  Evidence: auth_requirement_consistent; brand_path_match; connection_family_match; model_or_codename_token:x5010; platform_match; preloader_present
+  Best files: Preloader/preloader_zaw878_infinix_X5010.bin, Preloader/preloader_X606_H8023_Infinix.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Infinix — Infinix Hot 6 (X606) | score=74 | files=944
+  Evidence: auth_requirement_consistent; brand_path_match; connection_family_match; model_or_codename_token:x606; platform_match; preloader_present
+  Best files: Preloader/preloader_X606_H8023_Infinix.bin, Preloader/preloader_zaw878_infinix_X5010.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Infinix — Infinix Smart (X5010) | score=74 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:x5010; platform_match; preloader_present
+  Best files: Preloader/preloader_zaw878_infinix_X5010.bin, Preloader/preloader_X606_H8023_Infinix.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Lava — Lava Z60s | score=74 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:z60s; platform_match; preloader_present
+  Best files: Preloader/preloader_lava6739_sp65_in_z60s.bin, Preloader/preloader_k61v1_op55_lava.bin, Preloader/preloader_k61v1_op56_lava.bin, Preloader/preloader_lava35p_sp501_int.bin, Preloader/preloader_lava6580_sp511.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Oppo — Oppo A15s (CPH2179) | score=74 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:a15s; platform_match; preloader_present
+  Best files: Preloader/A15s_preloader_oppo6765.bin, Preloader/0766_preloader_oppo6762_18540_98711A09AB.bin, Preloader/0766_preloader_oppo6765_19451_94B0482E99.bin, Preloader/A7x_preloader_oppo6771_18011.bin, Preloader/F11_PRO_preloader_oppo6771_18531.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Samsung — Samsung A03 SM-A035F SPD | score=74 | files=399
+  Evidence: brand_path_match; model_or_codename_token:a035f; platform_match; spd_fdl_present
+  Best files: Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/A035F.txt, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/fdl1-signdddd.bin, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/fdl2-signeee.bin, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/ums9230_4h10.xml, Spd/SAMSUNG/Samsung Galaxy A03 Core (SM-A032F)  SC9863A (28 nm)/fdl1-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Ulefone — Ulefone Power Armor 14 Pro | score=74 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:power; platform_match; preloader_present
+  Best files: Preloader/preloader_hct6750_66_n_Ulefone_power2.bin, Preloader/preloader_power3_k71_bsp.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 10C (fog) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K20 (davinci) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K20 (M1903F11I) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K20 Pro (Raphael) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K30 4G (phoenix) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K30 Pro (Zoom) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K30 | K30i 5G (Picasso) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K40 (M2012K11AC) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 10 (M2101K7AI) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 10 (Sunny) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 10 Pro (M2101K6G) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 10 Pro Max | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 11 (2201117TG) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 11 (spes) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 11 Pro 5G (21091116I) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 11E Pro (2201116SG) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 8 (ginkgo) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 9 4G | Redmi 9T (lime) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 9 Pro (joyeuse) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 9 Pro (M2003J6B2G) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 9 Pro 5G (M2007J17C) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 9 Pro Max (M2003J6B1I) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 9 Pro | Note 9S (curtana) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 9S (M2003J6A1G) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Xiaomi Redmi 10C ([Fog]) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Xiaomi Redmi 9 Power ([Lime]) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Xiaomi Redmi Note 10 ([Mojito - Sunny]) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Xiaomi Redmi Note 10 Pro ([Sweet]) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Xiaomi Redmi Note 11 ([Spes]) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Xiaomi Redmi Note 8 ([Gingko]) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Xiaomi Redmi Note 9 Pro ([Joyeuse]) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Xiaomi Redmi Note 9 Pro India ([Curtana]) | score=68 | files=870
+  Evidence: brand_path_match; model_or_codename_token:redmi; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno POP 5X (L6502S) | score=66 | files=399
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:l6502s; platform_match; spd_fdl_present
+  Best files: Spd/ITEL/itel Vision 1 Pro (L6502)  SC9832E/$LaPyae iTel Vision 1 Pro (L6502) Erase (Frp+Userdata).pac, Spd/ITEL/itel Vision 1 Pro (L6502)  SC9832E/fdl1-sign.bin, Spd/ITEL/itel Vision 1 Pro (L6502)  SC9832E/fdl2-sign.bin, Spd/ITEL/itel Vision 1 Pro (L6502)  SC9832E/sp9832e_1h10.xml, Spd/TECNO/Tecno Pop 4 (BC2c)  SC7731E/$LaPyae Tecno Pop 4 (BC2c) FRP Remote.pac
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 5 (KE5, KD7S) | score=66 | files=944
+  Evidence: connection_family_match; model_or_codename_token:kd7s,spark; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_kd7_spark5_pro.bin, Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 6 GO (KE5j, KE5k) | score=66 | files=944
+  Evidence: connection_family_match; model_or_codename_token:ke5j,spark; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_ke5j_spark_6go.bin, Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] itel — iTel S16 Pro (Vision 2) | score=62 | files=408
+  Evidence: brand_path_match; model_or_codename_token:vision; spd_fdl_present
+  Best files: Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/$LaPyae iTel Vision 2 Plus (P681L) FRP Remote.pac, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl1-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl2-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/s9863a1h10.xml, Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/P682LP.xml
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] itel — iTel Vision 1 | score=62 | files=408
+  Evidence: brand_path_match; model_or_codename_token:vision; spd_fdl_present
+  Best files: Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/$LaPyae iTel Vision 2 Plus (P681L) FRP Remote.pac, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl1-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl2-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/s9863a1h10.xml, Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/P682LP.xml
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] itel — iTel Vision 1 Pro | score=62 | files=408
+  Evidence: brand_path_match; model_or_codename_token:vision; spd_fdl_present
+  Best files: Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/$LaPyae iTel Vision 2 Plus (P681L) FRP Remote.pac, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl1-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl2-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/s9863a1h10.xml, Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/P682LP.xml
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] itel — iTel Vision 1 Pro v2 | score=62 | files=408
+  Evidence: brand_path_match; model_or_codename_token:vision; spd_fdl_present
+  Best files: Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/$LaPyae iTel Vision 2 Plus (P681L) FRP Remote.pac, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl1-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl2-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/s9863a1h10.xml, Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/P682LP.xml
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] itel — iTel Vision 2 Plus | score=62 | files=408
+  Evidence: brand_path_match; model_or_codename_token:vision; spd_fdl_present
+  Best files: Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/$LaPyae iTel Vision 2 Plus (P681L) FRP Remote.pac, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl1-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl2-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/s9863a1h10.xml, Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/P682LP.xml
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] itel — iTel Vision 3 Plus | score=62 | files=408
+  Evidence: brand_path_match; model_or_codename_token:vision; spd_fdl_present
+  Best files: Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/$LaPyae iTel Vision 2 Plus (P681L) FRP Remote.pac, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl1-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/fdl2-sign.bin, Spd/ITEL/itel P37 Pro - Vision 2 Plus  (P681L)  SC9863A/s9863a1h10.xml, Spd/ITEL/itel P38 Pro  - Vision 3 Plus  (P682L)  SC9863A/P682LP.xml
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Samsung — Samsung A03 Core SM-A032F | score=62 | files=460
+  Evidence: brand_path_match; model_or_codename_token:a032f; spd_fdl_present
+  Best files: Spd/SAMSUNG/Samsung Galaxy A03 Core (SM-A032F)  SC9863A (28 nm)/fdl1-sign.bin, Spd/SAMSUNG/Samsung Galaxy A03 Core (SM-A032F)  SC9863A (28 nm)/fdl2-sign.bin, Spd/SAMSUNG/Samsung Galaxy A03 Core (SM-A032F)  SC9863A (28 nm)/m168.xml, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/A035F.txt, Spd/SAMSUNG/Samsung Galaxy A03 (SM-A035F)  Unisoc T606 (12 nm)/fdl1-signdddd.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Huawei — Huawei Y7 prime 2019 (DUB-LX3) | score=60 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:2019; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/lenovo_motorola/009720e103280000_31f5976a220193f2_fhprg_peek.bin, Loaders/huawei/0000000001a40003_1816101f1302cf63_fhprg.bin, Loaders/huawei/000460e100150021_6bc369511da9cadb_fhprg_peek.bin, Loaders/huawei/0004f0e100150041_6bc369511da9cadb_fhprg_peek.bin, Loaders/huawei/0004f0e100150042_6bc369511da9cadb_fhprg_peek.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Huawei — Huawei Y7 Pro (2019) (DUB-XXX) | score=60 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:2019; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/lenovo_motorola/009720e103280000_31f5976a220193f2_fhprg_peek.bin, Loaders/huawei/0000000001a40003_1816101f1302cf63_fhprg.bin, Loaders/huawei/000460e100150021_6bc369511da9cadb_fhprg_peek.bin, Loaders/huawei/0004f0e100150041_6bc369511da9cadb_fhprg_peek.bin, Loaders/huawei/0004f0e100150042_6bc369511da9cadb_fhprg_peek.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Realme — Realme_6PRO_New (RMX2063) | score=60 | files=870
+  Evidence: connection_family_match; model_or_codename_token:6pro; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/qualcomm/factory/msm8996Pro/0005f0e100000000_b155b8bf19297f47_fhprg_peek.bin, Loaders/qualcomm/factory/msm8996Pro/0005f0e12a703db9_c0c66e278fe81226_fhprg_peek.bin, Loaders/GM/009510e100310000_098b12634b3b8b17_fhprg.bin, Loaders/HuaQin/000460e115900001_85c752ebecd1b0e6_fhprg_peek.bin, Loaders/HuaQin/0004f0e115200001_c385a51ceab568a1_fhprg_peek.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Samsung — Samsung Galaxy A20S(All Bit) (SM-207F) | score=60 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:207f; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/zte/000a50e100040000_f6207f99a510c6d2_fhprg.bin, Loaders/samsung/0000000000020000_467f3020c4cc788d_fhprg.bin, Loaders/samsung/0000000000030000_467f3020c4cc788d_fhprg.bin, Loaders/samsung/0000000000200000_18f91cb107db16e7_fhprg.bin, Loaders/samsung/0000000000200000_27fe520d8259d21a_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Vivo — Vivo V11 Pro (1804, 1806, 1814) | score=60 | files=870
+  Evidence: connection_family_match; model_or_codename_token:1814; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/0004f0e100000000_57158eaf1814d78f_fhprg_peek.bin, Loaders/xiaomi/000560e100000000_57158eaf1814d78f_fhprg_peek.bin, Loaders/xiaomi/0006b0e100000000_57158eaf1814d78f_fhprg_peek.bin, Loaders/xiaomi/0009a0e100000000_57158eaf1814d78f_fhprg_peek.bin, Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Vivo — Vivo Y51-Y51L (Y51L, Y51, 1707, Y51A) | score=60 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:1707; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/qualcomm/model_generic/msm8936_8939/0000000000000000_1707d313228fa175_fhprg_peek.bin, Loaders/vivo/0000000000730003_a7df36ffd7ab557c_fhprg_vivo_pd2020.bin, Loaders/vivo/000460e100000000_60ba997fef6da9f0_fhprg_peek.bin, Loaders/vivo/000460e100000000_da758fd52632ba66_fhprg_peek.bin, Loaders/vivo/0004f0e100000000_60ba997fef6da9f0_fhprg_peek.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Vivo — Vivo Y55s (1610) | score=60 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:1610; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/huawei/0000000001a40003_1816101f1302cf63_fhprg.bin, Loaders/vivo/0000000000730003_a7df36ffd7ab557c_fhprg_vivo_pd2020.bin, Loaders/vivo/000460e100000000_60ba997fef6da9f0_fhprg_peek.bin, Loaders/vivo/000460e100000000_da758fd52632ba66_fhprg_peek.bin, Loaders/vivo/0004f0e100000000_60ba997fef6da9f0_fhprg_peek.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Vivo — Vivo Y91 (1816) | score=60 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:1816; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/huawei/0000000001a40003_1816101f1302cf63_fhprg.bin, Loaders/vivo/0000000000730003_a7df36ffd7ab557c_fhprg_vivo_pd2020.bin, Loaders/vivo/000460e100000000_60ba997fef6da9f0_fhprg_peek.bin, Loaders/vivo/000460e100000000_da758fd52632ba66_fhprg_peek.bin, Loaders/vivo/0004f0e100000000_60ba997fef6da9f0_fhprg_peek.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Vivo — Vivo Y93 (1814) | score=60 | files=870
+  Evidence: connection_family_match; model_or_codename_token:1814; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/0004f0e100000000_57158eaf1814d78f_fhprg_peek.bin, Loaders/xiaomi/000560e100000000_57158eaf1814d78f_fhprg_peek.bin, Loaders/xiaomi/0006b0e100000000_57158eaf1814d78f_fhprg_peek.bin, Loaders/xiaomi/0009a0e100000000_57158eaf1814d78f_fhprg_peek.bin, Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Vivo — Vivo Y93 V2 (1814) | score=60 | files=870
+  Evidence: connection_family_match; model_or_codename_token:1814; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/0004f0e100000000_57158eaf1814d78f_fhprg_peek.bin, Loaders/xiaomi/000560e100000000_57158eaf1814d78f_fhprg_peek.bin, Loaders/xiaomi/0006b0e100000000_57158eaf1814d78f_fhprg_peek.bin, Loaders/xiaomi/0009a0e100000000_57158eaf1814d78f_fhprg_peek.bin, Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Xiaomi Mi Max1 (hydrogen) | score=60 | files=870
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:hydrogen; platform_match; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/hydrogen/0005e0e100010000_d6ab87bc95c89389_fhprg.bin, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin, Loaders/xiaomi/0000000000000000_fa452f8cc5060845_fhprg_peek_wt86047.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Archos — Archos Oxygen 68XL | score=58 | files=944
+  Evidence: auth_requirement_consistent; brand_path_match; connection_family_match; model_or_codename_token:oxygen; platform_match; preloader_present
+  Best files: Preloader/preloader_AC156OXYGEN.bin, Preloader/preloader_Archos_101e_neon.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Honor — Honor 6C Pro (JMM-AL00) | score=58 | files=944
+  Evidence: auth_requirement_consistent; connection_family_match; model_or_codename_token:al00; platform_match; preloader_present
+  Best files: Preloader/preloader_TIT-AL00.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Honor — Honor 6C Pro (JMM-AL10) | score=58 | files=944
+  Evidence: auth_requirement_consistent; connection_family_match; model_or_codename_token:al10; platform_match; preloader_present
+  Best files: Preloader/preloader_hq6737t_66_1hg_m_al10.bin, Preloader/preloader_mtk6750_nice_al10.bin, Preloader/preloader_zal1066_platform.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Honor — Honor 6C Pro (JMM-TL10) | score=58 | files=944
+  Evidence: auth_requirement_consistent; connection_family_match; model_or_codename_token:tl10; platform_match; preloader_present
+  Best files: Preloader/preloader_hq6737t_66_1hg_m_tl10.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Honor — Honor 7S (DUA-AL00, DUA-LX3) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:al00; platform_match; preloader_present
+  Best files: Preloader/preloader_TIT-AL00.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin, Preloader/0766_preloader_cereus_3C2D76D046.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Honor — Honor 8A (JAT-AL00) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:al00; platform_match; preloader_present
+  Best files: Preloader/preloader_TIT-AL00.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin, Preloader/0766_preloader_cereus_3C2D76D046.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Honor — Honor Play 9A (MOA-AL00) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:al00; platform_match; preloader_present
+  Best files: Preloader/preloader_TIT-AL00.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin, Preloader/0766_preloader_cereus_3C2D76D046.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Huawei — Huawei Enjoy 20E (MLD-AL10) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:al10; platform_match; preloader_present
+  Best files: Preloader/preloader_hq6737t_66_1hg_m_al10.bin, Preloader/preloader_mtk6750_nice_al10.bin, Preloader/preloader_zal1066_platform.bin, Preloader/preloader_huawei82_wet_jb5.bin, Preloader/preloader_huawei89_we_jb2.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Huawei — Huawei Enjoy 6 (NCE-AL00) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:al00; platform_match; preloader_present
+  Best files: Preloader/preloader_TIT-AL00.bin, Preloader/preloader_huawei82_wet_jb5.bin, Preloader/preloader_huawei89_we_jb2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Huawei — Huawei Enjoy 6 (NCE-AL10) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:al10; platform_match; preloader_present
+  Best files: Preloader/preloader_hq6737t_66_1hg_m_al10.bin, Preloader/preloader_mtk6750_nice_al10.bin, Preloader/preloader_zal1066_platform.bin, Preloader/preloader_huawei82_wet_jb5.bin, Preloader/preloader_huawei89_we_jb2.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Huawei — Huawei Enjoy 6 (NCE-TL10) | score=58 | files=944
+  Evidence: auth_requirement_consistent; brand_path_match; connection_family_match; model_or_codename_token:tl10; platform_match; preloader_present
+  Best files: Preloader/preloader_hq6737t_66_1hg_m_tl10.bin, Preloader/preloader_huawei82_wet_jb5.bin, Preloader/preloader_huawei89_we_jb2.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Huawei — Huawei Enjoy 9E (MRD-AL00, MRD-TL00) | score=58 | files=944
+  Evidence: auth_requirement_consistent; brand_path_match; connection_family_match; model_or_codename_token:al00; platform_match; preloader_present
+  Best files: Preloader/preloader_TIT-AL00.bin, Preloader/preloader_huawei82_wet_jb5.bin, Preloader/preloader_huawei89_we_jb2.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Infinix — Infinix Hot 9 (X680) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:x680; platform_match; preloader_present
+  Best files: Preloader/preloader_x680b_h6215.bin, Preloader/preloader_x680f_h6116.bin, Preloader/preloader_X606_H8023_Infinix.bin, Preloader/preloader_zaw878_infinix_X5010.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Infinix — Infinix Note 5 (X604) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:x604; platform_match; preloader_present
+  Best files: Preloader/preloader_X604_H633.bin, Preloader/preloader_X606_H8023_Infinix.bin, Preloader/preloader_zaw878_infinix_X5010.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Infinix — Infinix Note 5 Stylus (X605) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:x605; platform_match; preloader_present
+  Best files: Preloader/preloader_X605_H632.bin, Preloader/preloader_X606_H8023_Infinix.bin, Preloader/preloader_zaw878_infinix_X5010.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Infinix — Infinix Note 7 (X690B) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:x690b; platform_match; preloader_present
+  Best files: Preloader/preloader_x690b_h691.bin, Preloader/preloader_X606_H8023_Infinix.bin, Preloader/preloader_zaw878_infinix_X5010.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Infinix — Infinix Note 8 (X692) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:x692; platform_match; preloader_present
+  Best files: Preloader/preloader_x692_h694.bin, Preloader/preloader_X606_H8023_Infinix.bin, Preloader/preloader_zaw878_infinix_X5010.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Infinix — Infinix S4 (X626) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:x626; platform_match; preloader_present
+  Best files: Preloader/preloader_x626_h623.bin, Preloader/preloader_X606_H8023_Infinix.bin, Preloader/preloader_zaw878_infinix_X5010.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Infinix — Infinix S5 (X652) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:x652; platform_match; preloader_present
+  Best files: Preloader/preloader_x652c_h627.bin, Preloader/preloader_X606_H8023_Infinix.bin, Preloader/preloader_zaw878_infinix_X5010.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Infinix — Infinix Smart 2 (X5515) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:x5515; platform_match; preloader_present
+  Best files: Preloader/preloader_x5515_h398.bin, Preloader/preloader_X606_H8023_Infinix.bin, Preloader/preloader_zaw878_infinix_X5010.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Infinix — Infinix Smart 2 Pro (X5514D) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:x5514d; platform_match; preloader_present
+  Best files: Preloader/preloader_x5514d_h395.bin, Preloader/preloader_X606_H8023_Infinix.bin, Preloader/preloader_zaw878_infinix_X5010.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Infinix — Infinix Smart 3 Plus (X627) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:x627; platform_match; preloader_present
+  Best files: Preloader/preloader_x627_h624.bin, Preloader/preloader_X606_H8023_Infinix.bin, Preloader/preloader_zaw878_infinix_X5010.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Infinix — Infinix Zero 8 (X687) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:x687; platform_match; preloader_present
+  Best files: Preloader/preloader_x687b_h851.bin, Preloader/preloader_X606_H8023_Infinix.bin, Preloader/preloader_zaw878_infinix_X5010.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Infinix — Infinix Zero 8i (X687B) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:x687b; platform_match; preloader_present
+  Best files: Preloader/preloader_x687b_h851.bin, Preloader/preloader_X606_H8023_Infinix.bin, Preloader/preloader_zaw878_infinix_X5010.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Lenovo — Lenovo Tab M7 (TB-7305F) | score=58 | files=902
+  Evidence: auth_requirement_consistent; model_or_codename_token:7305f,tb-7305f; platform_match; preloader_present
+  Best files: Preloader/preloader_mt8321_p_tb7305f.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Meizu — Meizu Pro 6 (MZ-pro6) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:pro6; platform_match; preloader_present
+  Best files: Preloader/preloader_spro6737m_65_n_mmxB5pro.bin, Preloader/preloader_spro6737m_65_n_mmxC1.bin, Preloader/preloader_spro6737mmx_65_n.bin, Preloader/preloader_meizu6795_lwt_l.bin, Preloader/preloader_meizuM3_max.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Micromax — Micromax Bharat 5 Infinity (Q4204) | score=58 | files=944
+  Evidence: auth_requirement_consistent; connection_family_match; model_or_codename_token:infinity; platform_match; preloader_present
+  Best files: Preloader/preloader_Hisense_Infinity_E7_yk736_emmc_wcdma.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Micromax — Micromax Infinity N11 (N8301) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:infinity; platform_match; preloader_present
+  Best files: Preloader/preloader_Hisense_Infinity_E7_yk736_emmc_wcdma.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin, Preloader/0766_preloader_cereus_3C2D76D046.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Micromax — Micromax Infinity N12 (N8301) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:infinity; platform_match; preloader_present
+  Best files: Preloader/preloader_Hisense_Infinity_E7_yk736_emmc_wcdma.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin, Preloader/0766_preloader_cereus_3C2D76D046.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Motorola — Motorola Moto G Power 2022 | score=58 | files=944
+  Evidence: auth_requirement_consistent; connection_family_match; model_or_codename_token:power; platform_match; preloader_present
+  Best files: Preloader/preloader_hct6750_66_n_Ulefone_power2.bin, Preloader/preloader_power3_k71_bsp.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Nokia — Nokia 2.2 (TA-1183, TA-1179, TA-1191, TA-1188) | score=58 | files=944
+  Evidence: auth_requirement_consistent; connection_family_match; model_or_codename_token:1183; platform_match; preloader_present
+  Best files: Preloader/preloader_oppo6771_18311.bin, Preloader/preloader_oppo6771_18311_F9Pro.bin, Preloader/preloader_oppo6771_18311__.bin, Preloader/preloader_oppo6771_18311_v9.bin, Preloader/preloader_c30mini_10.bin.patched
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Samsung — Samsung Galaxy A02 (SM-A022F) | score=58 | files=944
+  Evidence: auth_requirement_consistent; brand_path_match; connection_family_match; model_or_codename_token:a022f; platform_match; preloader_present
+  Best files: Preloader/preloader_A022F_U1.bin, Preloader/Samsung_A32_Preloader.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Samsung — Samsung Galaxy M01 Core (SM-M013F) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:m013f; platform_match; preloader_present
+  Best files: Preloader/preloader_M013F_U1.bin, Preloader/preloader_M013F_U1.img, Preloader/Samsung_A32_Preloader.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 11 (CF7, CF7k) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 11 Pro (CF8) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 12 (CC7S) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 12 Air | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 12 Pro | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 15 (CD7) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 15 Air (CD6, CD6S) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 15 Premier (CD8j) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 15 Pro (CD8) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 16 (CE7, CE7j, CE9h) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 16 Premier (CE9, CD6j) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 16 Pro (Camon 16S) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 16S | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 17 (CG6, CG6j) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 17 Pro (CG8, CG8h) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 17P (CG7) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 18 (CH6, CH6n) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 18I (CG6) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 18P (CH7n, CH7) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon 18T | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon CM (CA6) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon CX Air | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon CX Manchester City LE | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon iACE2 | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon iACE2X | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon X | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Camon X Pro (CA8) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:camon; platform_match; preloader_present
+  Best files: Preloader/preloader_camon_12_air_cc6.bin, Preloader/preloader_camon_12_cc7.bin, Preloader/preloader_camon_12_pro_cc9.bin, Preloader/preloader_camon_15_air.bin, Preloader/preloader_camon_15_cd7.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Phantom 8 (AX8, AX8S) | score=58 | files=944
+  Evidence: brand_path_match; connection_family_match; model_or_codename_token:ax8s; platform_match; preloader_present
+  Best files: Preloader/preloader_rlk6757_66_n_tecAX8s.bin, Preloader/preloader_sr6580_weg_n_tecnoF2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark (K7) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 2 (KA7, KA7O) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 3 | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 3 Pro | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 4 (KC8S) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 5 Air (KD6a) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 5 Pro | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 6 (KE7) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 6 Air (KE6, KE6j, KF6) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 7 (KF6, KF6j, KF6i) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 7 (KF6k, PR651h, PR651, PR651E) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 7 Pro | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 7T (KF6p) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 8 (KG6, KG6k) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 8C (KG8, MZ-KG8) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark 8T (KG6p) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark CM (KA9) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark GO (KC1) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark GO 2020 (KE5S) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark Plus (K9) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark Power 2 (LC8) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:power; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_hct6750_66_n_Ulefone_power2.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Tecno — Tecno Spark Pro (K8) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:spark; platform_match; preloader_present
+  Best files: Preloader/preloader_bb4k_spark_4lite.bin, Preloader/preloader_kb7_spark_3.bin, Preloader/preloader_kd6_spark_5air.bin, Preloader/preloader_kd7_h6211_Techno_spark_5.bin, Preloader/preloader_kd7_spark5_pro.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Wiko — Wiko View Max (W_P200, W_P200CM) | score=58 | files=944
+  Evidence: auth_requirement_consistent; connection_family_match; model_or_codename_token:p200; platform_match; preloader_present
+  Best files: Preloader/preloader_p200.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Wiko — Wiko View3 (W-P311-EEA) | score=58 | files=944
+  Evidence: auth_requirement_consistent; connection_family_match; model_or_codename_token:p311; platform_match; preloader_present
+  Best files: Preloader/preloader_p311_wts7.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — POCO M2 (shiva) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:shiva; platform_match; preloader_present
+  Best files: Preloader/preloader_shiva.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin, Preloader/0766_preloader_cereus_3C2D76D046.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 10A (220233L2C) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 10X 4G (M2003J15SC) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 10X 5G (atom) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 10X Pro 5G (bamb) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 20X (bamb) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 6 (ceretus) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 6A (cactus) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:cactus; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_cactus.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9 (lancelot) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:lancelot; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_lancelot.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9 Activ | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9 NFC (M2006C3MNG) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9A (dandelion) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9A Sport | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9AT (M2006C3LVG) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9C (angelica) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9C NFC (M2006C3MNG) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9C POCO Phone3 (pcm) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9I (M2006C3LII) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9i Sport | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9T (M2010J19SG) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K30 Ultra (cezanne) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K40 Gaming (M2012K10C) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K50 (SLJCNXM) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K50 Pro (SLKCNXM) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 10S (rosemary) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 11 Pro+ 5G | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 11S 5G | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 11T 5G (21091116AI) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 2 (MediaTek) (2015051) | score=58 | files=944
+  Evidence: auth_requirement_consistent; connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 3 (MediaTek) | score=58 | files=944
+  Evidence: auth_requirement_consistent; connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 4 (MediaTek) (Nikel) | score=58 | files=944
+  Evidence: auth_requirement_consistent; connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 8 2021 (biloba) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 8 Pro (begonia) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:begonia; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/0813_preloader_begonia_1547BE956A.bin, Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_begonia.bin, Preloader/preloader_begonia_1547BE956A.bin, Preloader/preloader_redmi9a_Hydra_V2.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 9 (merlin) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:merlin; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_merlin.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 9T (M2007J22G) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Xiaomi Mi Play (lotus) | score=58 | files=944
+  Evidence: connection_family_match; model_or_codename_token:lotus; platform_match; preloader_present
+  Best files: Preloader/preloader_lotus.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin, Preloader/0717_preloader_k61v1_64_bsp_37D5FA1A49.bin, Preloader/0766_preloader_cereus_3C2D76D046.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 10 India | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 10 Power | score=56 | files=474
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 10C | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 5 PLUS | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 6 PRO (sakura) | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 7 (onclite) | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 8 (olive) | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 8A (olivelite) | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9 POWER | score=56 | files=474
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9T | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9T NFC | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi 9T, Redmi 9T NFC, Redmi 9 POWER | score=56 | files=474
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi GO (tiare) | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K20 PRO, MI 9T PRO (raphael) | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K20, MI 9T (davinci) | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K30 5G (picasso) | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K40 PRO, MI 11i, MI 11X PRO (haydn) | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi K40, POCO F3, MI 11X (alioth) | score=56 | files=474
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi NOTE 10 (mojito) | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi NOTE 10 PRO, Redmi NOTE 10 PRO MAX | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi NOTE 4 | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi NOTE 4X, Redmi NOTE 4 | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi NOTE 5A | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi NOTE 6 PRO (tulip) | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi NOTE 7 (violet) | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi NOTE 7 PRO | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi NOTE 7, Redmi NOTE 7S (lavender) | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi NOTE 8 M1908C3JH, M1908C3JG, M1908C3JI | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi NOTE 8, Redmi NOTE 8T | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi NOTE 9 PRO | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi NOTE 9S | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note-5 | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi S2 | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Y2 (ysl) | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Y3 (onc) | score=56 | files=472
+  Evidence: brand_path_match; model_or_codename_token:redmi; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Loaders/xiaomi/000ba0e100720000_57158eaf1814d78f_fhprg_redmi7.bin, Loaders/xiaomi/001360e100720000_1bebe3863a6781db_fhprg_redmi9t.bin, Spd/AUTO cpu type/SC9863A REDMI/PR652B.xml, Spd/AUTO cpu type/SC9863A REDMI/fdl1-sign.bin, Spd/AUTO cpu type/SC9863A REDMI/fdl2-sign.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Oppo — Realme U1 RMX1833 | score=54 | files=496
+  Evidence: brand_path_match; model_or_codename_token:realme; preloader_present; spd_fdl_present
+  Best files: Preloader/Realme_3_preloader_oppo6771_18601.bin, Preloader/preloader_oppo6765_Realme_C15.bin, Preloader/preloader_oppo6769_Realme_6i.bin, Preloader/preloader_oppo6785_Realme_7.bin, Spd/REALME/Realme C11 2021 (RMX3231)  SC9863A/RMX3231 by Bypassfrpfiles.com.pac
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Xiaomi Mi A2 LITE (daisy) | score=52 | files=452
+  Evidence: brand_path_match; model_or_codename_token:daisy; qcom_loader_role; qcom_pk_hash_present
+  Best files: Loaders/xiaomi/daisy_prog_emmc_firehose_8953_ddr.mbn, Loaders/xiaomi/0000000000000000_06af511250e0b74b_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_ab0a9e785e143291_fhprg_peek.bin, Loaders/xiaomi/0000000000000000_b435a01fc18a5c72_fhprg.bin, Loaders/xiaomi/0000000000000000_fa452f8cc5060845_fhprg_peek_wt86047.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Lenovo — Lenovo A5 (L18021, L18081, L18011) | score=50 | files=902
+  Evidence: auth_requirement_consistent; model_or_codename_token:l18011; platform_match; preloader_present
+  Best files: Preloader/preloader_L18011.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Lenovo — Lenovo C2 Power | score=50 | files=902
+  Evidence: auth_requirement_consistent; model_or_codename_token:power; platform_match; preloader_present
+  Best files: Preloader/preloader_hct6750_66_n_Ulefone_power2.bin, Preloader/preloader_power3_k71_bsp.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Lenovo — Lenovo K5 (K350t) | score=50 | files=902
+  Evidence: auth_requirement_consistent; model_or_codename_token:k350t; platform_match; preloader_present
+  Best files: Preloader/preloader_K350t.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin, Preloader/0699_preloader_dura_BFE22C5E88.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] LG — LG K50 (LMX520BMW, LMX520EMW, LM-X520, 802LG) | score=50 | files=902
+  Evidence: auth_requirement_consistent; brand_path_match; model_or_codename_token:x520; platform_match; preloader_present
+  Best files: Preloader/preloader_pri6737m_35g_n_tx5201.bin, Preloader/preloader_pd3s44_lg_l6205l.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] LG — LG K51S (LM-K510EMW, LM-K510) | score=50 | files=902
+  Evidence: auth_requirement_consistent; brand_path_match; model_or_codename_token:k510; platform_match; preloader_present
+  Best files: Preloader/preloader_k510.bin, Preloader/preloader_pd3s44_lg_l6205l.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Xiaomi — Redmi Note 11S (2201117SG) | score=50 | files=902
+  Evidence: auth_requirement_consistent; model_or_codename_token:redmi; platform_match; preloader_present
+  Best files: Preloader/Redmi_Note_10s_preloader.bin, Preloader/preloader_redmi9a_Hydra_V2.bin, Preloader/preloader_c30mini_10.bin.patched, Preloader/preloader_hct6757_66_n_patched.bin, Preloader/0699_preloader_c767_8111h_xxa1_39_o1_7D734924C1.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Huawei — Huawei P SMART FIG-LX1 | score=46 | files=421
+  Evidence: model_or_codename_token:smart; spd_fdl_present
+  Best files: Spd/INFINIX/Infinix Smart 6 (X6511)  SC9863A/$LaPyae Infinix Smart 6 (X6511) FRP Remote.pac, Spd/INFINIX/Infinix Smart 6 (X6511)  SC9863A/fdl1-sign.bin, Spd/INFINIX/Infinix Smart 6 (X6511)  SC9863A/fdl2-sign.bin, Spd/INFINIX/Infinix Smart 6 (X6511)  SC9863A/s9863a1h10.xml, Spd/INFINIX/Infinix Smart 6 (X6511B)  SC9863A/$LaPyae Infinix Smart 6 (X6511B) FRP Remote.pac
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Huawei — Huawei Y6 Prime MRD-LX1F | score=46 | files=419
+  Evidence: brand_path_match; model_or_codename_token:prime; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Spd/REALME/Realme Narzo 50A Prime  (RMX3516)  Unisoc Tiger T612 (12 nm)/fdl1-sign.bin, Spd/REALME/Realme Narzo 50A Prime  (RMX3516)  Unisoc Tiger T612 (12 nm)/fdl2-sign.bin, Spd/REALME/Realme Narzo 50A Prime  (RMX3516)  Unisoc Tiger T612 (12 nm)/ums9230_nico.xml, Loaders/huawei/0000000001a40003_1816101f1302cf63_fhprg.bin, Loaders/huawei/000460e100150021_6bc369511da9cadb_fhprg_peek.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Huawei — Huawei Y7 Prime 2019 DUB-LX1 | score=46 | files=420
+  Evidence: brand_path_match; model_or_codename_token:2019; model_or_codename_token:prime; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Spd/REALME/Realme Narzo 50A Prime  (RMX3516)  Unisoc Tiger T612 (12 nm)/fdl1-sign.bin, Spd/REALME/Realme Narzo 50A Prime  (RMX3516)  Unisoc Tiger T612 (12 nm)/fdl2-sign.bin, Spd/REALME/Realme Narzo 50A Prime  (RMX3516)  Unisoc Tiger T612 (12 nm)/ums9230_nico.xml, Loaders/lenovo_motorola/009720e103280000_31f5976a220193f2_fhprg_peek.bin, Loaders/huawei/0000000001a40003_1816101f1302cf63_fhprg.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
+[NEED_TEST] Huawei — Huawei Y9 Prime STK L21, STK L22 | score=46 | files=419
+  Evidence: brand_path_match; model_or_codename_token:prime; qcom_loader_role; qcom_pk_hash_present; spd_fdl_present
+  Best files: Spd/REALME/Realme Narzo 50A Prime  (RMX3516)  Unisoc Tiger T612 (12 nm)/fdl1-sign.bin, Spd/REALME/Realme Narzo 50A Prime  (RMX3516)  Unisoc Tiger T612 (12 nm)/fdl2-sign.bin, Spd/REALME/Realme Narzo 50A Prime  (RMX3516)  Unisoc Tiger T612 (12 nm)/ums9230_nico.xml, Loaders/huawei/0000000001a40003_1816101f1302cf63_fhprg.bin, Loaders/huawei/000460e100150021_6bc369511da9cadb_fhprg_peek.bin
+  Remark: NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready.
