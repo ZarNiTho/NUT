@@ -208,23 +208,30 @@ jobs:
               return platform, role, meta
 
           def catalog_tokens(model):
-              # Use model/codename/model-number evidence only. The brand is
-              # scored separately, so a brand folder alone must never prove a
-              # specific model match.
+              # Only extract identity-bearing tokens. Generic product words
+              # must never prove a specific model match. Parenthesized
+              # codenames and model numbers are the strongest evidence in this
+              # flat catalog.
               raw = str(model or "")
-              words = re.findall(r"[a-z0-9]+", raw.lower())
               stop = {
                   "the", "and", "phone", "mobile", "smartphone", "pro", "plus", "ultra", "lite",
                   "max", "mini", "global", "dual", "sim", "5g", "4g", "2020", "2021", "2022", "2023", "2024",
-                  "auth", "brom", "edl", "odin", "unknown", "test", "tp", "frp", "usb"
+                  "auth", "brom", "edl", "odin", "unknown", "test", "tp", "frp", "usb",
+                  "xiaomi", "redmi", "poco", "mi", "galaxy", "vision", "spark", "realme",
+                  "infinix", "itel", "tecno", "samsung", "huawei", "honor", "oppo", "vivo",
+                  "oneplus", "nokia", "motorola", "asus", "alcatel", "blackview", "coolpad"
               }
               useful = []
-              for w in words:
-                  if len(w) >= 3 and w not in stop and (any(c.isdigit() for c in w) or len(w) >= 5):
-                      useful.append(w)
-              # Model-number fragments in parentheses are valuable evidence.
-              codes = re.findall(r"[A-Za-z]{1,8}[-_]?[0-9]{2,}[A-Za-z0-9-]*|[0-9]{3,}[A-Za-z]?", raw)
-              useful.extend(x.lower() for x in codes)
+              # Parenthesized values commonly contain codenames and exact
+              # model numbers: (ido), (SM-G930F), (RMX3261 | RMX3262).
+              groups = re.findall(r"\(([^)]*)\)", raw)
+              for group in groups:
+                  for w in re.findall(r"[a-z0-9]+", group.lower()):
+                      if len(w) >= 3 and w not in stop:
+                          useful.append(w)
+              # Also accept model-number-like tokens outside parentheses.
+              codes = re.findall(r"[A-Za-z]{1,10}[-_]?\d{2,}[A-Za-z0-9-]*|\d{3,}[A-Za-z]?", raw)
+              useful.extend(x.lower() for x in codes if len(x) >= 3)
               return unique(useful)
 
           def file_tokens(entry):
@@ -332,7 +339,16 @@ jobs:
                       score += 8
                       evidence.append("connection_family_match")
 
-                  if score >= 20:
+                  # A platform/brand/loader match alone is not enough. Keep a
+                  # file only when it carries model identity evidence.
+                  identity_evidence = bool(exact_tokens)
+                  if fp == "qcom" and cat_chip and hw and (cat_chip.endswith(hw) or hw.endswith(cat_chip)):
+                      identity_evidence = True
+                  if fp == "mtk" and cat_chip and file_chip and (cat_chip == file_chip or cat_chip in file_chip or file_chip in cat_chip):
+                      identity_evidence = True
+                  if fp == "spd" and f["meta"].get("soc_hint") and any(compact(f["meta"].get("soc_hint")) in compact(t) for t in tokens):
+                      identity_evidence = True
+                  if score >= 20 and identity_evidence:
                       candidates.append({
                           "path": f["path"],
                           "url": f["url"],
