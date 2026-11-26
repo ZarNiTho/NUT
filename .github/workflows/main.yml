@@ -30,7 +30,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Scan All Binaries, Generate main.json & Build Maximum-Support verified_catalog.json
+      - name: Scan All Binaries, Generate main.json & Build verified_catalog.json (Ready + Test Tiers)
         run: |
           python3 - << 'EOF'
           import hashlib
@@ -90,7 +90,6 @@ jobs:
               "MT8167": "8167", "MT8168": "8168", "MT8173": "8173", "MT8176": "8176",
           }
 
-          # Payload alias for chips that share exact BROM exploit payload
           MTK_PAYLOAD_FALLBACK = {
               "MT6769": "MT6768",
               "MT6762": "MT6765",
@@ -101,7 +100,6 @@ jobs:
               "MT6891": "MT6893",
           }
 
-          # Qualcomm Brand Aliases (Catalog Brand Key -> Repo Subfolder Tokens)
           QCOM_BRAND_ALIAS = {
               "xiaomi": ["xiaomi", "bl", "blackshark", "longcheer"],
               "poco": ["xiaomi", "bl"],
@@ -137,7 +135,6 @@ jobs:
               "auto_generic": ["qualcomm"],
           }
 
-          # Comprehensive Qualcomm SoC -> 8-char MSM_HWID Prefix
           QCOM_SOC_TO_HWID = {
               "MSM8909": "009600E1", "SD210": "009600E1", "210": "009600E1",
               "MSM8916": "007050E1", "SD410": "007050E1", "410": "007050E1",
@@ -183,7 +180,6 @@ jobs:
               "QCM2290": "001860E1", "QM215": "000BF0E1",
           }
 
-          # SPD / Unisoc Marketing Name -> SoC Token Aliases
           SPD_SOC_ALIAS = {
               "t606": ["ums9230", "t606"],
               "t612": ["ums9230", "t612"],
@@ -232,9 +228,7 @@ jobs:
           def normalize_mtk_chip(chip_code: str) -> str:
               c = str(chip_code or "").upper().strip()
               m = re.search(r"MT[0-9]{4}", c)
-              if not m:
-                  return ""
-              return m.group(0)
+              return m.group(0) if m else ""
 
 
           def extract_tokens(text: str) -> list:
@@ -447,7 +441,6 @@ jobs:
               with open("device_catalog.json", "r", encoding="utf-8") as f:
                   catalog = json.load(f)
 
-              # Exact DA V5 / V6 & DA XML extensions
               mtk_da_v5 = (
                   next((e for e in all_entries if e["name"].lower() == "mtk_da_v5.bin"), None)
                   or next((e for e in all_entries if e["type"] == "mtk_da" and e["hex"].get("da_version") == "V5"), None)
@@ -467,7 +460,12 @@ jobs:
               spd_files = [e for e in all_entries if e["type"] == "spd_fdl"]
 
               verified_platforms = {}
-              stats = {"total_models": 0, "omitted_unverified": 0}
+              stats = {
+                  "total_models": 0,
+                  "ready_models": 0,
+                  "test_models": 0,
+                  "omitted_unverified": 0,
+              }
 
               for plat_key, plat_data in catalog.get("platforms", {}).items():
                   v_brands = []
@@ -485,6 +483,8 @@ jobs:
                           tokens = extract_tokens(model.get("name", ""))
                           matched_files = {}
                           is_verified = False
+                          badge = "Test"
+                          support_tier = "test"
 
                           if plat_key == "mtk":
                               norm_chip = normalize_mtk_chip(chip_raw) or normalize_mtk_chip(chip_label)
@@ -492,7 +492,6 @@ jobs:
                               is_v6 = ("V6" in hint) or (norm_chip in {"MT6789", "MT6835", "MT6855", "MT6895", "MT6897", "MT6983", "MT6985", "MT6989"})
                               da_file = mtk_da_v6 if is_v6 else mtk_da_v5
 
-                              # Strict word-boundary Preloader match + chip compatibility check
                               pl_match = None
                               for tok in tokens:
                                   for p in mtk_preloaders:
@@ -513,8 +512,9 @@ jobs:
                               pay_match = mtk_payloads.get(norm_chip) or mtk_payloads.get(payload_chip)
 
                               if is_v6 and da_file:
-                                  # MTK V6 XML protocol (uses MTK_DA_V6.bin + da_xml/da_xml_64)
                                   is_verified = True
+                                  badge = "V6 XML"
+                                  support_tier = "ready"
                                   matched_files["da"] = da_file["url"]
                                   matched_files["protocol"] = "da_v6_xml"
                                   if mtk_da_xml:
@@ -526,8 +526,9 @@ jobs:
                                   if norm_chip:
                                       m_copy["hw_code"] = MTK_CHIP_TO_HWCODE.get(norm_chip, "")
                               elif da_file and (pay_match or pl_match):
-                                  # MTK V5 Exact Chip Match
                                   is_verified = True
+                                  badge = "V5 Ready"
+                                  support_tier = "ready"
                                   matched_files["da"] = da_file["url"]
                                   matched_files["protocol"] = "xflash_v5"
                                   if pay_match:
@@ -537,8 +538,10 @@ jobs:
                                   if norm_chip:
                                       m_copy["hw_code"] = MTK_CHIP_TO_HWCODE.get(norm_chip, "")
                               elif da_file and (mtk_generic_stage1 or mtk_da_x):
-                                  # MTK Generic (chip_code == "MTK"): Runtime BROM HW_CODE auto-detects exact payload from main.json
+                                  # Generic MTK -> marked as Test
                                   is_verified = True
+                                  badge = "Test"
+                                  support_tier = "test"
                                   matched_files["da"] = da_file["url"]
                                   matched_files["protocol"] = "brom_auto_detect"
                                   if mtk_generic_stage1:
@@ -588,10 +591,22 @@ jobs:
                               if ranked_candidates:
                                   ranked_candidates.sort(key=lambda x: (x[0], x[1]))
                                   _, _, best_mode, best = ranked_candidates[0]
+                                  auth_mode = best["hex"].get("auth_mode", "likely_no_auth")
                                   is_verified = True
                                   matched_files["loader"] = best["url"]
-                                  matched_files["auth_mode"] = best["hex"].get("auth_mode", "likely_no_auth")
+                                  matched_files["auth_mode"] = auth_mode
                                   matched_files["match_type"] = best_mode
+
+                                  if best_mode == "brand_exact" and auth_mode == "no_auth":
+                                      badge = "No-Auth"
+                                      support_tier = "ready"
+                                  elif best_mode == "brand_exact" and auth_mode == "likely_no_auth":
+                                      badge = "Ready"
+                                      support_tier = "ready"
+                                  else:
+                                      # Shared SoC / Auth Required / Token-only -> marked as Test
+                                      badge = "Test"
+                                      support_tier = "test"
 
                                   fallbacks = []
                                   seen_urls = {best["url"]}
@@ -607,12 +622,14 @@ jobs:
 
                                   if target_hwid:
                                       m_copy["msm_hwid"] = target_hwid
-                                  if best["hex"].get("auth_mode") == "no_auth":
+                                  if auth_mode == "no_auth":
                                       m_copy["auth_required"] = False
                               elif brand_pool:
-                                  # Generic QCOM model for a brand with real loaders in repo -> Runtime Sahara HWID+PK_HASH match
+                                  # Generic QCOM model (Sahara Auto-Detect) -> marked as Test
                                   brand_pool.sort(key=lambda x: x[0])
                                   is_verified = True
+                                  badge = "Test"
+                                  support_tier = "test"
                                   matched_files["match_type"] = "sahara_auto_detect"
                                   matched_files["brand_loader_count"] = len(brand_pool)
                                   matched_files["loader"] = brand_pool[0][1]["url"]
@@ -647,17 +664,30 @@ jobs:
                                   matched_files["fdl1"] = fdl1["url"]
                                   if fdl2:
                                       matched_files["fdl2"] = fdl2["url"]
+                                      badge = "FDL Ready"
+                                      support_tier = "ready"
+                                  else:
+                                      badge = "Test"
+                                      support_tier = "test"
 
                           elif plat_key == "samsung":
                               is_verified = True
+                              badge = "Odin"
+                              support_tier = "ready"
                               matched_files["protocol"] = "odin"
 
                           if is_verified:
                               m_copy["verified"] = True
+                              m_copy["badge"] = badge
+                              m_copy["support_tier"] = support_tier
                               m_copy["files"] = matched_files
                               v_models.append(m_copy)
                               plat_count += 1
                               stats["total_models"] += 1
+                              if support_tier == "ready":
+                                  stats["ready_models"] += 1
+                              else:
+                                  stats["test_models"] += 1
                           else:
                               stats["omitted_unverified"] += 1
 
@@ -737,7 +767,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Auto-update main.json & verified_catalog.json (Full V6 + Multi-Brand Support) [skip ci]"
+            git commit -m "Auto-update main.json & verified_catalog.json (Ready + Test Badges) [skip ci]"
             git pull --rebase origin main
             git push
           fi
