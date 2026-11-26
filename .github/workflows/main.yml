@@ -13,6 +13,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: auto-generate-json
+  cancel-in-progress: false
+
 jobs:
   build-index-and-catalog:
     runs-on: ubuntu-latest
@@ -26,7 +30,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Scan Binaries, Generate main.json & Cross-Verify device_catalog.json
+      - name: Scan All Binaries, Generate main.json & Cross-Verify device_catalog.json
         run: |
           python3 - << 'EOF'
           import hashlib
@@ -69,7 +73,6 @@ jobs:
           RE_PAREN = re.compile(r"\(([^)]+)\)")
           RE_BRACKET = re.compile(r"\[([^\]]+)\]")
 
-          # MTK Chip -> HW_CODE Map
           MTK_CHIP_TO_HWCODE = {
               "MT6572": "6572", "MT6580": "6580", "MT6582": "6582", "MT6592": "6592",
               "MT6735": "0321", "MT6737": "0335", "MT6739": "0699", "MT6750": "0326",
@@ -82,7 +85,6 @@ jobs:
               "MT6985": "1303", "MT6989": "1305", "MT8127": "8127", "MT8163": "8163",
           }
 
-          # Qualcomm Brand Aliases (Catalog Brand Key -> Repo Subfolder Tokens)
           QCOM_BRAND_ALIAS = {
               "xiaomi": ["xiaomi", "bl"],
               "oppo": ["oppo", "oneplus"],
@@ -103,7 +105,6 @@ jobs:
               "nothing": ["nothing"],
           }
 
-          # Common Qualcomm SoC -> 8-char MSM_HWID Prefix
           QCOM_SOC_TO_HWID = {
               "MSM8909": "009600E1", "MSM8916": "007050E1", "MSM8917": "000560E1",
               "MSM8926": "008050E1", "MSM8937": "0004F0E1", "MSM8939": "0090B0E1",
@@ -171,6 +172,12 @@ jobs:
                   if len(clean) >= 3:
                       tokens.append(clean)
               return list(dict.fromkeys(tokens))
+
+
+          def token_in_filename(token: str, filename: str) -> bool:
+              # Strict word-boundary match so 'ice' won't match 'nice' and 'fire' won't match 'fireAD1'
+              pattern = rf"(?:^|[_\-\s\[\(]){re.escape(token.lower())}(?:$|[_\-\s\]\)\.])"
+              return bool(re.search(pattern, filename.lower()))
 
 
           def analyze_binary(full_path: str, filename: str, rel_path: str) -> tuple:
@@ -254,7 +261,6 @@ jobs:
                   if m_fn:
                       hex_meta["pk_hash"] = m_fn.group(2).lower()
 
-                  # Hybrid Auth Mode Detection
                   if any(k in path_lower for k in ("noauth", "no_auth", "patched", "bypass")):
                       hex_meta["auth_mode"] = "no_auth"
                       hex_meta["priority"] = 1
@@ -306,7 +312,7 @@ jobs:
                           hex_meta["hw_code"] = MTK_CHIP_TO_HWCODE.get(c_norm, "")
                   return "mtk_payload", hex_meta, size
 
-              # 7. Raw / Other (Preserved intact)
+              # 7. Raw / Other (Zero files discarded)
               hex_meta["format"] = "RAW"
               return "raw_other", hex_meta, size
 
@@ -363,9 +369,16 @@ jobs:
               with open("device_catalog.json", "r", encoding="utf-8") as f:
                   catalog = json.load(f)
 
-              # Build lookup indexes from scanned entries
-              mtk_da_v5 = next((e for e in all_entries if e["type"] == "mtk_da" and e["hex"].get("da_version") == "V5"), None)
-              mtk_da_v6 = next((e for e in all_entries if e["type"] == "mtk_da" and e["hex"].get("da_version") == "V6"), None)
+              # Strict DA V5 / V6 selection (never pick IoT DA_2625 as default)
+              mtk_da_v5 = (
+                  next((e for e in all_entries if e["name"].lower() == "mtk_da_v5.bin"), None)
+                  or next((e for e in all_entries if e["type"] == "mtk_da" and e["hex"].get("da_version") == "V5"), None)
+              )
+              mtk_da_v6 = (
+                  next((e for e in all_entries if e["name"].lower() == "mtk_da_v6.bin"), None)
+                  or next((e for e in all_entries if e["type"] == "mtk_da" and e["hex"].get("da_version") == "V6"), None)
+              )
+
               mtk_payloads = {e["hex"]["chip_code"]: e for e in all_entries if e["type"] == "mtk_payload" and e["hex"].get("chip_code")}
               mtk_preloaders = [e for e in all_entries if e["type"] == "mtk_preloader"]
               qcom_loaders = [e for e in all_entries if e["type"] == "qcom_loader"]
@@ -393,13 +406,22 @@ jobs:
                           if plat_key == "mtk":
                               norm_chip = normalize_mtk_chip(chip_raw)
                               da_file = mtk_da_v6 if "V6" in hint else mtk_da_v5
+
+                              # Strict word-boundary Preloader match + chip compatibility check
                               pl_match = None
                               for tok in tokens:
-                                  pl_match = next((p for p in mtk_preloaders if tok in p["name"].lower()), None)
+                                  for p in mtk_preloaders:
+                                      if token_in_filename(tok, p["name"]):
+                                          p_chip = p["hex"].get("chip_code", "")
+                                          if not p_chip or not norm_chip or p_chip == norm_chip:
+                                              pl_match = p
+                                              break
                                   if pl_match:
                                       break
+
                               if not pl_match and norm_chip:
                                   pl_match = next((p for p in mtk_preloaders if p["hex"].get("chip_code") == norm_chip), None)
+
                               pay_match = mtk_payloads.get(norm_chip) if norm_chip else None
 
                               if da_file and (pay_match or pl_match):
@@ -423,22 +445,36 @@ jobs:
                                           break
 
                               aliases = QCOM_BRAND_ALIAS.get(brand_key, [brand_key])
-                              candidates = []
+                              ranked_candidates = []
+
                               for ldr in qcom_loaders:
                                   l_path = ldr["path"].lower()
                                   l_hwid = ldr["hex"].get("msm_hwid", "")
-                                  brand_ok = any(a in l_path for a in aliases)
-                                  tok_ok = any(t in ldr["name"].lower() for t in tokens)
+                                  brand_ok = any(f"/{a}/" in f"/{l_path}" for a in aliases)
+                                  tok_ok = any(token_in_filename(t, ldr["name"]) for t in tokens)
                                   hwid_ok = bool(target_hwid and l_hwid == target_hwid)
-                                  if (brand_ok and (hwid_ok or tok_ok)) or (tok_ok and l_path.startswith("bl/")):
-                                      candidates.append(ldr)
+                                  prio = ldr["hex"].get("priority", 2)
 
-                              if candidates:
-                                  candidates.sort(key=lambda x: x["hex"].get("priority", 2))
-                                  best = candidates[0]
+                                  if brand_ok and (hwid_ok or tok_ok):
+                                      ranked_candidates.append((1, prio, "brand_exact", ldr))
+                                  elif tok_ok:
+                                      ranked_candidates.append((2, prio, "model_token", ldr))
+                                  elif hwid_ok:
+                                      # Cross-brand / Factory / Generic shared SoC loader
+                                      ranked_candidates.append((3, prio, "soc_shared", ldr))
+
+                              if ranked_candidates:
+                                  ranked_candidates.sort(key=lambda x: (x[0], x[1]))
+                                  best_tier, _, best_mode, best = ranked_candidates[0]
                                   is_verified = True
                                   matched_files["loader"] = best["url"]
                                   matched_files["auth_mode"] = best["hex"].get("auth_mode", "likely_no_auth")
+                                  matched_files["match_type"] = best_mode
+
+                                  fallbacks = [c[3]["url"] for c in ranked_candidates[1:4] if c[3]["url"] != best["url"]]
+                                  if fallbacks:
+                                      matched_files["fallback_loaders"] = fallbacks
+
                                   if target_hwid:
                                       m_copy["msm_hwid"] = target_hwid
                                   if best["hex"].get("auth_mode") == "no_auth":
@@ -456,7 +492,6 @@ jobs:
                                       matched_files["fdl2"] = fdl2["url"]
 
                           elif plat_key == "samsung":
-                              # Samsung Odin/Download mode works natively without external loader
                               is_verified = True
                               matched_files["protocol"] = "odin"
 
@@ -546,5 +581,6 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Auto-update main.json & verified_catalog.json [skip ci]"
+            git pull --rebase origin main
             git push
           fi
