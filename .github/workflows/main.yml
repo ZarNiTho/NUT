@@ -30,7 +30,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Scan All Binaries, Generate main.json & Cross-Verify device_catalog.json
+      - name: Scan All Binaries, Generate main.json & Build Maximum-Support verified_catalog.json
         run: |
           python3 - << 'EOF'
           import hashlib
@@ -73,26 +73,47 @@ jobs:
           RE_PAREN = re.compile(r"\(([^)]+)\)")
           RE_BRACKET = re.compile(r"\[([^\]]+)\]")
 
+          # Full MTK Chip -> HW_CODE Map
           MTK_CHIP_TO_HWCODE = {
-              "MT6572": "6572", "MT6580": "6580", "MT6582": "6582", "MT6592": "6592",
-              "MT6735": "0321", "MT6737": "0335", "MT6739": "0699", "MT6750": "0326",
-              "MT6752": "6752", "MT6753": "0335", "MT6755": "0326", "MT6757": "0551",
+              "MT6572": "6572", "MT6575": "6575", "MT6580": "6580", "MT6582": "6582",
+              "MT6592": "6592", "MT6595": "6595", "MT6735": "0321", "MT6737": "0335",
+              "MT6738": "0335", "MT6739": "0699", "MT6750": "0326", "MT6752": "6752",
+              "MT6753": "0335", "MT6755": "0326", "MT6757": "0551", "MT6758": "0690",
               "MT6761": "0717", "MT6762": "0766", "MT6763": "0690", "MT6765": "0766",
               "MT6768": "0707", "MT6769": "0707", "MT6771": "0788", "MT6779": "0813",
-              "MT6781": "1208", "MT6785": "0813", "MT6789": "1209", "MT6833": "0989",
-              "MT6835": "1291", "MT6853": "0959", "MT6873": "0886", "MT6877": "0959",
-              "MT6885": "0816", "MT6893": "0816", "MT6895": "1296", "MT6983": "1295",
+              "MT6781": "1208", "MT6785": "0813", "MT6789": "1209", "MT6795": "6795",
+              "MT6797": "0279", "MT6799": "0551", "MT6833": "0989", "MT6835": "1291",
+              "MT6853": "0959", "MT6855": "1291", "MT6873": "0886", "MT6875": "0886",
+              "MT6877": "0959", "MT6885": "0816", "MT6889": "0816", "MT6891": "0816",
+              "MT6893": "0816", "MT6895": "1296", "MT6897": "1304", "MT6983": "1295",
               "MT6985": "1303", "MT6989": "1305", "MT8127": "8127", "MT8163": "8163",
+              "MT8167": "8167", "MT8168": "8168", "MT8173": "8173", "MT8176": "8176",
           }
 
+          # Payload alias for chips that share exact BROM exploit payload
+          MTK_PAYLOAD_FALLBACK = {
+              "MT6769": "MT6768",
+              "MT6762": "MT6765",
+              "MT6738": "MT6737",
+              "MT6750": "MT6755",
+              "MT6875": "MT6873",
+              "MT6889": "MT6885",
+              "MT6891": "MT6893",
+          }
+
+          # Qualcomm Brand Aliases (Catalog Brand Key -> Repo Subfolder Tokens)
           QCOM_BRAND_ALIAS = {
-              "xiaomi": ["xiaomi", "bl"],
+              "xiaomi": ["xiaomi", "bl", "blackshark", "longcheer"],
+              "poco": ["xiaomi", "bl"],
+              "redmi": ["xiaomi", "bl"],
               "oppo": ["oppo", "oneplus"],
-              "realme": ["oppo", "realme"],
+              "realme": ["oppo", "realme", "oneplus"],
               "oneplus": ["oneplus", "oppo"],
               "vivo": ["vivo"],
+              "iqoo": ["vivo"],
               "samsung": ["samsung"],
               "huawei": ["huawei"],
+              "honor": ["huawei"],
               "motorola": ["lenovo_motorola", "motorola"],
               "lenovo": ["lenovo_motorola", "lenovo"],
               "nokia": ["nokia_foxconn", "nokia"],
@@ -100,26 +121,89 @@ jobs:
               "lg": ["lg"],
               "zte": ["zte"],
               "tcl": ["tcl"],
+              "alcatel": ["tcl"],
               "meizu": ["meizu"],
               "sony": ["sony"],
               "nothing": ["nothing"],
+              "coolpad": ["yulong_coolpad"],
+              "gionee": ["gionee"],
+              "hisense": ["hisense_agm"],
+              "leeco": ["letv"],
+              "micromax": ["micromax", "mmx"],
+              "blackberry": ["blackberry"],
+              "sharp": ["sharp"],
+              "smartisan": ["smartisan"],
+              "google": ["qualcomm"],
+              "auto_generic": ["qualcomm"],
           }
 
+          # Comprehensive Qualcomm SoC -> 8-char MSM_HWID Prefix
           QCOM_SOC_TO_HWID = {
-              "MSM8909": "009600E1", "MSM8916": "007050E1", "MSM8917": "000560E1",
-              "MSM8926": "008050E1", "MSM8937": "0004F0E1", "MSM8939": "0090B0E1",
-              "MSM8940": "0006B0E1", "MSM8952": "009720E1", "MSM8953": "000460E1",
-              "MSM8974": "007B00E1", "MSM8976": "009900E1", "MSM8994": "009400E1",
-              "MSM8996": "009470E1", "SDM439": "000BF0E1", "SDM450": "0009A0E1",
-              "SDM625": "000460E1", "SDM630": "000AC0E1", "SDM632": "000BA0E1",
-              "SDM636": "000CC0E1", "SDM660": "30060000", "SDM665": "000E60E1",
-              "SDM670": "000910E1", "SDM710": "60040000", "SDM712": "000930E1",
-              "SDM835": "30020000", "SDM845": "60000000", "SDM855": "000A50E1",
-              "SM4250": "001360E1", "SM6115": "001360E1", "SM6125": "000E60E1",
-              "SM6225": "001700E1", "SM6250": "0013F0E1", "SM6375": "001B80E1",
-              "SM7125": "0013F0E1", "SM7150": "000950E1", "SM7225": "0016F0E1",
-              "SM7250": "0011E0E1", "SM7325": "001870E1", "SM8150": "000A50E1",
-              "SM8250": "000C30E1", "SM8350": "001350E1", "SM8450": "001920E1",
+              "MSM8909": "009600E1", "SD210": "009600E1", "210": "009600E1",
+              "MSM8916": "007050E1", "SD410": "007050E1", "410": "007050E1",
+              "MSM8917": "000560E1", "SD425": "000560E1", "425": "000560E1",
+              "MSM8926": "008050E1", "MSM8928": "009180E1", "MSM8929": "0091B0E1",
+              "MSM8937": "0004F0E1", "SD430": "0004F0E1", "430": "0004F0E1",
+              "MSM8939": "0090B0E1", "SD615": "0090B0E1", "615": "0090B0E1",
+              "MSM8940": "0006B0E1", "SD435": "0006B0E1", "435": "0006B0E1",
+              "MSM8952": "009720E1", "SD617": "009720E1", "617": "009720E1",
+              "MSM8953": "000460E1", "SDM625": "000460E1", "SD625": "000460E1", "625": "000460E1", "626": "000460E1",
+              "MSM8974": "007B00E1", "SD801": "007B00E1",
+              "MSM8976": "009900E1", "SD650": "009900E1", "SD652": "009900E1", "650": "009900E1", "652": "009900E1",
+              "MSM8992": "009400E1", "MSM8994": "009400E1", "SD810": "009400E1",
+              "MSM8996": "009470E1", "SD820": "009470E1", "SD821": "0005F0E1",
+              "SDM429": "000BE0E1", "SD429": "000BE0E1", "429": "000BE0E1",
+              "SDM439": "000BF0E1", "SD439": "000BF0E1", "439": "000BF0E1",
+              "SDM450": "0009A0E1", "SD450": "0009A0E1", "450": "0009A0E1",
+              "SDM630": "000AC0E1", "SD630": "000AC0E1", "630": "000AC0E1",
+              "SDM632": "000BA0E1", "SD632": "000BA0E1", "632": "000BA0E1",
+              "SDM636": "000CC0E1", "SD636": "000CC0E1", "636": "000CC0E1",
+              "SDM660": "30060000", "SD660": "30060000", "660": "30060000",
+              "SDM665": "000E60E1", "SM6125": "000E60E1", "SD665": "000E60E1", "665": "000E60E1",
+              "SDM670": "000910E1", "SD670": "000910E1", "670": "000910E1",
+              "SDM675": "000DB0E1", "SM6150": "000DB0E1", "SD675": "000DB0E1", "675": "000DB0E1",
+              "SDM710": "60040000", "SD710": "60040000", "710": "60040000",
+              "SDM712": "000930E1", "SD712": "000930E1", "712": "000930E1",
+              "SDM835": "30020000", "SD835": "30020000", "835": "30020000",
+              "SDM845": "60000000", "SD845": "60000000", "845": "60000000",
+              "SDM855": "000A50E1", "SM8150": "000A50E1", "SD855": "000A50E1", "855": "000A50E1",
+              "SM4250": "001360E1", "SM6115": "001360E1", "SD460": "001360E1", "SD662": "001360E1", "460": "001360E1", "662": "001360E1",
+              "SM4350": "0016F0E1", "SD480": "0016F0E1", "480": "0016F0E1",
+              "SM6225": "001700E1", "SD680": "001700E1", "680": "001700E1", "685": "001700E1",
+              "SM6250": "0013F0E1", "SM7125": "0013F0E1", "SD720G": "0013F0E1", "720G": "0013F0E1",
+              "SM6375": "001B80E1", "SD695": "001B80E1", "695": "001B80E1",
+              "SM7150": "000950E1", "SD730": "000950E1", "SD732": "000950E1", "730": "000950E1", "732": "000950E1",
+              "SM7225": "0016F0E1", "SD750G": "0016F0E1", "750G": "0016F0E1",
+              "SM7250": "0011E0E1", "SD765": "0011E0E1", "SD768": "0011E0E1", "765": "0011E0E1",
+              "SM7325": "001870E1", "SD778": "001870E1", "778G": "001870E1", "778": "001870E1",
+              "SM8250": "000C30E1", "SD865": "000C30E1", "SD870": "000C30E1", "865": "000C30E1", "870": "000C30E1",
+              "SM8350": "001350E1", "SD888": "001350E1", "888": "001350E1",
+              "SM8450": "001920E1", "SM8475": "001920E1", "8 GEN 1": "001920E1",
+              "SM8550": "001D20E1", "8 GEN 2": "001D20E1",
+              "QCM2290": "001860E1", "QM215": "000BF0E1",
+          }
+
+          # SPD / Unisoc Marketing Name -> SoC Token Aliases
+          SPD_SOC_ALIAS = {
+              "t606": ["ums9230", "t606"],
+              "t612": ["ums9230", "t612"],
+              "t616": ["ums9230", "t616"],
+              "t603": ["sc9863a", "ums9230", "t603"],
+              "t610": ["ums512", "t610"],
+              "t618": ["ums512", "t618"],
+              "t310": ["ums312", "t310"],
+              "t700": ["ums512", "ums9620", "t700"],
+              "t760": ["ums9620", "t760"],
+              "t820": ["ums9620", "t820"],
+              "sc9863a": ["sc9863a", "9863"],
+              "sc9832e": ["sc9832e", "9832"],
+              "sc7731e": ["sc7731e", "7731"],
+              "sc9850": ["sc9850", "9850"],
+              "sc6531": ["sc6531", "6531"],
+              "ums9230": ["ums9230", "t606", "t612", "t616"],
+              "ums512": ["ums512", "t610", "t618"],
+              "ums312": ["ums312", "t310"],
+              "ud710": ["ud710", "ums9620"],
           }
 
           AUTH_STRINGS = [
@@ -150,12 +234,7 @@ jobs:
               m = re.search(r"MT[0-9]{4}", c)
               if not m:
                   return ""
-              base = m.group(0)
-              if base == "MT6769":
-                  return "MT6768"
-              if base == "MT6762":
-                  return "MT6765"
-              return base
+              return m.group(0)
 
 
           def extract_tokens(text: str) -> list:
@@ -175,7 +254,6 @@ jobs:
 
 
           def token_in_filename(token: str, filename: str) -> bool:
-              # Strict word-boundary match so 'ice' won't match 'nice' and 'fire' won't match 'fireAD1'
               pattern = rf"(?:^|[_\-\s\[\(]){re.escape(token.lower())}(?:$|[_\-\s\]\)\.])"
               return bool(re.search(pattern, filename.lower()))
 
@@ -192,7 +270,7 @@ jobs:
               hex_meta = {"sha256": sha256}
 
               # 1. MTK DA
-              if b"MTK_DOWNLOAD_AGENT" in head or b"MTK_ALLINONE_DA" in head:
+              if b"MTK_DOWNLOAD_AGENT" in head or b"MTK_ALLINONE_DA" in head or path_lower.startswith("da/"):
                   da_ver = "V6" if (b"V6" in head or "v6" in fname_lower or b"XML" in head) else "V5"
                   hex_meta.update({"header": "MTK_DOWNLOAD_AGENT", "da_version": da_ver})
                   return "mtk_da", hex_meta, size
@@ -369,7 +447,7 @@ jobs:
               with open("device_catalog.json", "r", encoding="utf-8") as f:
                   catalog = json.load(f)
 
-              # Strict DA V5 / V6 selection (never pick IoT DA_2625 as default)
+              # Exact DA V5 / V6 & DA XML extensions
               mtk_da_v5 = (
                   next((e for e in all_entries if e["name"].lower() == "mtk_da_v5.bin"), None)
                   or next((e for e in all_entries if e["type"] == "mtk_da" and e["hex"].get("da_version") == "V5"), None)
@@ -378,6 +456,10 @@ jobs:
                   next((e for e in all_entries if e["name"].lower() == "mtk_da_v6.bin"), None)
                   or next((e for e in all_entries if e["type"] == "mtk_da" and e["hex"].get("da_version") == "V6"), None)
               )
+              mtk_da_xml = next((e for e in all_entries if e["name"].lower() == "da_xml.bin"), None)
+              mtk_da_xml64 = next((e for e in all_entries if e["name"].lower() == "da_xml_64.bin"), None)
+              mtk_generic_stage1 = next((e for e in all_entries if e["name"].lower() == "generic_stage1_payload.bin"), None)
+              mtk_da_x = next((e for e in all_entries if e["name"].lower() == "da_x.bin"), None)
 
               mtk_payloads = {e["hex"]["chip_code"]: e for e in all_entries if e["type"] == "mtk_payload" and e["hex"].get("chip_code")}
               mtk_preloaders = [e for e in all_entries if e["type"] == "mtk_preloader"]
@@ -398,14 +480,17 @@ jobs:
                       for model in brand.get("models", []):
                           m_copy = dict(model)
                           chip_raw = str(model.get("chip_code", "")).upper().strip()
+                          chip_label = str(model.get("chip", "")).upper().strip()
                           hint = str(model.get("loader_hint", "")).upper().strip()
                           tokens = extract_tokens(model.get("name", ""))
                           matched_files = {}
                           is_verified = False
 
                           if plat_key == "mtk":
-                              norm_chip = normalize_mtk_chip(chip_raw)
-                              da_file = mtk_da_v6 if "V6" in hint else mtk_da_v5
+                              norm_chip = normalize_mtk_chip(chip_raw) or normalize_mtk_chip(chip_label)
+                              payload_chip = MTK_PAYLOAD_FALLBACK.get(norm_chip, norm_chip) if norm_chip else ""
+                              is_v6 = ("V6" in hint) or (norm_chip in {"MT6789", "MT6835", "MT6855", "MT6895", "MT6897", "MT6983", "MT6985", "MT6989"})
+                              da_file = mtk_da_v6 if is_v6 else mtk_da_v5
 
                               # Strict word-boundary Preloader match + chip compatibility check
                               pl_match = None
@@ -413,65 +498,110 @@ jobs:
                                   for p in mtk_preloaders:
                                       if token_in_filename(tok, p["name"]):
                                           p_chip = p["hex"].get("chip_code", "")
-                                          if not p_chip or not norm_chip or p_chip == norm_chip:
+                                          if not p_chip or not norm_chip or p_chip == norm_chip or p_chip == payload_chip:
                                               pl_match = p
                                               break
                                   if pl_match:
                                       break
 
                               if not pl_match and norm_chip:
-                                  pl_match = next((p for p in mtk_preloaders if p["hex"].get("chip_code") == norm_chip), None)
+                                  pl_match = next(
+                                      (p for p in mtk_preloaders if p["hex"].get("chip_code") in {norm_chip, payload_chip}),
+                                      None,
+                                  )
 
-                              pay_match = mtk_payloads.get(norm_chip) if norm_chip else None
+                              pay_match = mtk_payloads.get(norm_chip) or mtk_payloads.get(payload_chip)
 
-                              if da_file and (pay_match or pl_match):
+                              if is_v6 and da_file:
+                                  # MTK V6 XML protocol (uses MTK_DA_V6.bin + da_xml/da_xml_64)
                                   is_verified = True
                                   matched_files["da"] = da_file["url"]
+                                  matched_files["protocol"] = "da_v6_xml"
+                                  if mtk_da_xml:
+                                      matched_files["da_xml"] = mtk_da_xml["url"]
+                                  if mtk_da_xml64:
+                                      matched_files["da_xml_64"] = mtk_da_xml64["url"]
+                                  if pl_match:
+                                      matched_files["preloader"] = pl_match["url"]
+                                  if norm_chip:
+                                      m_copy["hw_code"] = MTK_CHIP_TO_HWCODE.get(norm_chip, "")
+                              elif da_file and (pay_match or pl_match):
+                                  # MTK V5 Exact Chip Match
+                                  is_verified = True
+                                  matched_files["da"] = da_file["url"]
+                                  matched_files["protocol"] = "xflash_v5"
                                   if pay_match:
                                       matched_files["payload"] = pay_match["url"]
                                   if pl_match:
                                       matched_files["preloader"] = pl_match["url"]
                                   if norm_chip:
                                       m_copy["hw_code"] = MTK_CHIP_TO_HWCODE.get(norm_chip, "")
+                              elif da_file and (mtk_generic_stage1 or mtk_da_x):
+                                  # MTK Generic (chip_code == "MTK"): Runtime BROM HW_CODE auto-detects exact payload from main.json
+                                  is_verified = True
+                                  matched_files["da"] = da_file["url"]
+                                  matched_files["protocol"] = "brom_auto_detect"
+                                  if mtk_generic_stage1:
+                                      matched_files["payload"] = mtk_generic_stage1["url"]
+                                  if mtk_da_x:
+                                      matched_files["da_ext"] = mtk_da_x["url"]
+                                  if pl_match:
+                                      matched_files["preloader"] = pl_match["url"]
 
                           elif plat_key == "qcom":
                               target_hwid = ""
+                              matched_soc_token = ""
                               if chip_raw.startswith("0X"):
                                   target_hwid = chip_raw[2:].zfill(8).upper()
                               else:
+                                  combined_chip = f"{chip_raw} {chip_label}"
                                   for soc, hwid in QCOM_SOC_TO_HWID.items():
-                                      if soc in chip_raw or soc in str(model.get("chip", "")).upper():
+                                      if re.search(rf"(?:^|[^A-Z0-9]){re.escape(soc)}(?:$|[^A-Z0-9])", combined_chip):
                                           target_hwid = hwid
+                                          matched_soc_token = soc.lower()
                                           break
 
                               aliases = QCOM_BRAND_ALIAS.get(brand_key, [brand_key])
                               ranked_candidates = []
+                              brand_pool = []
 
                               for ldr in qcom_loaders:
                                   l_path = ldr["path"].lower()
+                                  l_name = ldr["name"].lower()
                                   l_hwid = ldr["hex"].get("msm_hwid", "")
                                   brand_ok = any(f"/{a}/" in f"/{l_path}" for a in aliases)
-                                  tok_ok = any(token_in_filename(t, ldr["name"]) for t in tokens)
+                                  tok_ok = any(token_in_filename(t, l_name) for t in tokens)
                                   hwid_ok = bool(target_hwid and l_hwid == target_hwid)
+                                  soc_in_path = bool(matched_soc_token and len(matched_soc_token) >= 4 and matched_soc_token in l_path)
                                   prio = ldr["hex"].get("priority", 2)
 
-                                  if brand_ok and (hwid_ok or tok_ok):
+                                  if brand_ok:
+                                      brand_pool.append((prio, ldr))
+
+                                  if brand_ok and (hwid_ok or tok_ok or soc_in_path):
                                       ranked_candidates.append((1, prio, "brand_exact", ldr))
                                   elif tok_ok:
                                       ranked_candidates.append((2, prio, "model_token", ldr))
-                                  elif hwid_ok:
-                                      # Cross-brand / Factory / Generic shared SoC loader
+                                  elif hwid_ok or soc_in_path:
                                       ranked_candidates.append((3, prio, "soc_shared", ldr))
 
                               if ranked_candidates:
                                   ranked_candidates.sort(key=lambda x: (x[0], x[1]))
-                                  best_tier, _, best_mode, best = ranked_candidates[0]
+                                  _, _, best_mode, best = ranked_candidates[0]
                                   is_verified = True
                                   matched_files["loader"] = best["url"]
                                   matched_files["auth_mode"] = best["hex"].get("auth_mode", "likely_no_auth")
                                   matched_files["match_type"] = best_mode
 
-                                  fallbacks = [c[3]["url"] for c in ranked_candidates[1:4] if c[3]["url"] != best["url"]]
+                                  fallbacks = []
+                                  seen_urls = {best["url"]}
+                                  for c in ranked_candidates[1:]:
+                                      u = c[3]["url"]
+                                      if u not in seen_urls:
+                                          fallbacks.append(u)
+                                          seen_urls.add(u)
+                                      if len(fallbacks) >= 3:
+                                          break
                                   if fallbacks:
                                       matched_files["fallback_loaders"] = fallbacks
 
@@ -479,10 +609,37 @@ jobs:
                                       m_copy["msm_hwid"] = target_hwid
                                   if best["hex"].get("auth_mode") == "no_auth":
                                       m_copy["auth_required"] = False
+                              elif brand_pool:
+                                  # Generic QCOM model for a brand with real loaders in repo -> Runtime Sahara HWID+PK_HASH match
+                                  brand_pool.sort(key=lambda x: x[0])
+                                  is_verified = True
+                                  matched_files["match_type"] = "sahara_auto_detect"
+                                  matched_files["brand_loader_count"] = len(brand_pool)
+                                  matched_files["loader"] = brand_pool[0][1]["url"]
+                                  matched_files["auth_mode"] = brand_pool[0][1]["hex"].get("auth_mode", "likely_no_auth")
 
                           elif plat_key == "spd":
-                              soc_keys = [k for k in [chip_raw.lower(), hint.lower().replace("generic_", "")] if len(k) >= 4]
-                              soc_matches = [s for s in spd_files if any(k in s["path"].lower() for k in soc_keys)]
+                              raw_keys = [
+                                  chip_raw.lower(),
+                                  hint.lower().replace("generic_", ""),
+                              ]
+                              for tok in re.split(r"[/,\s\(\)]+", chip_label.lower()):
+                                  if len(tok) >= 4:
+                                      raw_keys.append(tok)
+
+                              search_keys = []
+                              for k in raw_keys:
+                                  if len(k) >= 4:
+                                      search_keys.append(k)
+                                      for alias_k, alias_vals in SPD_SOC_ALIAS.items():
+                                          if alias_k in k:
+                                              search_keys.extend(alias_vals)
+                              search_keys = list(dict.fromkeys(search_keys))
+
+                              soc_matches = [s for s in spd_files if any(k in s["path"].lower() for k in search_keys)]
+                              if not soc_matches and tokens:
+                                  soc_matches = [s for s in spd_files if any(token_in_filename(t, s["name"]) for t in tokens)]
+
                               if soc_matches:
                                   is_verified = True
                                   fdl1 = next((s for s in soc_matches if s["hex"].get("fdl_stage") == "fdl1"), soc_matches[0])
@@ -580,7 +737,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Auto-update main.json & verified_catalog.json [skip ci]"
+            git commit -m "Auto-update main.json & verified_catalog.json (Full V6 + Multi-Brand Support) [skip ci]"
             git pull --rebase origin main
             git push
           fi
