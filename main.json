@@ -1,6 +1,6 @@
 {
-  "version": 220,
-  "updated_at": "2026-11-26T10:31:28Z",
+  "version": 221,
+  "updated_at": "2026-11-26T10:43:09Z",
   "primary_source": "github_raw",
   "base_url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/",
   "stats": {
@@ -17811,7 +17811,7 @@
           "sha256": "401376830343b431bb1960d86f2765b101108e997a54357ff7676e8fad6f6f2f",
           "role": "brom_payload",
           "chip_code": "MT6575",
-          "hw_code": ""
+          "hw_code": "6575"
         }
       },
       {
@@ -17863,7 +17863,7 @@
           "sha256": "8f136d8363ebb8d2e96ad618c7cc5bfa099c3b9b8bea42ccd3e5d0720f05d67d",
           "role": "brom_payload",
           "chip_code": "MT6595",
-          "hw_code": ""
+          "hw_code": "6595"
         }
       },
       {
@@ -17967,7 +17967,7 @@
           "sha256": "632bb2cb90afefd593b71d210db626b99c0ebff7413752d9b3973591833ac362",
           "role": "brom_payload",
           "chip_code": "MT6758",
-          "hw_code": ""
+          "hw_code": "0690"
         }
       },
       {
@@ -18084,7 +18084,7 @@
           "sha256": "6fbcf8af42028ced3b74cebc19df8093283f28d570915901a5db249a77486472",
           "role": "brom_payload",
           "chip_code": "MT6795",
-          "hw_code": ""
+          "hw_code": "6795"
         }
       },
       {
@@ -18097,7 +18097,7 @@
           "sha256": "2464e4e3a7dd48ddf03240b39fd569d786ec9ac8cd134cfa0ef53997f786d86b",
           "role": "brom_payload",
           "chip_code": "MT6797",
-          "hw_code": ""
+          "hw_code": "0279"
         }
       },
       {
@@ -18110,7 +18110,7 @@
           "sha256": "c0d5e29a81a0109dcfa16f39d279e1f091ae35333b5601c56cfa3c1f8c88261f",
           "role": "brom_payload",
           "chip_code": "MT6799",
-          "hw_code": ""
+          "hw_code": "0551"
         }
       },
       {
@@ -18227,7 +18227,7 @@
           "sha256": "7bf98fa19b32eab41cf26578fe5017b3e277efa22f49e134ed4192c4634c8ecf",
           "role": "brom_payload",
           "chip_code": "MT8167",
-          "hw_code": ""
+          "hw_code": "8167"
         }
       },
       {
@@ -18240,7 +18240,7 @@
           "sha256": "5438a8b24766eff2c59292090bd9ef85b62dc986b8c8bc690e03f56997fb7f5c",
           "role": "brom_payload",
           "chip_code": "MT8168",
-          "hw_code": ""
+          "hw_code": "8168"
         }
       },
       {
@@ -18253,7 +18253,7 @@
           "sha256": "1fcc63e4eae171be11a89d5d49074ae4cf4120ec97a0b9571f267dcb922cdbf3",
           "role": "brom_payload",
           "chip_code": "MT8173",
-          "hw_code": ""
+          "hw_code": "8173"
         }
       },
       {
@@ -18266,7 +18266,7 @@
           "sha256": "8c38525214cbc0d22a29ee83bf4e5ca7e573ba58264f95e4dfa6472a17877d09",
           "role": "brom_payload",
           "chip_code": "MT8176",
-          "hw_code": ""
+          "hw_code": "8176"
         }
       },
       {
@@ -19445,7 +19445,7 @@
           "sha256": "6ca80cfba740355dccc4aba84758bb7412fe5c3de9c12490fe4b920c49d27421",
           "sub_type": "full_preloader",
           "chip_code": "MT8167",
-          "hw_code": ""
+          "hw_code": "8167"
         }
       },
       {
@@ -19458,7 +19458,7 @@
           "sha256": "1dce2d166bd9d141dc9bb3ab7c71de3b68cf8f510c2f4be9f92b43a6c6fa75d5",
           "sub_type": "full_preloader",
           "chip_code": "MT8168",
-          "hw_code": ""
+          "hw_code": "8168"
         }
       },
       {
@@ -19471,7 +19471,7 @@
           "sha256": "29908fccea29afda5caa7956a569872ba4a09f0898a32a4ba338234243cf98e3",
           "sub_type": "full_preloader",
           "chip_code": "MT8168",
-          "hw_code": ""
+          "hw_code": "8168"
         }
       },
       {
@@ -26091,7 +26091,7 @@
           "sha256": "8801c8e2d532a45515e16aab8631df1fa1d6d178999e7ec37bacca7849522190",
           "sub_type": "full_preloader",
           "chip_code": "MT8173",
-          "hw_code": ""
+          "hw_code": "8173"
         }
       },
       {
@@ -32809,7 +32809,7 @@
         "hex": {
           "sha256": "a1892eef6deeda797f2468f4aa3afdb1325d689a8e48c9df0d0df8782226dbd8",
           "chip_code": "MT6575",
-          "hw_code": ""
+          "hw_code": "6575"
         }
       },
       {
@@ -32857,7 +32857,7 @@
         "hex": {
           "sha256": "2ed0fea5fc42d0eb592127a793d03104fa2bff442b9289326a7b806b1f48d647",
           "chip_code": "MT6595",
-          "hw_code": ""
+          "hw_code": "6595"
         }
       },
       {
@@ -32953,7 +32953,7 @@
         "hex": {
           "sha256": "0d605b0782398be06aeaef05578410396020f547d5bae6f968f38dfa8601d316",
           "chip_code": "MT6758",
-          "hw_code": ""
+          "hw_code": "0690"
         }
       },
       {
@@ -33061,7 +33061,7 @@
         "hex": {
           "sha256": "5d7db2353a4f8e21c56766cabe42ffe0db999fd5cfa90dec13fb8de3f7e9af8b",
           "chip_code": "MT6795",
-          "hw_code": ""
+          "hw_code": "6795"
         }
       },
       {
@@ -33073,7 +33073,7 @@
         "hex": {
           "sha256": "1718a3fff2669d75c2fa1ef1d9f289e135c47e9cbbeb908d9cf48fed01e219e3",
           "chip_code": "MT6797",
-          "hw_code": ""
+          "hw_code": "0279"
         }
       },
       {
@@ -33085,7 +33085,7 @@
         "hex": {
           "sha256": "6fee6a52dd4d150cd81ee9a1968f311abbc5c90dea8606ac25b4ee0b1f89f81c",
           "chip_code": "MT6799",
-          "hw_code": ""
+          "hw_code": "0551"
         }
       },
       {
@@ -33193,7 +33193,7 @@
         "hex": {
           "sha256": "9e735236c54c912329117a8a05876f11ca9d4c26bb97e11d4ff972b5d126c358",
           "chip_code": "MT8167",
-          "hw_code": ""
+          "hw_code": "8167"
         }
       },
       {
@@ -33205,7 +33205,7 @@
         "hex": {
           "sha256": "d741783f4a99e97da14a57d0f78a205f6a6e1c81c801bcf9ec1bd2b215234f48",
           "chip_code": "MT8168",
-          "hw_code": ""
+          "hw_code": "8168"
         }
       },
       {
@@ -33217,7 +33217,7 @@
         "hex": {
           "sha256": "94f7f984a28dc3b3a713ad86e67c353067334feda47f75a2aa0abf8dc1e7629b",
           "chip_code": "MT8173",
-          "hw_code": ""
+          "hw_code": "8173"
         }
       },
       {
@@ -33229,7 +33229,7 @@
         "hex": {
           "sha256": "13edb3b23f4d4a7634083f07c62e3412fa8e1082cc457fb12a7bf54a73b27cd0",
           "chip_code": "MT8176",
-          "hw_code": ""
+          "hw_code": "8176"
         }
       },
       {
