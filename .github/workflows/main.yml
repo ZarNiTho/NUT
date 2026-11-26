@@ -1,4 +1,4 @@
-name: Auto Generate main.json & verified_catalog.json
+name: Build App Catalog From Expert Map
 
 on:
   workflow_dispatch:
@@ -7,767 +7,596 @@ on:
       - main
     paths-ignore:
       - "main.json"
-      - "verified_catalog.json"
+      - "appcatlog.json"
+      - "report.txt"
       - ".github/**"
 
 permissions:
   contents: write
 
 concurrency:
-  group: auto-generate-json
+  group: build-app-catalog
   cancel-in-progress: false
 
 jobs:
-  build-index-and-catalog:
+  build-catalog:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Scan All Binaries, Generate main.json & Build verified_catalog.json (Ready + Test Tiers)
+      - name: Scan all files and generate catalog outputs
+        env:
+          PYTHONUTF8: "1"
         run: |
-          python3 - << 'EOF'
+          python3 - <<'PY'
           import hashlib
           import json
           import os
           import re
+          import sys
+          from collections import Counter, defaultdict
           from datetime import datetime, timezone
+          from pathlib import Path
           from urllib.parse import quote
 
-          REPO_FULL = os.environ.get("GITHUB_REPOSITORY", "ZarNiTho/NUT")
-          BRANCH = "main"
-          BASE_URL = f"https://raw.githubusercontent.com/{REPO_FULL}/{BRANCH}/"
+          ROOT = Path.cwd()
+          BRANCH = os.environ.get("GITHUB_REF_NAME", "main")
+          REPO = os.environ.get("GITHUB_REPOSITORY", "")
+          BASE_URL = f"https://raw.githubusercontent.com/{REPO}/{quote(BRANCH, safe='')}/" if REPO else ""
+          NOW = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-          IGNORED_DIRS = {".git", ".github", "__pycache__", "node_modules"}
-          IGNORED_FILES = {
-              "main.json",
-              "verified_catalog.json",
-              "device_catalog.json",
-              "model_map.json",
-              ".gitignore",
-              ".DS_Store",
-              "README.md",
-              "LICENSE",
-              "putyourloadersinhere.txt",
-              "init.py",
-              "__init__.py",
-          }
-          IGNORED_EXTENSIONS = {".py", ".md", ".yml", ".yaml", ".json", ".txt"}
+          CATALOG_CANDIDATES = ("device_catalogue.json", "device_catalog.json")
+          GENERATED = {"main.json", "appcatlog.json", "report.txt", "report.json"}
+          CATALOG_NAMES = set(CATALOG_CANDIDATES)
+          SKIP_DIRS = {".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache"}
+          SKIP_FILES = GENERATED | CATALOG_NAMES
+          RELEVANT_EXTS = {".mbn", ".elf", ".bin", ".h", ".hex", ".img", ".xml", ".json"}
+          MAX_HASH_BYTES = 512 * 1024 * 1024
 
-          # Binary & Filename Regex
-          RE_QC_HWID = re.compile(rb"02\s+([0-9A-Fa-f]{16})\s+HW_ID")
-          RE_QC_OEMID = re.compile(rb"04\s+([0-9A-Fa-f]{4,8})\s+OEM_ID")
-          RE_QC_MODELID = re.compile(rb"05\s+([0-9A-Fa-f]{4,8})\s+MODEL_ID")
-          RE_QC_SWID = re.compile(rb"01\s+([0-9A-Fa-f]{16})\s+SW_ID")
-          RE_QC_FNAME = re.compile(r"^([0-9a-fA-F]{16})_([0-9a-fA-F]{16,64})")
-          RE_MTK_CHIP = re.compile(rb"(MT[0-9]{4}[A-Z]?)")
-          RE_MTK_FNAME_CHIP = re.compile(r"(mt[0-9]{4}[a-z]?)", re.IGNORECASE)
-          RE_MTK_HWCODE_PREFIX = re.compile(r"^([0-9a-fA-F]{4})_")
-          RE_SPD_SOC = re.compile(r"(ums[0-9]{4}|sc[0-9]{4}[a-z]?|ud[0-9]{3}|t[0-9]{3})", re.IGNORECASE)
-          RE_PAREN = re.compile(r"\(([^)]+)\)")
-          RE_BRACKET = re.compile(r"\[([^\]]+)\]")
+          def norm(value):
+              value = str(value or "").lower()
+              value = value.replace("\\", "/")
+              value = re.sub(r"[^a-z0-9]+", " ", value)
+              return re.sub(r"\s+", " ", value).strip()
 
-          # Full MTK Chip -> HW_CODE Map
-          MTK_CHIP_TO_HWCODE = {
-              "MT6572": "6572", "MT6575": "6575", "MT6580": "6580", "MT6582": "6582",
-              "MT6592": "6592", "MT6595": "6595", "MT6735": "0321", "MT6737": "0335",
-              "MT6738": "0335", "MT6739": "0699", "MT6750": "0326", "MT6752": "6752",
-              "MT6753": "0335", "MT6755": "0326", "MT6757": "0551", "MT6758": "0690",
-              "MT6761": "0717", "MT6762": "0766", "MT6763": "0690", "MT6765": "0766",
-              "MT6768": "0707", "MT6769": "0707", "MT6771": "0788", "MT6779": "0813",
-              "MT6781": "1208", "MT6785": "0813", "MT6789": "1209", "MT6795": "6795",
-              "MT6797": "0279", "MT6799": "0551", "MT6833": "0989", "MT6835": "1291",
-              "MT6853": "0959", "MT6855": "1291", "MT6873": "0886", "MT6875": "0886",
-              "MT6877": "0959", "MT6885": "0816", "MT6889": "0816", "MT6891": "0816",
-              "MT6893": "0816", "MT6895": "1296", "MT6897": "1304", "MT6983": "1295",
-              "MT6985": "1303", "MT6989": "1305", "MT8127": "8127", "MT8163": "8163",
-              "MT8167": "8167", "MT8168": "8168", "MT8173": "8173", "MT8176": "8176",
-          }
+          def compact(value):
+              return re.sub(r"[^a-z0-9]", "", str(value or "").lower())
 
-          MTK_PAYLOAD_FALLBACK = {
-              "MT6769": "MT6768",
-              "MT6762": "MT6765",
-              "MT6738": "MT6737",
-              "MT6750": "MT6755",
-              "MT6875": "MT6873",
-              "MT6889": "MT6885",
-              "MT6891": "MT6893",
-          }
+          def unique(items):
+              out = []
+              seen = set()
+              for item in items:
+                  item = str(item).strip()
+                  if item and item not in seen:
+                      seen.add(item)
+                      out.append(item)
+              return out
 
-          QCOM_BRAND_ALIAS = {
-              "xiaomi": ["xiaomi", "bl", "blackshark", "longcheer"],
-              "poco": ["xiaomi", "bl"],
-              "redmi": ["xiaomi", "bl"],
-              "oppo": ["oppo", "oneplus"],
-              "realme": ["oppo", "realme", "oneplus"],
-              "oneplus": ["oneplus", "oppo"],
-              "vivo": ["vivo"],
-              "iqoo": ["vivo"],
-              "samsung": ["samsung"],
-              "huawei": ["huawei"],
-              "honor": ["huawei"],
-              "motorola": ["lenovo_motorola", "motorola"],
-              "lenovo": ["lenovo_motorola", "lenovo"],
-              "nokia": ["nokia_foxconn", "nokia"],
-              "asus": ["asus_wingtech", "asus"],
-              "lg": ["lg"],
-              "zte": ["zte"],
-              "tcl": ["tcl"],
-              "alcatel": ["tcl"],
-              "meizu": ["meizu"],
-              "sony": ["sony"],
-              "nothing": ["nothing"],
-              "coolpad": ["yulong_coolpad"],
-              "gionee": ["gionee"],
-              "hisense": ["hisense_agm"],
-              "leeco": ["letv"],
-              "micromax": ["micromax", "mmx"],
-              "blackberry": ["blackberry"],
-              "sharp": ["sharp"],
-              "smartisan": ["smartisan"],
-              "google": ["qualcomm"],
-              "auto_generic": ["qualcomm"],
-          }
+          def url_for(rel):
+              return BASE_URL + quote(rel, safe="/") if BASE_URL else rel
 
-          QCOM_SOC_TO_HWID = {
-              "MSM8909": "009600E1", "SD210": "009600E1", "210": "009600E1",
-              "MSM8916": "007050E1", "SD410": "007050E1", "410": "007050E1",
-              "MSM8917": "000560E1", "SD425": "000560E1", "425": "000560E1",
-              "MSM8926": "008050E1", "MSM8928": "009180E1", "MSM8929": "0091B0E1",
-              "MSM8937": "0004F0E1", "SD430": "0004F0E1", "430": "0004F0E1",
-              "MSM8939": "0090B0E1", "SD615": "0090B0E1", "615": "0090B0E1",
-              "MSM8940": "0006B0E1", "SD435": "0006B0E1", "435": "0006B0E1",
-              "MSM8952": "009720E1", "SD617": "009720E1", "617": "009720E1",
-              "MSM8953": "000460E1", "SDM625": "000460E1", "SD625": "000460E1", "625": "000460E1", "626": "000460E1",
-              "MSM8974": "007B00E1", "SD801": "007B00E1",
-              "MSM8976": "009900E1", "SD650": "009900E1", "SD652": "009900E1", "650": "009900E1", "652": "009900E1",
-              "MSM8992": "009400E1", "MSM8994": "009400E1", "SD810": "009400E1",
-              "MSM8996": "009470E1", "SD820": "009470E1", "SD821": "0005F0E1",
-              "SDM429": "000BE0E1", "SD429": "000BE0E1", "429": "000BE0E1",
-              "SDM439": "000BF0E1", "SD439": "000BF0E1", "439": "000BF0E1",
-              "SDM450": "0009A0E1", "SD450": "0009A0E1", "450": "0009A0E1",
-              "SDM630": "000AC0E1", "SD630": "000AC0E1", "630": "000AC0E1",
-              "SDM632": "000BA0E1", "SD632": "000BA0E1", "632": "000BA0E1",
-              "SDM636": "000CC0E1", "SD636": "000CC0E1", "636": "000CC0E1",
-              "SDM660": "30060000", "SD660": "30060000", "660": "30060000",
-              "SDM665": "000E60E1", "SM6125": "000E60E1", "SD665": "000E60E1", "665": "000E60E1",
-              "SDM670": "000910E1", "SD670": "000910E1", "670": "000910E1",
-              "SDM675": "000DB0E1", "SM6150": "000DB0E1", "SD675": "000DB0E1", "675": "000DB0E1",
-              "SDM710": "60040000", "SD710": "60040000", "710": "60040000",
-              "SDM712": "000930E1", "SD712": "000930E1", "712": "000930E1",
-              "SDM835": "30020000", "SD835": "30020000", "835": "30020000",
-              "SDM845": "60000000", "SD845": "60000000", "845": "60000000",
-              "SDM855": "000A50E1", "SM8150": "000A50E1", "SD855": "000A50E1", "855": "000A50E1",
-              "SM4250": "001360E1", "SM6115": "001360E1", "SD460": "001360E1", "SD662": "001360E1", "460": "001360E1", "662": "001360E1",
-              "SM4350": "0016F0E1", "SD480": "0016F0E1", "480": "0016F0E1",
-              "SM6225": "001700E1", "SD680": "001700E1", "680": "001700E1", "685": "001700E1",
-              "SM6250": "0013F0E1", "SM7125": "0013F0E1", "SD720G": "0013F0E1", "720G": "0013F0E1",
-              "SM6375": "001B80E1", "SD695": "001B80E1", "695": "001B80E1",
-              "SM7150": "000950E1", "SD730": "000950E1", "SD732": "000950E1", "730": "000950E1", "732": "000950E1",
-              "SM7225": "0016F0E1", "SD750G": "0016F0E1", "750G": "0016F0E1",
-              "SM7250": "0011E0E1", "SD765": "0011E0E1", "SD768": "0011E0E1", "765": "0011E0E1",
-              "SM7325": "001870E1", "SD778": "001870E1", "778G": "001870E1", "778": "001870E1",
-              "SM8250": "000C30E1", "SD865": "000C30E1", "SD870": "000C30E1", "865": "000C30E1", "870": "000C30E1",
-              "SM8350": "001350E1", "SD888": "001350E1", "888": "001350E1",
-              "SM8450": "001920E1", "SM8475": "001920E1", "8 GEN 1": "001920E1",
-              "SM8550": "001D20E1", "8 GEN 2": "001D20E1",
-              "QCM2290": "001860E1", "QM215": "000BF0E1",
-          }
+          def sha256_file(path):
+              h = hashlib.sha256()
+              with path.open("rb") as f:
+                  while True:
+                      block = f.read(1024 * 1024)
+                      if not block:
+                          break
+                      h.update(block)
+              return h.hexdigest()
 
-          SPD_SOC_ALIAS = {
-              "t606": ["ums9230", "t606"],
-              "t612": ["ums9230", "t612"],
-              "t616": ["ums9230", "t616"],
-              "t603": ["sc9863a", "ums9230", "t603"],
-              "t610": ["ums512", "t610"],
-              "t618": ["ums512", "t618"],
-              "t310": ["ums312", "t310"],
-              "t700": ["ums512", "ums9620", "t700"],
-              "t760": ["ums9620", "t760"],
-              "t820": ["ums9620", "t820"],
-              "sc9863a": ["sc9863a", "9863"],
-              "sc9832e": ["sc9832e", "9832"],
-              "sc7731e": ["sc7731e", "7731"],
-              "sc9850": ["sc9850", "9850"],
-              "sc6531": ["sc6531", "6531"],
-              "ums9230": ["ums9230", "t606", "t612", "t616"],
-              "ums512": ["ums512", "t610", "t618"],
-              "ums312": ["ums312", "t310"],
-              "ud710": ["ud710", "ums9620"],
-          }
+          def read_sample(path, limit=1024 * 1024):
+              with path.open("rb") as f:
+                  return f.read(limit)
 
-          AUTH_STRINGS = [
-              b"digestsToSign", b"edl_auth", b"xiaomi_auth", b"oppo_auth",
-              b"verify_sig", b"VIP_AUTH", b"AuthRequired"
-          ]
-
-
-          def make_url(rel_path: str) -> str:
-              return BASE_URL + quote(rel_path, safe="/")
-
-
-          def get_next_version(json_path: str = "main.json") -> int:
-              if not os.path.isfile(json_path):
-                  return 1
-              try:
-                  with open(json_path, "r", encoding="utf-8") as f:
-                      old_ver = json.load(f).get("version")
-                  if isinstance(old_ver, int):
-                      return old_ver + 1
-              except Exception:
-                  pass
-              return 1
-
-
-          def normalize_mtk_chip(chip_code: str) -> str:
-              c = str(chip_code or "").upper().strip()
-              m = re.search(r"MT[0-9]{4}", c)
-              return m.group(0) if m else ""
-
-
-          def extract_tokens(text: str) -> list:
-              tokens = []
-              for m in RE_PAREN.findall(text or ""):
-                  for part in re.split(r"[/,\s]+", m.strip()):
-                      clean = re.sub(r"[^a-zA-Z0-9_-]", "", part).lower()
-                      if len(clean) >= 3:
-                          tokens.append(clean)
-                          if clean.startswith("sm-"):
-                              tokens.append(clean[3:])
-              for m in RE_BRACKET.findall(text or ""):
-                  clean = re.sub(r"[^a-zA-Z0-9_-]", "", m.strip()).lower()
-                  if len(clean) >= 3:
-                      tokens.append(clean)
-              return list(dict.fromkeys(tokens))
-
-
-          def token_in_filename(token: str, filename: str) -> bool:
-              pattern = rf"(?:^|[_\-\s\[\(]){re.escape(token.lower())}(?:$|[_\-\s\]\)\.])"
-              return bool(re.search(pattern, filename.lower()))
-
-
-          def analyze_binary(full_path: str, filename: str, rel_path: str) -> tuple:
-              with open(full_path, "rb") as f:
-                  data = f.read()
-
-              size = len(data)
-              sha256 = hashlib.sha256(data).hexdigest()
-              head = data[:4096]
-              fname_lower = filename.lower()
-              path_lower = rel_path.lower()
-              hex_meta = {"sha256": sha256}
-
-              # 1. MTK DA
-              if b"MTK_DOWNLOAD_AGENT" in head or b"MTK_ALLINONE_DA" in head or path_lower.startswith("da/"):
-                  da_ver = "V6" if (b"V6" in head or "v6" in fname_lower or b"XML" in head) else "V5"
-                  hex_meta.update({"header": "MTK_DOWNLOAD_AGENT", "da_version": da_ver})
-                  return "mtk_da", hex_meta, size
-
-              # 2. MTK Preloader / EMI
-              is_mmm = (b"MMM\x01" in head or b"MTK_BLOADER_INFO" in data[:65536] or b"EMMC_BOOT" in head)
-              if is_mmm or "preloader" in fname_lower or path_lower.startswith("preloader/"):
-                  sub_type = "full_preloader" if (is_mmm or size > 32768) else "emi_table"
-                  hex_meta["sub_type"] = sub_type
-                  hw_m = RE_MTK_HWCODE_PREFIX.match(filename)
-                  if hw_m:
-                      hex_meta["hw_code"] = hw_m.group(1).upper()
-                  chip_m = RE_MTK_CHIP.search(data[:65536])
-                  if chip_m:
-                      c_norm = normalize_mtk_chip(chip_m.group(1).decode("ascii", errors="ignore"))
-                      if c_norm:
-                          hex_meta["chip_code"] = c_norm
-                          hex_meta.setdefault("hw_code", MTK_CHIP_TO_HWCODE.get(c_norm, ""))
-                  else:
-                      fn_chip = RE_MTK_FNAME_CHIP.search(filename)
-                      if fn_chip:
-                          c_norm = normalize_mtk_chip(fn_chip.group(1))
-                          if c_norm:
-                              hex_meta["chip_code"] = c_norm
-                              hex_meta.setdefault("hw_code", MTK_CHIP_TO_HWCODE.get(c_norm, ""))
-                  return "mtk_preloader", hex_meta, size
-
-              # 3. Qualcomm Loader
-              is_elf = data[:4] == b"\x7fELF"
-              m_hwid = RE_QC_HWID.search(data)
-              m_oem = RE_QC_OEMID.search(data)
-              m_model = RE_QC_MODELID.search(data)
-              m_swid = RE_QC_SWID.search(data)
-              m_fn = RE_QC_FNAME.match(filename)
-
-              if (
-                  is_elf or m_hwid or m_swid
-                  or "fhprg" in fname_lower or "firehose" in fname_lower
-                  or "enprg" in fname_lower or "nprg" in fname_lower
-                  or path_lower.startswith("loaders/") or path_lower.startswith("bl/")
-              ):
-                  hex_meta["format"] = "ELF" if is_elf else "MBN_BIN"
-                  if m_hwid:
-                      full_hwid = m_hwid.group(1).decode("ascii").upper()
-                      hex_meta.update({
-                          "hwid_full": full_hwid,
-                          "msm_hwid": full_hwid[:8],
-                          "oem_id": full_hwid[8:12],
-                          "model_id": full_hwid[12:16],
-                          "meta_source": "binary_cert",
-                      })
-                  elif m_fn:
-                      full_hwid = m_fn.group(1).upper()
-                      hex_meta.update({
-                          "hwid_full": full_hwid,
-                          "msm_hwid": full_hwid[:8],
-                          "oem_id": full_hwid[8:12],
-                          "model_id": full_hwid[12:16],
-                          "meta_source": "filename",
-                      })
-
-                  if m_oem:
-                      hex_meta["oem_id"] = m_oem.group(1).decode("ascii").upper()
-                  if m_model:
-                      hex_meta["model_id"] = m_model.group(1).decode("ascii").upper()
-                  if m_fn:
-                      hex_meta["pk_hash"] = m_fn.group(2).lower()
-
-                  if any(k in path_lower for k in ("noauth", "no_auth", "patched", "bypass")):
-                      hex_meta["auth_mode"] = "no_auth"
-                      hex_meta["priority"] = 1
-                  elif "edlauth" in path_lower or any(s in data for s in AUTH_STRINGS):
-                      hex_meta["auth_mode"] = "auth_required"
-                      hex_meta["priority"] = 3
-                  else:
-                      hex_meta["auth_mode"] = "likely_no_auth"
-                      hex_meta["priority"] = 2
-
-                  return "qcom_loader", hex_meta, size
-
-              # 4. SPD / Unisoc FDL
-              is_dhtb = data[:4] == b"DHTB"
-              if is_dhtb or b"SPRD" in head or "fdl1" in fname_lower or "fdl2" in fname_lower or path_lower.startswith("spd/"):
-                  hex_meta["header"] = "DHTB" if is_dhtb else "SPD_RAW"
-                  if "fdl1" in fname_lower:
-                      hex_meta["fdl_stage"] = "fdl1"
-                  elif "fdl2" in fname_lower:
-                      hex_meta["fdl_stage"] = "fdl2"
-                  soc_m = RE_SPD_SOC.search(rel_path)
-                  if soc_m:
-                      hex_meta["soc_hint"] = soc_m.group(1).upper()
-                  return "spd_fdl", hex_meta, size
-
-              # 5. MTK Targets
-              if path_lower.startswith("targets/"):
-                  fn_chip = RE_MTK_FNAME_CHIP.search(filename)
-                  if fn_chip:
-                      c_norm = normalize_mtk_chip(fn_chip.group(1))
-                      if c_norm:
-                          hex_meta["chip_code"] = c_norm
-                          hex_meta["hw_code"] = MTK_CHIP_TO_HWCODE.get(c_norm, "")
-                  return "mtk_target", hex_meta, size
-
-              # 6. MTK Payloads
-              if (
-                  "payload" in fname_lower
-                  or fname_lower in {"da_x.bin", "da_xml.bin", "da_xml_64.bin", "pl.bin", "stage2.bin"}
-                  or fname_lower.startswith("heapbait")
-                  or path_lower.startswith("payloads/")
-              ):
-                  hex_meta["role"] = "da_ext" if fname_lower in {"da_x.bin", "da_xml.bin", "da_xml_64.bin", "pl.bin", "stage2.bin"} else "brom_payload"
-                  fn_chip = RE_MTK_FNAME_CHIP.search(filename)
-                  if fn_chip:
-                      c_norm = normalize_mtk_chip(fn_chip.group(1))
-                      if c_norm:
-                          hex_meta["chip_code"] = c_norm
-                          hex_meta["hw_code"] = MTK_CHIP_TO_HWCODE.get(c_norm, "")
-                  return "mtk_payload", hex_meta, size
-
-              # 7. Raw / Other (Zero files discarded)
-              hex_meta["format"] = "RAW"
-              return "raw_other", hex_meta, size
-
-
-          def scan_repository() -> tuple:
-              folders = {}
-              root_files = []
-              all_entries = []
-              type_counts = {}
-
-              for root, dirs, files in os.walk("."):
-                  dirs[:] = sorted(d for d in dirs if d not in IGNORED_DIRS and not d.startswith("."))
-                  for filename in sorted(files):
-                      if filename in IGNORED_FILES or filename.startswith("."):
-                          continue
-                      ext = os.path.splitext(filename)[1].lower()
-                      if ext in IGNORED_EXTENSIONS:
-                          continue
-
-                      full_path = os.path.join(root, filename)
-                      rel_path = os.path.relpath(full_path, ".").replace("\\", "/")
-                      parts = rel_path.split("/")
-
-                      file_type, hex_meta, size = analyze_binary(full_path, filename, rel_path)
-                      type_counts[file_type] = type_counts.get(file_type, 0) + 1
-
-                      entry = {
-                          "name": filename,
-                          "path": rel_path,
-                          "type": file_type,
-                          "size": size,
-                          "url": make_url(rel_path),
-                          "hex": hex_meta,
-                      }
-                      if len(parts) > 2:
-                          entry["subfolder"] = "/".join(parts[1:-1])
-
-                      all_entries.append(entry)
-                      if len(parts) == 1:
-                          root_files.append(entry)
-                      else:
-                          folders.setdefault(parts[0], []).append(entry)
-
-              sorted_folders = dict(sorted(folders.items(), key=lambda x: x[0].lower()))
-              sorted_types = dict(sorted(type_counts.items(), key=lambda x: x[0]))
-              return sorted_folders, root_files, all_entries, sorted_types
-
-
-          def build_verified_catalog(all_entries: list, main_version: int):
-              if not os.path.isfile("device_catalog.json"):
-                  print("device_catalog.json not found in repo root — skipping verified_catalog.json.")
-                  return
-
-              with open("device_catalog.json", "r", encoding="utf-8") as f:
-                  catalog = json.load(f)
-
-              mtk_da_v5 = (
-                  next((e for e in all_entries if e["name"].lower() == "mtk_da_v5.bin"), None)
-                  or next((e for e in all_entries if e["type"] == "mtk_da" and e["hex"].get("da_version") == "V5"), None)
-              )
-              mtk_da_v6 = (
-                  next((e for e in all_entries if e["name"].lower() == "mtk_da_v6.bin"), None)
-                  or next((e for e in all_entries if e["type"] == "mtk_da" and e["hex"].get("da_version") == "V6"), None)
-              )
-              mtk_da_xml = next((e for e in all_entries if e["name"].lower() == "da_xml.bin"), None)
-              mtk_da_xml64 = next((e for e in all_entries if e["name"].lower() == "da_xml_64.bin"), None)
-              mtk_generic_stage1 = next((e for e in all_entries if e["name"].lower() == "generic_stage1_payload.bin"), None)
-              mtk_da_x = next((e for e in all_entries if e["name"].lower() == "da_x.bin"), None)
-
-              mtk_payloads = {e["hex"]["chip_code"]: e for e in all_entries if e["type"] == "mtk_payload" and e["hex"].get("chip_code")}
-              mtk_preloaders = [e for e in all_entries if e["type"] == "mtk_preloader"]
-              qcom_loaders = [e for e in all_entries if e["type"] == "qcom_loader"]
-              spd_files = [e for e in all_entries if e["type"] == "spd_fdl"]
-
-              verified_platforms = {}
-              stats = {
-                  "total_models": 0,
-                  "ready_models": 0,
-                  "test_models": 0,
-                  "omitted_unverified": 0,
+          def parse_qcom_filename(name):
+              # Common firehose form:
+              # 000ba0e100000000_6d6287d60bc71172_fhprg_peek.bin
+              m = re.match(r"^([0-9a-fA-F]{16})_([0-9a-fA-F]{16,64})(?:_|$)", name)
+              if not m:
+                  return {}
+              full = m.group(1).upper()
+              return {
+                  "hwid_full": full,
+                  "msm_hwid": full[:8],
+                  "oem_id": full[8:12],
+                  "model_id": full[12:16],
+                  "pk_hash": m.group(2).lower(),
+                  "metadata_source": "filename"
               }
 
-              for plat_key, plat_data in catalog.get("platforms", {}).items():
-                  v_brands = []
-                  plat_count = 0
+          QCOM_ID_RE = re.compile(rb"(?:HW_ID|HWID)\s*[:=]?\s*([0-9A-Fa-f]{8,16})")
+          QCOM_OEM_RE = re.compile(rb"(?:OEM_ID|OEMID)\s*[:=]?\s*([0-9A-Fa-f]{4,8})")
+          QCOM_MODEL_RE = re.compile(rb"(?:MODEL_ID|MODELID)\s*[:=]?\s*([0-9A-Fa-f]{4,8})")
+          MTK_CHIP_RE = re.compile(rb"MT[0-9]{4}[A-Z]?", re.I)
+          SPD_RE = re.compile(rb"(?:UMS[0-9]{3,5}|SC[0-9]{4}[A-Z]?|UD[0-9]{3}|T[0-9]{3,4})", re.I)
 
-                  for brand in plat_data.get("brands", []):
-                      brand_key = str(brand.get("key", "")).lower()
-                      v_models = []
+          def classify_file(path, data):
+              rel = path.relative_to(ROOT).as_posix()
+              name = path.name
+              low = rel.lower()
+              ext = path.suffix.lower()
+              meta = {}
+              role = "other"
+              platform = "unknown"
 
+              qname = parse_qcom_filename(name)
+              if qname:
+                  meta.update(qname)
+                  platform = "qcom"
+                  role = "qcom_loader"
+
+              if data[:4] == b"\x7fELF" or b"fhprg" in name.lower().encode():
+                  if "firehose" in low or "fhprg" in low or "loader" in low or qname:
+                      platform = "qcom"
+                      role = "qcom_loader"
+                      meta["format"] = "ELF" if data[:4] == b"\x7fELF" else "BIN/MBN"
+
+              if not qname:
+                  for key, regex in (("hwid_full", QCOM_ID_RE), ("oem_id", QCOM_OEM_RE), ("model_id", QCOM_MODEL_RE)):
+                      m = regex.search(data[:4 * 1024 * 1024])
+                      if m:
+                          value = m.group(1).decode("ascii", "ignore").upper()
+                          meta[key] = value
+                          platform = "qcom"
+                          role = "qcom_loader"
+                  if meta.get("hwid_full"):
+                      full = meta["hwid_full"].zfill(16)
+                      meta.update({"hwid_full": full, "msm_hwid": full[:8], "oem_id": full[8:12], "model_id": full[12:16]})
+
+              if platform == "unknown" and (
+                  "preloader" in low or low.startswith("preloader/") or
+                  b"MTK_DOWNLOAD_AGENT" in data[:65536] or b"MTK_ALLINONE_DA" in data[:65536] or
+                  b"MTK_BLOADER_INFO" in data[:65536] or b"EMMC_BOOT" in data[:65536] or
+                  low.startswith("da/") or low.startswith("payload") or low.startswith("targets/") or
+                  "payload" in name.lower()
+              ):
+                  platform = "mtk"
+                  if "preloader" in low or b"MTK_BLOADER_INFO" in data[:65536] or b"EMMC_BOOT" in data[:65536]:
+                      role = "mtk_preloader"
+                  elif low.startswith("da/") or b"MTK_DOWNLOAD_AGENT" in data[:65536] or b"MTK_ALLINONE_DA" in data[:65536]:
+                      role = "mtk_da"
+                  elif low.startswith("targets/") or ext == ".h":
+                      role = "mtk_target"
+                  else:
+                      role = "mtk_payload"
+                  chip = MTK_CHIP_RE.search(data[:4 * 1024 * 1024])
+                  if chip:
+                      meta["chip_code"] = chip.group(0).decode("ascii", "ignore").upper()
+                  hw = re.match(r"^([0-9a-fA-F]{4})_", name)
+                  if hw:
+                      meta["hw_code"] = hw.group(1).upper()
+
+              if platform == "unknown" and (
+                  low.startswith("spd/") or "fdl1" in low or "fdl2" in low or
+                  data[:4] == b"DHTB" or b"SPRD" in data[:65536]
+              ):
+                  platform = "spd"
+                  role = "spd_fdl"
+                  meta["fdl_stage"] = "fdl1" if "fdl1" in low else ("fdl2" if "fdl2" in low else "unknown")
+                  soc = SPD_RE.search((rel).encode("utf-8", "ignore"))
+                  if soc:
+                      meta["soc_hint"] = soc.group(0).decode("ascii", "ignore").lower()
+
+              if platform == "unknown":
+                  if ext == ".mbn":
+                      role = "possible_qcom_mbn"
+                  elif ext == ".elf":
+                      role = "possible_elf_loader"
+                  elif ext == ".bin":
+                      role = "unknown_bin"
+                  elif ext == ".h":
+                      role = "header"
+
+              lower_bytes = data[:4 * 1024 * 1024].lower()
+              if any(x in low for x in ("noauth", "no_auth", "patched", "bypass")):
+                  meta["auth_mode"] = "no_auth_hint"
+              elif any(x in lower_bytes for x in (b"edl_auth", b"xiaomi_auth", b"authrequired", b"verify_sig")) or "edlauth" in low:
+                  meta["auth_mode"] = "auth_required_hint"
+              else:
+                  meta["auth_mode"] = "unknown"
+
+              return platform, role, meta
+
+          def catalog_tokens(model):
+              # Use model/codename/model-number evidence only. The brand is
+              # scored separately, so a brand folder alone must never prove a
+              # specific model match.
+              raw = str(model or "")
+              words = re.findall(r"[a-z0-9]+", raw.lower())
+              stop = {
+                  "the", "and", "phone", "mobile", "smartphone", "pro", "plus", "ultra", "lite",
+                  "max", "mini", "global", "dual", "sim", "5g", "4g", "2020", "2021", "2022", "2023", "2024",
+                  "auth", "brom", "edl", "odin", "unknown", "test", "tp", "frp", "usb"
+              }
+              useful = []
+              for w in words:
+                  if len(w) >= 3 and w not in stop and (any(c.isdigit() for c in w) or len(w) >= 5):
+                      useful.append(w)
+              # Model-number fragments in parentheses are valuable evidence.
+              codes = re.findall(r"[A-Za-z]{1,8}[-_]?[0-9]{2,}[A-Za-z0-9-]*|[0-9]{3,}[A-Za-z]?", raw)
+              useful.extend(x.lower() for x in codes)
+              return unique(useful)
+
+          def file_tokens(entry):
+              text = f"{entry['name']} {entry['path']}".lower()
+              return set(re.findall(r"[a-z0-9]+", text))
+
+          def connection_family(value):
+              s = norm(value)
+              if any(x in s for x in ("edl", "qcom", "qualcomm")):
+                  return "qcom"
+              if any(x in s for x in ("brom", "preloader", "mtk", "mediatek")):
+                  return "mtk"
+              if any(x in s for x in ("fdl", "spd", "unisoc", "sprd")):
+                  return "spd"
+              if any(x in s for x in ("odin", "samsung")):
+                  return "samsung"
+              return "unknown"
+
+          def model_match(model, files):
+              brand = str(model.get("brand", "")).strip()
+              name = str(model.get("model", "")).strip()
+              engine = norm(model.get("engine", "unknown"))
+              expected = "qcom" if engine in ("qcom", "qualcomm") else ("spd" if engine in ("spd", "unisoc", "sprd") else ("samsung" if engine in ("odin", "samsung") else ("mtk" if engine in ("mtk", "mediatek") else "unknown")))
+              required_connection = connection_family(model.get("connection", ""))
+              brand_token = compact(brand)
+              tokens = [t for t in catalog_tokens(name) if compact(t) != brand_token]
+              candidates = []
+
+              for f in files:
+                  fp = f["platform"]
+                  if expected != "unknown" and fp != expected:
+                      # Odin entries may use Samsung protocol files; do not mix with unrelated files.
+                      continue
+                  ft = file_tokens(f)
+                  evidence = []
+                  score = 0
+                  brand_norm = compact(brand)
+                  path_norm = compact(f["path"])
+                  model_norm = compact(name)
+
+                  if expected == fp and expected != "unknown":
+                      score += 12
+                      evidence.append("platform_match")
+
+                  if brand_norm and brand_norm in path_norm:
+                      score += 16
+                      evidence.append("brand_path_match")
+
+                  # Exact model/codename/model-number fragments found in filename or path.
+                  exact_tokens = []
+                  for token in tokens:
+                      ct = compact(token)
+                      if len(ct) >= 4 and (ct in path_norm or token in ft):
+                          exact_tokens.append(token)
+                  if exact_tokens:
+                      score += min(42, 18 + 8 * len(set(exact_tokens)))
+                      evidence.append("model_or_codename_token:" + ",".join(sorted(set(exact_tokens))[:6]))
+
+                  if fp == "qcom":
+                      cat_chip = compact(model.get("chip_code", ""))
+                      hw = compact(f["meta"].get("msm_hwid", ""))
+                      if cat_chip and hw and (cat_chip.endswith(hw) or hw.endswith(cat_chip)):
+                          score += 35
+                          evidence.append("qcom_hwid_match")
+                      if f["meta"].get("pk_hash"):
+                          score += 4
+                          evidence.append("qcom_pk_hash_present")
+                      if f["role"] == "qcom_loader":
+                          score += 10
+                          evidence.append("qcom_loader_role")
+
+                  elif fp == "mtk":
+                      cat_chip = compact(model.get("chip_code", ""))
+                      file_chip = compact(f["meta"].get("chip_code", ""))
+                      if cat_chip and file_chip and (cat_chip == file_chip or cat_chip in file_chip or file_chip in cat_chip):
+                          score += 28
+                          evidence.append("mtk_chip_match")
+                      if f["role"] == "mtk_preloader":
+                          score += 12
+                          evidence.append("preloader_present")
+                      if f["role"] in ("mtk_da", "mtk_payload"):
+                          score += 8
+                          evidence.append("mtk_support_file_present")
+                      required_auth = "auth" in norm(model.get("connection", ""))
+                      file_auth = f["meta"].get("auth_mode") == "auth_required_hint"
+                      if required_auth == file_auth and f["meta"].get("auth_mode") != "unknown":
+                          score += 8
+                          evidence.append("auth_requirement_consistent")
+
+                  elif fp == "spd":
+                      if f["role"] == "spd_fdl":
+                          score += 20
+                          evidence.append("spd_fdl_present")
+                      soc = compact(f["meta"].get("soc_hint", ""))
+                      if soc and any(soc in compact(t) for t in tokens):
+                          score += 24
+                          evidence.append("spd_soc_match")
+
+                  elif fp == "samsung":
+                      if f["role"] in ("possible_elf_loader", "qcom_loader", "other"):
+                          score += 10
+                          evidence.append("samsung_protocol_file_candidate")
+
+                  if required_connection == fp and required_connection != "unknown":
+                      score += 8
+                      evidence.append("connection_family_match")
+
+                  if score >= 20:
+                      candidates.append({
+                          "path": f["path"],
+                          "url": f["url"],
+                          "role": f["role"],
+                          "sha256": f["sha256"],
+                          "score": min(score, 100),
+                          "evidence": unique(evidence)
+                      })
+
+              candidates.sort(key=lambda x: (-x["score"], x["path"]))
+              best = candidates[:12]
+              if not best:
+                  return None
+
+              best_score = best[0]["score"]
+              roles = {x["role"] for x in best}
+              has_model_signal = any(any(e.startswith(("model_or_codename", "qcom_hwid", "mtk_chip", "spd_soc")) for e in x["evidence"]) for x in best)
+              has_support_file = bool(roles & {"qcom_loader", "mtk_preloader", "mtk_da", "mtk_payload", "spd_fdl", "possible_elf_loader", "possible_qcom_mbn"})
+              if not has_support_file:
+                  status = "insufficient"
+              elif best_score >= 78 and has_model_signal:
+                  status = "match"
+              elif best_score >= 45 and has_model_signal:
+                  status = "need_test"
+              else:
+                  status = "insufficient"
+
+              return {
+                  "status": status,
+                  "score": best_score,
+                  "files": best,
+                  "candidate_file_count": len(candidates),
+                  "remarks": unique([
+                      "Only models present in the expert catalogue are evaluated.",
+                      "Static evidence match only; no real hardware test was performed by this workflow.",
+                      "need_test means the data is usable enough to try but exact hardware success is not proven." if status == "need_test" else ""
+                  ])
+              }
+
+          # Load expert catalog. The workflow accepts both the flat catalogue attachment and the older nested format.
+          catalog_path = next((ROOT / x for x in CATALOG_CANDIDATES if (ROOT / x).is_file()), None)
+          if not catalog_path:
+              print("ERROR: device_catalogue.json or device_catalog.json was not found", file=sys.stderr)
+              sys.exit(1)
+          raw_catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+          catalog_models = []
+          if isinstance(raw_catalog, list):
+              catalog_models = raw_catalog
+          elif isinstance(raw_catalog, dict):
+              for platform, pdata in raw_catalog.get("platforms", {}).items():
+                  for brand in pdata.get("brands", []):
                       for model in brand.get("models", []):
-                          m_copy = dict(model)
-                          chip_raw = str(model.get("chip_code", "")).upper().strip()
-                          chip_label = str(model.get("chip", "")).upper().strip()
-                          hint = str(model.get("loader_hint", "")).upper().strip()
-                          tokens = extract_tokens(model.get("name", ""))
-                          matched_files = {}
-                          is_verified = False
-                          badge = "Test"
-                          support_tier = "test"
+                          item = dict(model)
+                          item.setdefault("brand", brand.get("name", brand.get("key", "")))
+                          item.setdefault("engine", platform)
+                          catalog_models.append(item)
+          else:
+              print("ERROR: unsupported expert catalogue JSON shape", file=sys.stderr)
+              sys.exit(1)
 
-                          if plat_key == "mtk":
-                              norm_chip = normalize_mtk_chip(chip_raw) or normalize_mtk_chip(chip_label)
-                              payload_chip = MTK_PAYLOAD_FALLBACK.get(norm_chip, norm_chip) if norm_chip else ""
-                              is_v6 = ("V6" in hint) or (norm_chip in {"MT6789", "MT6835", "MT6855", "MT6895", "MT6897", "MT6983", "MT6985", "MT6989"})
-                              da_file = mtk_da_v6 if is_v6 else mtk_da_v5
+          # Scan every repository file except generated outputs, catalog source, and VCS/runtime directories.
+          files = []
+          scan_errors = []
+          for root, dirs, names in os.walk(ROOT):
+              dirs[:] = sorted(d for d in dirs if d not in SKIP_DIRS and not d.startswith("."))
+              for name in sorted(names):
+                  if name in SKIP_FILES or name.startswith("."):
+                      continue
+                  path = Path(root) / name
+                  try:
+                      size = path.stat().st_size
+                      if size > MAX_HASH_BYTES:
+                          scan_errors.append(f"SKIPPED_TOO_LARGE: {path.relative_to(ROOT)} ({size} bytes)")
+                          continue
+                      data = read_sample(path)
+                      sha = sha256_file(path)
+                      platform, role, meta = classify_file(path, data)
+                      rel = path.relative_to(ROOT).as_posix()
+                      files.append({
+                          "name": name,
+                          "path": rel,
+                          "url": url_for(rel),
+                          "size": size,
+                          "extension": path.suffix.lower(),
+                          "sha256": sha,
+                          "platform": platform,
+                          "role": role,
+                          "meta": meta
+                      })
+                  except Exception as exc:
+                      scan_errors.append(f"SCAN_ERROR: {path.relative_to(ROOT)}: {exc}")
 
-                              pl_match = None
-                              for tok in tokens:
-                                  for p in mtk_preloaders:
-                                      if token_in_filename(tok, p["name"]):
-                                          p_chip = p["hex"].get("chip_code", "")
-                                          if not p_chip or not norm_chip or p_chip == norm_chip or p_chip == payload_chip:
-                                              pl_match = p
-                                              break
-                                  if pl_match:
-                                      break
+          # Match only expert-catalogue models. No new brand/model is invented here.
+          matches = []
+          status_counts = Counter()
+          brand_counts = Counter()
+          platform_counts = Counter()
+          for model in catalog_models:
+              brand = str(model.get("brand", "")).strip()
+              name = str(model.get("model", "")).strip()
+              if not brand or not name:
+                  continue
+              result = model_match(model, files)
+              if not result or result["status"] == "insufficient":
+                  continue
+              out = dict(model)
+              out["catalog_source"] = catalog_path.name
+              out["match"] = result
+              out["hardware_tested"] = False
+              out["support_tier"] = "catalog_match" if result["status"] == "match" else "need_test"
+              out["remarks"] = (
+                  "MATCH: static evidence is strong enough for catalog use; real hardware test was not performed."
+                  if result["status"] == "match" else
+                  "NEED_TEST: files and expert-map requirements partially/strongly match; try on compatible hardware before marking ready."
+              )
+              matches.append(out)
+              status_counts[result["status"]] += 1
+              brand_counts[brand] += 1
+              platform_counts[str(model.get("engine", "unknown")).lower()] += 1
 
-                              if not pl_match and norm_chip:
-                                  pl_match = next(
-                                      (p for p in mtk_preloaders if p["hex"].get("chip_code") in {norm_chip, payload_chip}),
-                                      None,
-                                  )
+          matches.sort(key=lambda x: (-x["match"]["score"], str(x.get("brand", "")).lower(), str(x.get("model", "")).lower()))
 
-                              pay_match = mtk_payloads.get(norm_chip) or mtk_payloads.get(payload_chip)
+          file_type_counts = Counter((f["platform"], f["role"]) for f in files)
+          inventory = {
+              "schema_version": 3,
+              "generated_at": NOW,
+              "source_catalog": catalog_path.name,
+              "source_catalog_sha256": hashlib.sha256(catalog_path.read_bytes()).hexdigest(),
+              "repository": REPO,
+              "branch": BRANCH,
+              "base_url": BASE_URL,
+              "stats": {
+                  "scanned_files": len(files),
+                  "scan_errors": len(scan_errors),
+                  "catalog_models": len(catalog_models),
+                  "matched_models": len(matches),
+                  "match": status_counts.get("match", 0),
+                  "need_test": status_counts.get("need_test", 0),
+                  "insufficient_or_omitted": max(0, len(catalog_models) - len(matches)),
+                  "by_platform_role": {f"{p}:{r}": n for (p, r), n in sorted(file_type_counts.items())}
+              },
+              "files": files,
+              "mtk": {"da": [f for f in files if f["role"] == "mtk_da"], "loader_payloads": [f for f in files if f["role"] == "mtk_payload"], "preloader": [f for f in files if f["role"] == "mtk_preloader"], "targets": [f for f in files if f["role"] == "mtk_target"]},
+              "qualcomm": {"loaders": [f for f in files if f["role"] == "qcom_loader"]},
+              "spd": {"fdl": [f for f in files if f["role"] == "spd_fdl"]}
+          }
 
-                              if is_v6 and da_file:
-                                  is_verified = True
-                                  badge = "V6 XML"
-                                  support_tier = "ready"
-                                  matched_files["da"] = da_file["url"]
-                                  matched_files["protocol"] = "da_v6_xml"
-                                  if mtk_da_xml:
-                                      matched_files["da_xml"] = mtk_da_xml["url"]
-                                  if mtk_da_xml64:
-                                      matched_files["da_xml_64"] = mtk_da_xml64["url"]
-                                  if pl_match:
-                                      matched_files["preloader"] = pl_match["url"]
-                                  if norm_chip:
-                                      m_copy["hw_code"] = MTK_CHIP_TO_HWCODE.get(norm_chip, "")
-                              elif da_file and (pay_match or pl_match):
-                                  is_verified = True
-                                  badge = "V5 Ready"
-                                  support_tier = "ready"
-                                  matched_files["da"] = da_file["url"]
-                                  matched_files["protocol"] = "xflash_v5"
-                                  if pay_match:
-                                      matched_files["payload"] = pay_match["url"]
-                                  if pl_match:
-                                      matched_files["preloader"] = pl_match["url"]
-                                  if norm_chip:
-                                      m_copy["hw_code"] = MTK_CHIP_TO_HWCODE.get(norm_chip, "")
-                              elif da_file and (mtk_generic_stage1 or mtk_da_x):
-                                  # Generic MTK -> marked as Test
-                                  is_verified = True
-                                  badge = "Test"
-                                  support_tier = "test"
-                                  matched_files["da"] = da_file["url"]
-                                  matched_files["protocol"] = "brom_auto_detect"
-                                  if mtk_generic_stage1:
-                                      matched_files["payload"] = mtk_generic_stage1["url"]
-                                  if mtk_da_x:
-                                      matched_files["da_ext"] = mtk_da_x["url"]
-                                  if pl_match:
-                                      matched_files["preloader"] = pl_match["url"]
+          app_catalog = {
+              "schema_version": 1,
+              "generated_at": NOW,
+              "catalog_name": "appcatlog",
+              "source_catalog": {
+                  "file": catalog_path.name,
+                  "sha256": inventory["source_catalog_sha256"],
+                  "expert_models_only": True
+              },
+              "policy": {
+                  "unknown_models_excluded": True,
+                  "hardware_test_performed": False,
+                  "match_is_static_evidence_only": True,
+                  "need_test_is_included": True
+              },
+              "stats": {
+                  "expert_catalog_models": len(catalog_models),
+                  "included_models": len(matches),
+                  "catalog_match": status_counts.get("match", 0),
+                  "need_test": status_counts.get("need_test", 0),
+                  "brands": len(brand_counts),
+                  "platforms": dict(platform_counts)
+              },
+              "models": matches
+          }
 
-                          elif plat_key == "qcom":
-                              target_hwid = ""
-                              matched_soc_token = ""
-                              if chip_raw.startswith("0X"):
-                                  target_hwid = chip_raw[2:].zfill(8).upper()
-                              else:
-                                  combined_chip = f"{chip_raw} {chip_label}"
-                                  for soc, hwid in QCOM_SOC_TO_HWID.items():
-                                      if re.search(rf"(?:^|[^A-Z0-9]){re.escape(soc)}(?:$|[^A-Z0-9])", combined_chip):
-                                          target_hwid = hwid
-                                          matched_soc_token = soc.lower()
-                                          break
+          # Human-readable report with explicit remarks and omissions.
+          report = []
+          report.append("APP CATALOG BUILD REPORT")
+          report.append("=" * 80)
+          report.append(f"Generated UTC: {NOW}")
+          report.append(f"Repository: {REPO or '(local)'}")
+          report.append(f"Branch: {BRANCH}")
+          report.append(f"Expert catalogue: {catalog_path.name}")
+          report.append("")
+          report.append("IMPORTANT REMARKS")
+          report.append("- This workflow evaluates expert-catalogue models only; unknown models are excluded.")
+          report.append("- Matching is based on repository file evidence. It is not a real-hardware test.")
+          report.append("- MATCH means strong static evidence. NEED_TEST means usable candidate evidence exists but hardware confirmation is still required.")
+          report.append("- No model is called hardware_verified or guaranteed ready by this workflow.")
+          report.append("")
+          report.append("SUMMARY")
+          report.append("- Scanned files: " + str(len(files)))
+          report.append("- Scan errors/skipped files: " + str(len(scan_errors)))
+          report.append("- Expert catalogue models: " + str(len(catalog_models)))
+          report.append("- Included models: " + str(len(matches)))
+          report.append("- MATCH: " + str(status_counts.get("match", 0)))
+          report.append("- NEED_TEST: " + str(status_counts.get("need_test", 0)))
+          report.append("- Omitted/no sufficient evidence: " + str(max(0, len(catalog_models) - len(matches))))
+          report.append("")
+          report.append("SCANNED FILE TYPES")
+          for (platform, role), count in sorted(file_type_counts.items()):
+              report.append(f"- {platform}/{role}: {count}")
+          report.append("")
+          report.append("INCLUDED MODEL REMARKS")
+          for item in matches:
+              result = item["match"]
+              report.append(f"[{item['support_tier'].upper()}] {item.get('brand')} — {item.get('model')} | score={result['score']} | files={result['candidate_file_count']}")
+              report.append("  Evidence: " + "; ".join(sorted(set(e for f in result["files"][:5] for e in f["evidence"]))))
+              report.append("  Best files: " + ", ".join(f["path"] for f in result["files"][:5]))
+              report.append("  Remark: " + item["remarks"])
+          if not matches:
+              report.append("No expert-catalogue model reached the minimum evidence threshold.")
+          if scan_errors:
+              report.append("")
+              report.append("SCAN WARNINGS")
+              report.extend("- " + x for x in scan_errors[:200])
 
-                              aliases = QCOM_BRAND_ALIAS.get(brand_key, [brand_key])
-                              ranked_candidates = []
-                              brand_pool = []
+          (ROOT / "main.json").write_text(json.dumps(inventory, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          (ROOT / "appcatlog.json").write_text(json.dumps(app_catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          (ROOT / "report.txt").write_text("\n".join(report) + "\n", encoding="utf-8")
 
-                              for ldr in qcom_loaders:
-                                  l_path = ldr["path"].lower()
-                                  l_name = ldr["name"].lower()
-                                  l_hwid = ldr["hex"].get("msm_hwid", "")
-                                  brand_ok = any(f"/{a}/" in f"/{l_path}" for a in aliases)
-                                  tok_ok = any(token_in_filename(t, l_name) for t in tokens)
-                                  hwid_ok = bool(target_hwid and l_hwid == target_hwid)
-                                  soc_in_path = bool(matched_soc_token and len(matched_soc_token) >= 4 and matched_soc_token in l_path)
-                                  prio = ldr["hex"].get("priority", 2)
+          print(json.dumps({
+              "scanned_files": len(files),
+              "catalog_models": len(catalog_models),
+              "included_models": len(matches),
+              "match": status_counts.get("match", 0),
+              "need_test": status_counts.get("need_test", 0),
+              "scan_errors": len(scan_errors)
+          }, indent=2))
+          PY
 
-                                  if brand_ok:
-                                      brand_pool.append((prio, ldr))
-
-                                  if brand_ok and (hwid_ok or tok_ok or soc_in_path):
-                                      ranked_candidates.append((1, prio, "brand_exact", ldr))
-                                  elif tok_ok:
-                                      ranked_candidates.append((2, prio, "model_token", ldr))
-                                  elif hwid_ok or soc_in_path:
-                                      ranked_candidates.append((3, prio, "soc_shared", ldr))
-
-                              if ranked_candidates:
-                                  ranked_candidates.sort(key=lambda x: (x[0], x[1]))
-                                  _, _, best_mode, best = ranked_candidates[0]
-                                  auth_mode = best["hex"].get("auth_mode", "likely_no_auth")
-                                  is_verified = True
-                                  matched_files["loader"] = best["url"]
-                                  matched_files["auth_mode"] = auth_mode
-                                  matched_files["match_type"] = best_mode
-
-                                  if best_mode == "brand_exact" and auth_mode == "no_auth":
-                                      badge = "No-Auth"
-                                      support_tier = "ready"
-                                  elif best_mode == "brand_exact" and auth_mode == "likely_no_auth":
-                                      badge = "Ready"
-                                      support_tier = "ready"
-                                  else:
-                                      # Shared SoC / Auth Required / Token-only -> marked as Test
-                                      badge = "Test"
-                                      support_tier = "test"
-
-                                  fallbacks = []
-                                  seen_urls = {best["url"]}
-                                  for c in ranked_candidates[1:]:
-                                      u = c[3]["url"]
-                                      if u not in seen_urls:
-                                          fallbacks.append(u)
-                                          seen_urls.add(u)
-                                      if len(fallbacks) >= 3:
-                                          break
-                                  if fallbacks:
-                                      matched_files["fallback_loaders"] = fallbacks
-
-                                  if target_hwid:
-                                      m_copy["msm_hwid"] = target_hwid
-                                  if auth_mode == "no_auth":
-                                      m_copy["auth_required"] = False
-                              elif brand_pool:
-                                  # Generic QCOM model (Sahara Auto-Detect) -> marked as Test
-                                  brand_pool.sort(key=lambda x: x[0])
-                                  is_verified = True
-                                  badge = "Test"
-                                  support_tier = "test"
-                                  matched_files["match_type"] = "sahara_auto_detect"
-                                  matched_files["brand_loader_count"] = len(brand_pool)
-                                  matched_files["loader"] = brand_pool[0][1]["url"]
-                                  matched_files["auth_mode"] = brand_pool[0][1]["hex"].get("auth_mode", "likely_no_auth")
-
-                          elif plat_key == "spd":
-                              raw_keys = [
-                                  chip_raw.lower(),
-                                  hint.lower().replace("generic_", ""),
-                              ]
-                              for tok in re.split(r"[/,\s\(\)]+", chip_label.lower()):
-                                  if len(tok) >= 4:
-                                      raw_keys.append(tok)
-
-                              search_keys = []
-                              for k in raw_keys:
-                                  if len(k) >= 4:
-                                      search_keys.append(k)
-                                      for alias_k, alias_vals in SPD_SOC_ALIAS.items():
-                                          if alias_k in k:
-                                              search_keys.extend(alias_vals)
-                              search_keys = list(dict.fromkeys(search_keys))
-
-                              soc_matches = [s for s in spd_files if any(k in s["path"].lower() for k in search_keys)]
-                              if not soc_matches and tokens:
-                                  soc_matches = [s for s in spd_files if any(token_in_filename(t, s["name"]) for t in tokens)]
-
-                              if soc_matches:
-                                  is_verified = True
-                                  fdl1 = next((s for s in soc_matches if s["hex"].get("fdl_stage") == "fdl1"), soc_matches[0])
-                                  fdl2 = next((s for s in soc_matches if s["hex"].get("fdl_stage") == "fdl2"), None)
-                                  matched_files["fdl1"] = fdl1["url"]
-                                  if fdl2:
-                                      matched_files["fdl2"] = fdl2["url"]
-                                      badge = "FDL Ready"
-                                      support_tier = "ready"
-                                  else:
-                                      badge = "Test"
-                                      support_tier = "test"
-
-                          elif plat_key == "samsung":
-                              is_verified = True
-                              badge = "Odin"
-                              support_tier = "ready"
-                              matched_files["protocol"] = "odin"
-
-                          if is_verified:
-                              m_copy["verified"] = True
-                              m_copy["badge"] = badge
-                              m_copy["support_tier"] = support_tier
-                              m_copy["files"] = matched_files
-                              v_models.append(m_copy)
-                              plat_count += 1
-                              stats["total_models"] += 1
-                              if support_tier == "ready":
-                                  stats["ready_models"] += 1
-                              else:
-                                  stats["test_models"] += 1
-                          else:
-                              stats["omitted_unverified"] += 1
-
-                      if v_models:
-                          v_brands.append({
-                              "key": brand["key"],
-                              "name": brand["name"],
-                              "icon": brand.get("icon", "generic"),
-                              "models": v_models,
-                          })
-
-                  verified_platforms[plat_key] = {"brands": v_brands}
-                  stats[plat_key] = plat_count
-                  stats[f"{plat_key}_brands"] = len(v_brands)
-
-              out_catalog = {
-                  "schema_version": catalog.get("schema_version", 1),
-                  "catalog_version": catalog.get("catalog_version", 2),
-                  "main_json_version": main_version,
-                  "updated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-                  "strict_verified": True,
-                  "stats": stats,
-                  "platforms": verified_platforms,
-              }
-
-              with open("verified_catalog.json", "w", encoding="utf-8") as f:
-                  json.dump(out_catalog, f, indent=2, ensure_ascii=False)
-
-              print("Generated verified_catalog.json successfully!")
-              print(json.dumps(stats, indent=2, ensure_ascii=False))
-
-
-          def main():
-              folders, root_files, all_entries, type_counts = scan_repository()
-              next_ver = get_next_version("main.json")
-
-              folder_counts = {k: len(v) for k, v in folders.items()}
-              total_files = sum(folder_counts.values()) + len(root_files)
-
-              main_data = {
-                  "version": next_ver,
-                  "updated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-                  "primary_source": "github_raw",
-                  "base_url": BASE_URL,
-                  "stats": {
-                      "total_folders": len(folders),
-                      "total_files": total_files,
-                      "root_files": len(root_files),
-                      "by_type": type_counts,
-                      "by_folder": folder_counts,
-                  },
-                  "folders": folders,
-                  "root_files": root_files,
-              }
-
-              with open("main.json", "w", encoding="utf-8") as f:
-                  json.dump(main_data, f, indent=2, ensure_ascii=False)
-
-              print("Generated main.json successfully!")
-              print(json.dumps(main_data["stats"], indent=2, ensure_ascii=False))
-
-              build_verified_catalog(all_entries, next_ver)
-
-
-          if __name__ == "__main__":
-              main()
-          EOF
-
-      - name: Commit and Push updated JSON files
+      - name: Validate generated JSON and required outputs
         run: |
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add main.json
-          if [ -f verified_catalog.json ]; then
-            git add verified_catalog.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          for name in ("main.json", "appcatlog.json"):
+              p = Path(name)
+              if not p.is_file() or p.stat().st_size == 0:
+                  raise SystemExit(f"Missing or empty output: {name}")
+              with p.open(encoding="utf-8") as f:
+                  json.load(f)
+          report = Path("report.txt")
+          if not report.is_file() or report.stat().st_size == 0:
+              raise SystemExit("Missing or empty output: report.txt")
+          print("Generated outputs validated successfully")
+          PY
+
+      - name: Upload generated files as workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-catalog-outputs
+          if-no-files-found: error
+          path: |
+            report.txt
+            main.json
+            appcatlog.json
+
+      - name: Commit generated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add report.txt main.json appcatlog.json
+          if git diff --cached --quiet; then
+            echo "No generated changes to commit"
+            exit 0
           fi
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Auto-update main.json & verified_catalog.json (Ready + Test Badges) [skip ci]"
-            git pull --rebase origin main
-            git push
-          fi
+          git commit -m "Auto-update app catalog outputs [skip ci]"
+          git push origin HEAD:${GITHUB_REF_NAME}
