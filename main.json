@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-11-26T11:43:08Z",
+  "generated_at": "2026-11-26T11:56:52Z",
   "source_catalog": "device_catalog.json",
   "source_catalog_sha256": "3d7f7a82330c1d98a844710ac55bd06fc49342b0c46491871a80b1e32ef7ff89",
   "repository": "ZarNiTho/NUT",
@@ -10,10 +10,10 @@
     "scanned_files": 2269,
     "scan_errors": 0,
     "catalog_models": 1396,
-    "matched_models": 296,
-    "match": 40,
-    "need_test": 256,
-    "insufficient_or_omitted": 1100,
+    "matched_models": 104,
+    "match": 33,
+    "need_test": 71,
+    "insufficient_or_omitted": 1292,
     "by_platform_role": {
       "mtk:mtk_da": 6,
       "mtk:mtk_payload": 57,
