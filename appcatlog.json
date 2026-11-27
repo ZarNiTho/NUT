@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-27T10:22:38Z",
+  "generated_at": "2026-11-27T11:32:09Z",
   "stats": {
     "catalog_models": 1369,
     "matched_models": 1006,
@@ -22683,19 +22683,19 @@
       "score": 82,
       "candidates": [
         {
-          "id": "qc_de1e4db198f9",
-          "path": "Loaders/xiaomi/EDLAuth/001590e100720000_1bebe3863a6781db_fhprg_edlauth.bin",
-          "repo": "ZarNiTho/NUT",
-          "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/xiaomi/EDLAuth/001590e100720000_1bebe3863a6781db_fhprg_edlauth.bin",
-          "auth_mode": "edl_auth",
-          "score": 82
-        },
-        {
           "id": "qc_4416ca7ecf65",
           "path": "Qualcomm-firehoses-main/Xiaomi/No Auth/POCO M3.elf",
           "repo": "ZarNiTho/Qualcomm_Loaders",
           "url": "https://raw.githubusercontent.com/ZarNiTho/Qualcomm_Loaders/main/Qualcomm-firehoses-main/Xiaomi/No%20Auth/POCO%20M3.elf",
           "auth_mode": "no_auth",
+          "score": 82
+        },
+        {
+          "id": "qc_de1e4db198f9",
+          "path": "Loaders/xiaomi/EDLAuth/001590e100720000_1bebe3863a6781db_fhprg_edlauth.bin",
+          "repo": "ZarNiTho/NUT",
+          "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/xiaomi/EDLAuth/001590e100720000_1bebe3863a6781db_fhprg_edlauth.bin",
+          "auth_mode": "edl_auth",
           "score": 82
         }
       ]
