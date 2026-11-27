@@ -13,6 +13,11 @@ on:
   schedule:
     - cron: "0 3 * * *"
   workflow_dispatch:
+    inputs:
+      purge_bad_nut_files:
+        description: "Also delete corrupt .7z/encrypted files from ZarNiTho/NUT (e.g. bl/)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -23,7 +28,7 @@ concurrency:
 
 jobs:
   build-manifests:
-    name: Build Dual-Repo Manifests (NUT + Qualcomm_Loaders)
+    name: Build & Verify Clean Manifests (NUT + Qualcomm_Loaders)
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -34,47 +39,77 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Checkout ZarNiTho/Qualcomm_Loaders
-        uses: actions/checkout@v4
-        with:
-          repository: ZarNiTho/Qualcomm_Loaders
-          path: _qcom_loaders
-          fetch-depth: 1
+      - name: Clone ZarNiTho/Qualcomm_Loaders Outside NUT Workspace
+        run: |
+          rm -rf "${{ runner.temp }}/qcom_loaders"
+          git clone --depth 1 https://github.com/ZarNiTho/Qualcomm_Loaders.git "${{ runner.temp }}/qcom_loaders"
 
       - name: Setup Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Run Dual-Repo Manifest Indexer (.elf/.mbn/.bin/.melf)
+      - name: Read Previous Manifest Version
+        id: prev
+        run: |
+          VER=$(python3 -c 'import json,pathlib; p=pathlib.Path("main.json"); print(json.loads(p.read_text()).get("version", 218) if p.is_file() else 218)')
+          echo "version=${VER}" >> "$GITHUB_OUTPUT"
+
+      - name: Pre-Clean Corrupt/Encrypted QC Binaries Before Indexing
+        run: |
+          PURGE_NUT=""
+          if [ "${{ inputs.purge_bad_nut_files }}" = "true" ]; then
+            PURGE_NUT="--purge-nut-bad"
+          fi
+          python3 scripts/clean_and_enrich_nut.py \
+            --mode preclean \
+            --nut-dir . \
+            --qcom-dir "${{ runner.temp }}/qcom_loaders" \
+            --purge-qcom-temp \
+            $PURGE_NUT
+
+      - name: Run Dual-Repo Manifest Indexer
         run: |
           python3 scripts/build_final_manifest.py \
             --nut-dir . \
-            --qcom-dir _qcom_loaders \
+            --qcom-dir "${{ runner.temp }}/qcom_loaders" \
             --nut-repo "${{ github.repository }}" \
             --qcom-repo "ZarNiTho/Qualcomm_Loaders" \
             --branch "${{ github.ref_name || 'main' }}"
 
-      - name: Cleanup Temp Clone & Validate Generated JSON
+      - name: Strict Magic Filter & MBN v6/v7 HWID/PK_HASH Enrichment
         run: |
-          rm -rf _qcom_loaders
+          python3 scripts/clean_and_enrich_nut.py \
+            --mode enrich \
+            --nut-dir . \
+            --qcom-dir "${{ runner.temp }}/qcom_loaders" \
+            --prev-version "${{ steps.prev.outputs.version }}"
+
+      - name: Validate Generated JSON & Zero Ghost Links
+        run: |
           python3 - <<'PY'
           import json
           for fn in ("final_qc.json", "spd_manifest.json", "main.json", "appcatlog.json"):
-              with open(fn, "r", encoding="utf-8") as f:
-                  data = json.load(f)
+              data = json.load(open(fn, "r", encoding="utf-8"))
               print(f"OK {fn}: top-keys={list(data.keys())}")
+          m = json.load(open("main.json", "r", encoding="utf-8"))
+          bad = [e["path"] for items in m["qualcomm"]["loaders"].values() for e in items if e["path"].startswith(("_qcom_loaders/", "bl/"))]
+          assert not bad, f"Ghost/archive paths remained: {bad[:5]}"
+          print(f"VERIFIED main.json v{m['version']}: clean QC loaders={m['stats']['deduped_qc_loaders']}")
           PY
 
-      - name: Commit & Push Manifests
+      - name: Commit & Push Clean Manifests
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add final_qc.json spd_manifest.json main.json appcatlog.json report.txt
+          git add -A final_qc.json spd_manifest.json main.json appcatlog.json report.txt
+          if [ "${{ inputs.purge_bad_nut_files }}" = "true" ]; then
+            git add -A bl/ || true
+          fi
           if git diff --cached --quiet; then
             echo "Manifests already up to date."
           else
-            git commit -m "chore: rebuild dual-repo manifests (NUT + Qualcomm_Loaders) [skip ci]"
+            git commit -m "chore: rebuild clean & enriched manifests [skip ci]"
             git pull --rebase origin "${GITHUB_REF_NAME}" || true
             git push origin "HEAD:${GITHUB_REF_NAME}"
           fi
