@@ -1,27 +1,35 @@
 #!/usr/bin/env python3
 """
-Production-grade sanitizer & binary ELF/MBN metadata enricher for ZarNiTho/NUT.
-- Rejects non-ELF/MBN garbage (7z, .rtc, "data ddc", corrupted magic, 404).
-- Extracts authoritative MBN v3/v5/v6/v7 MSM_HWID, SOC_HW, OEM_ID, PK_HASH.
-- Fixes build_final_manifest.py substring false-positives (SM8750/SM4250/SM4350/SM6375).
-- Recomputes final_qc.json stats (by_brand, by_auth_mode) accurately.
+Production-grade precleaner, binary ELF/MBN validator & metadata enricher for ZarNiTho/NUT.
+Supports nut_main.yml CLI:
+  --mode preclean --nut-dir . --qcom-dir <path> [--purge-qcom-temp] [--purge-nut-bad]
+  --mode enrich   --nut-dir . --qcom-dir <path> [--prev-version <int>]
 """
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
-import os
 import re
 import struct
 import sys
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 ELF_MAGIC = b"\x7fELF"
-MBN_V3_SIG_MAGIC = 0x00000003
-HEX16_NAME_RE = re.compile(r"^([0-9a-f]{8})([0-9a-f]{4})([0-9a-f]{4})_([0-9a-f]{8,64})_", re.I)
+CODEWORD_MAGICS = (0x844BDCD1, 0x874BDCD1, 0xD1DC4B84)
+CODEWORD_W1 = 0x73D71034
+HEX16_NAME_RE = re.compile(r"^([0-9a-f]{8})([0-9a-f]{4})([0-9a-f]{4})_([0-9a-f]{8,64})", re.I)
+
+QC_BINARY_EXTS = {".elf", ".mbn", ".melf", ".bin"}
+NON_QC_DIR_NAMES = {
+    ".git", ".github", "scripts", "mtk", "preloader", "preloaders", "da",
+    "payloads", "loader_payloads", "targets", "spd", "fdl", "tempblu", "sigs",
+    "xiaomi_sigs", "sig", "bl",
+}
+BAD_ARCHIVE_EXTS = {".7z", ".zip", ".rar", ".tar", ".gz", ".xz", ".bz2", ".apk", ".exe", ".pdf"}
 
 OEM_ID_TO_BRAND = {
     0x0001: "nokia_foxconn",
@@ -52,6 +60,7 @@ OEM_ID_TO_BRAND = {
     0x143A: "asus_wingtech",
 }
 
+# Verified real-hardware MBN v6 SOC_HW16 -> Canonical SoC
 SOC_HW16_TO_SOC = {
     0x2013: "MDM9205",
     0x2014: "QCS405",
@@ -86,7 +95,7 @@ SOC_HW16_TO_SOC = {
     0x9007: "SM6225",
 }
 
-# Authoritative 24-bit MSM_HWID -> canonical SoC (all keys UPPERCASE "0X...")
+# Authoritative 24-bit MSM_HWID (all keys UPPERCASE "0X...") -> Canonical SoC
 HWID_TO_SOC = {
     "0X000460E1": "MSM8953",
     "0X000480E1": "MDM9207",
@@ -182,40 +191,34 @@ EMMC_ONLY_SOCS = {
 }
 
 
-def resolve_local_file(entry: Dict[str, Any], nut_root: Path, qcom_root: Optional[Path]) -> Optional[Path]:
-    raw_url = str(entry.get("raw_url") or "")
-    rel_path = str(entry.get("path") or "").lstrip("/")
-    if not rel_path:
-        return None
-    if "/ZarNiTho/Qualcomm_Loaders/" in raw_url and qcom_root:
-        cand = qcom_root / rel_path
-        if cand.is_file():
-            return cand
-    cand = nut_root / rel_path
-    if cand.is_file():
-        return cand
-    if qcom_root:
-        cand2 = qcom_root / rel_path
-        if cand2.is_file():
-            return cand2
-    return None
+def is_valid_qc_bytes(data: bytes) -> Tuple[bool, str]:
+    size = len(data)
+    if size < 4096 or size > 4_194_304:
+        return False, "bad_size"
+    head_ascii = data[:160].lstrip()
+    for bad_prefix in (b"<!DOCTYPE", b"<html", b"version https://git-lfs", b"404:", b"MMM", b"EMMC_BOOT", b"UFS_BOOT", b"BRLYT"):
+        if head_ascii.startswith(bad_prefix):
+            return False, "non_qc_header"
+    if b"MTK_BLOADER" in head_ascii or b"MTK_DOWNLOAD_AGENT" in head_ascii:
+        return False, "mtk_binary"
+    # 1. Valid ELF32/ELF64 little-endian
+    if data[:4] == ELF_MAGIC:
+        if data[4] in (1, 2) and data[5] == 1:
+            return True, f"elf{32 if data[4] == 1 else 64}"
+        return False, "bad_elf_ident"
+    # 2. Legacy Qualcomm Codeword MBN (MSM8909/8916/8936/8939/8974/8x10)
+    w0, w1 = struct.unpack_from("<II", data, 0)
+    if w0 in CODEWORD_MAGICS and w1 == CODEWORD_W1:
+        return True, "mbn_codeword"
+    # 3. Standard 40-byte MBN header (v1..v10)
+    if size >= 40:
+        img_sz = struct.unpack_from("<I", data, 16)[0]
+        if 0 <= w0 <= 0x40 and 1 <= w1 <= 10 and 1024 <= img_sz <= size + 4096:
+            return True, "mbn_hdr"
+    return False, "corrupt_or_encrypted"
 
 
-def _is_valid_mbn_v3(data: bytes) -> bool:
-    if len(data) < 64:
-        return False
-    image_id, header_vsn = struct.unpack_from("<II", data, 0)
-    if header_vsn not in (3, 5, 6, 7) or image_id > 64:
-        return False
-    code_size = struct.unpack_from("<I", data, 20)[0]
-    return 1024 <= code_size <= len(data) + 4096
-
-
-def _extract_asn1_certs_and_root_hash(blob: bytes) -> Tuple[str, int, int, int]:
-    """
-    Walks DER X.509 certificates in cert_chain to compute Qualcomm root cert SHA-256/SHA-384
-    and extract OU=01 (HW_ID), OU=04 (OEM_ID), OU=05 (MODEL_ID), OU=07 (SOC_VERS).
-    """
+def _extract_asn1_certs_and_meta(blob: bytes) -> Tuple[str, int, int, int]:
     certs: List[bytes] = []
     pos = 0
     n = len(blob)
@@ -241,7 +244,6 @@ def _extract_asn1_certs_and_root_hash(blob: bytes) -> Tuple[str, int, int, int]:
 
     if certs:
         root_cert = certs[-1]
-        # Modern MBN v6/v7 SHA-384 vs SHA-256 detection (check OID 2.16.840.1.101.3.4.2.2)
         if b"\x06\x09\x60\x86\x48\x01\x65\x03\x04\x02\x02" in root_cert:
             pk_hash = hashlib.sha384(root_cert).hexdigest()
         else:
@@ -258,8 +260,7 @@ def _extract_asn1_certs_and_root_hash(blob: bytes) -> Tuple[str, int, int, int]:
             oem_id = int(m_oem.group(1).decode("ascii"), 16)
         m_sv = re.search(rb"07\s+([0-9A-Fa-f]{4,8})\s+SOC_VERS", attest)
         if m_sv:
-            sv_hex = m_sv.group(1).decode("ascii")
-            sv_val = int(sv_hex[-4:], 16)
+            sv_val = int(m_sv.group(1).decode("ascii")[-4:], 16)
             if sv_val in SOC_HW16_TO_SOC:
                 soc_hw16 = sv_val
 
@@ -271,19 +272,14 @@ def parse_qc_metadata(file_path: Path) -> Optional[Dict[str, Any]]:
         data = file_path.read_bytes()
     except OSError:
         return None
-    if len(data) < 4096:
-        return None
-
-    is_elf = data[:4] == ELF_MAGIC
-    if not is_elf and not _is_valid_mbn_v3(data):
+    ok, fmt = is_valid_qc_bytes(data)
+    if not ok:
         return None
 
     elf_class = 0
     hash_seg = b""
-    if is_elf:
+    if data[:4] == ELF_MAGIC:
         ei_class = data[4]
-        if ei_class not in (1, 2):
-            return None
         elf_class = 32 if ei_class == 1 else 64
         if ei_class == 1 and len(data) >= 52:
             e_phoff, _, _, e_phentsize, e_phnum = struct.unpack_from("<IIHHH", data, 28)
@@ -292,9 +288,10 @@ def parse_qc_metadata(file_path: Path) -> Optional[Dict[str, Any]]:
                 if off + 32 > len(data):
                     break
                 p_type, p_offset, _, _, p_filesz, _, p_flags, _ = struct.unpack_from("<IIIIIIII", data, off)
-                if p_type == 0 and (p_flags & 0x07000000) == 0x02000000 and p_filesz >= 40:
-                    hash_seg = data[p_offset : p_offset + p_filesz]
-                    break
+                if p_filesz >= 40 and p_offset + p_filesz <= len(data):
+                    if (p_flags & 0x07000000) == 0x02000000 or (i == 1 and p_type == 0):
+                        hash_seg = data[p_offset : p_offset + p_filesz]
+                        break
         elif ei_class == 2 and len(data) >= 64:
             e_phoff = struct.unpack_from("<Q", data, 32)[0]
             e_phentsize, e_phnum = struct.unpack_from("<HH", data, 54)
@@ -303,11 +300,12 @@ def parse_qc_metadata(file_path: Path) -> Optional[Dict[str, Any]]:
                 if off + 56 > len(data):
                     break
                 p_type, p_flags, p_offset, _, _, p_filesz = struct.unpack_from("<IIQQQQ", data, off)
-                if p_type == 0 and (p_flags & 0x07000000) == 0x02000000 and p_filesz >= 40:
-                    hash_seg = data[p_offset : p_offset + p_filesz]
-                    break
+                if p_filesz >= 40 and p_offset + p_filesz <= len(data):
+                    if (p_flags & 0x07000000) == 0x02000000 or (i == 1 and p_type == 0):
+                        hash_seg = data[p_offset : p_offset + p_filesz]
+                        break
     else:
-        hash_seg = data[: min(len(data), 65536)]
+        hash_seg = data[: min(len(data), 131072)]
 
     hwid32 = 0
     oem_id = 0
@@ -324,27 +322,25 @@ def parse_qc_metadata(file_path: Path) -> Optional[Dict[str, Any]]:
             if md_off + 24 <= len(hash_seg) and common_sz >= 24:
                 md_major = struct.unpack_from("<I", hash_seg, md_off)[0]
                 if md_major in (0, 1):
-                    # MBN v6 common_metadata: major(4), minor(4), sw_id(4), hw_id/msm_part(4), oem_id(4), model_id(4), ...
                     _, _, _, msm_part, md_oem, _ = struct.unpack_from("<IIIIII", hash_seg, md_off)
                     if msm_part and (msm_part & 0xFF) == 0xE1:
                         hwid32 = msm_part & 0xFFFFFFFF
                     if 0 < md_oem < 0xFFFF:
                         oem_id = md_oem
-                    # soc_vers array starts at md_off + 28 (12 x uint32)
                     if common_sz >= 76 and md_off + 76 <= len(hash_seg):
                         for j in range(12):
                             sv = struct.unpack_from("<I", hash_seg, md_off + 28 + j * 4)[0]
-                            sv16 = sv & 0xFFFF
-                            if sv16 in SOC_HW16_TO_SOC:
-                                soc_hw16 = sv16
-                                break
                             sv_hi = (sv >> 16) & 0xFFFF
+                            sv_lo = sv & 0xFFFF
                             if sv_hi in SOC_HW16_TO_SOC:
                                 soc_hw16 = sv_hi
                                 break
+                            if sv_lo in SOC_HW16_TO_SOC:
+                                soc_hw16 = sv_lo
+                                break
             cert_start = 48 + common_sz + qti_sz + code_sz + qti_sig_sz + qti_cert_sz + sig_sz
             if cert_sz > 200 and cert_start + cert_sz <= len(hash_seg):
-                c_pk, c_hw, c_oem, c_sv = _extract_asn1_certs_and_root_hash(hash_seg[cert_start : cert_start + cert_sz])
+                c_pk, c_hw, c_oem, c_sv = _extract_asn1_certs_and_meta(hash_seg[cert_start : cert_start + cert_sz])
                 pk_hash = c_pk or pk_hash
                 if not hwid32 and c_hw:
                     hwid32 = c_hw
@@ -353,16 +349,11 @@ def parse_qc_metadata(file_path: Path) -> Optional[Dict[str, Any]]:
                 if not soc_hw16 and c_sv:
                     soc_hw16 = c_sv
         elif ver in (3, 5):
-            # MBN v3/v5: cert_chain follows code + sig
-            c_pk, c_hw, c_oem, c_sv = _extract_asn1_certs_and_root_hash(hash_seg)
-            pk_hash = c_pk
-            hwid32 = c_hw
-            oem_id = c_oem
-            soc_hw16 = c_sv
+            c_pk, c_hw, c_oem, c_sv = _extract_asn1_certs_and_meta(hash_seg)
+            pk_hash, hwid32, oem_id, soc_hw16 = c_pk, c_hw, c_oem, c_sv
 
-    # Fallback ASN.1 scan across full hash_seg or tail for MBN v7 / ELF32
     if not pk_hash and hash_seg:
-        c_pk, c_hw, c_oem, c_sv = _extract_asn1_certs_and_root_hash(hash_seg)
+        c_pk, c_hw, c_oem, c_sv = _extract_asn1_certs_and_meta(hash_seg)
         pk_hash = c_pk
         if not hwid32 and c_hw:
             hwid32 = c_hw
@@ -378,14 +369,34 @@ def parse_qc_metadata(file_path: Path) -> Optional[Dict[str, Any]]:
         msm_hwid = f"0x{soc_hw16:04X}0000"
 
     return {
-        "valid": True,
+        "fmt": fmt,
         "elf_class": elf_class,
         "msm_hwid": msm_hwid,
         "soc_hw16": soc_hw16,
         "oem_id": oem_id,
         "pk_hash": pk_hash,
-        "size": len(data),
     }
+
+
+def resolve_local_file(entry: Dict[str, Any], nut_root: Path, qcom_root: Optional[Path]) -> Optional[Path]:
+    rel_path = str(entry.get("path") or "").lstrip("/")
+    if not rel_path:
+        return None
+    repo = str(entry.get("repo") or "")
+    url = str(entry.get("url") or entry.get("raw_url") or "")
+    is_qcom_repo = ("Qualcomm_Loaders" in repo) or ("Qualcomm_Loaders" in url)
+    if is_qcom_repo and qcom_root:
+        cand = qcom_root / rel_path
+        if cand.is_file():
+            return cand
+    cand = nut_root / rel_path
+    if cand.is_file():
+        return cand
+    if qcom_root:
+        cand2 = qcom_root / rel_path
+        if cand2.is_file():
+            return cand2
+    return None
 
 
 def resolve_authoritative_soc(hwid_hex: str, soc_hw16: int) -> str:
@@ -409,7 +420,6 @@ def enrich_entry(entry: Dict[str, Any], meta: Dict[str, Any]) -> Dict[str, Any]:
     rel_path = str(entry.get("path") or "")
     low_path = rel_path.lower()
 
-    # 1. Explicit 16-hex Qualcomm filename check
     fn_hwid = ""
     fn_oem = 0
     fn_pk = ""
@@ -420,14 +430,12 @@ def enrich_entry(entry: Dict[str, Any], meta: Dict[str, Any]) -> Dict[str, Any]:
         fn_oem = int(m.group(2), 16)
         fn_pk = m.group(4).lower()
 
-    # 2. Authoritative HWID: explicit filename 0x00xxE1 > binary ELF/MBN > existing
-    bin_hwid = meta["msm_hwid"]
+    bin_hwid = str(meta["msm_hwid"])
     if fn_hwid:
         final_hwid = fn_hwid
     elif bin_hwid != "0x00000000":
         final_hwid = bin_hwid
     else:
-        # Clear bogus filename-guessed HWID if binary had none & filename isn't 16-hex
         cur_hw = str(entry.get("msm_hwid") or "0x00000000").upper()
         final_hwid = "0x" + cur_hw[2:] if cur_hw.startswith("0X") and len(cur_hw) == 10 else "0x00000000"
         if final_hwid == "0x001360E1" and "samsung" in low_path and "g991" in low_path:
@@ -435,38 +443,32 @@ def enrich_entry(entry: Dict[str, Any], meta: Dict[str, Any]) -> Dict[str, Any]:
 
     entry["msm_hwid"] = final_hwid
 
-    # 3. PK_HASH: binary full SHA-256/384 preferred over truncated filename prefix
     cur_pk = str(entry.get("pk_hash") or "").strip().lower()
     if meta["pk_hash"] and len(meta["pk_hash"]) >= len(cur_pk):
         entry["pk_hash"] = meta["pk_hash"]
     elif not cur_pk and fn_pk:
         entry["pk_hash"] = fn_pk
 
-    # 4. OEM_ID & Brand correction
-    oem_id = meta["oem_id"] or fn_oem
+    oem_id = int(meta["oem_id"] or 0) or fn_oem
     if oem_id:
-        entry["oem_id"] = f"0x{oem_id:04X}"
+        entry["oem_id"] = f"{oem_id:04x}"
         oem_brand = OEM_ID_TO_BRAND.get(oem_id)
         cur_brand = str(entry.get("brand") or "generic").lower()
         if oem_brand:
-            # Always rebrand generic; also fix misfiled Xiaomi (0x0072) under lenovo_motorola
             if cur_brand in ("", "generic", "unknown") or (oem_id == 0x0072 and cur_brand == "lenovo_motorola"):
                 entry["brand"] = oem_brand
 
     if meta["elf_class"]:
         entry["elf_class"] = meta["elf_class"]
 
-    # 5. Authoritative SoC (wipes out build_final_manifest.py substring false positives!)
-    auth_soc = resolve_authoritative_soc(final_hwid, meta["soc_hw16"])
+    auth_soc = resolve_authoritative_soc(final_hwid, int(meta["soc_hw16"] or 0))
     cur_soc = str(entry.get("soc") or "").strip()
     if auth_soc:
         entry["soc"] = auth_soc
     elif cur_soc == "SM8750":
-        # Guard against "8e" matching hex hashes or s908e (S22 Ultra is SM8450)
         if not ("sm8750" in low_path or "/8e/" in low_path):
             entry["soc"] = "SM8450" if "s908" in low_path else ""
 
-    # 6. Fix bogus UFS storage on eMMC-only legacy SoCs
     final_soc = str(entry.get("soc") or "").upper()
     if final_soc in EMMC_ONLY_SOCS and "ufs" not in low_path:
         entry["storage"] = "eMMC"
@@ -474,76 +476,134 @@ def enrich_entry(entry: Dict[str, Any], meta: Dict[str, Any]) -> Dict[str, Any]:
     return entry
 
 
-def clean_qc_list(loaders: List[Dict[str, Any]], nut_root: Path, qcom_root: Optional[Path]) -> Tuple[List[Dict[str, Any]], Dict[str, int]]:
-    kept: List[Dict[str, Any]] = []
-    stats = Counter()
-    for item in loaders:
+def preclean_dir(root: Path, label: str, purge: bool) -> Dict[str, int]:
+    counts = Counter()
+    if not root or not root.is_dir():
+        return dict(counts)
+    for fp in root.rglob("*"):
+        if not fp.is_file():
+            continue
+        rel_parts = [p.lower() for p in fp.relative_to(root).parts[:-1]]
+        if any(p in NON_QC_DIR_NAMES for p in rel_parts):
+            continue
+        ext = fp.suffix.lower()
+        if ext in BAD_ARCHIVE_EXTS:
+            counts["bad_archive"] += 1
+            if purge:
+                fp.unlink(missing_ok=True)
+            continue
+        if ext not in QC_BINARY_EXTS:
+            continue
+        try:
+            data = fp.read_bytes()
+        except OSError:
+            continue
+        ok, reason = is_valid_qc_bytes(data)
+        if not ok:
+            counts[f"bad_{reason}"] += 1
+            if purge:
+                fp.unlink(missing_ok=True)
+        else:
+            counts["valid"] += 1
+    print(f"[preclean:{label}] purge={purge} stats={dict(counts)}")
+    return dict(counts)
+
+
+def run_enrich(nut_root: Path, qcom_root: Optional[Path], prev_version: int) -> None:
+    final_qc_path = nut_root / "final_qc.json"
+    main_path = nut_root / "main.json"
+    report_path = nut_root / "report.txt"
+
+    if not final_qc_path.is_file():
+        print("ERROR: final_qc.json not found", file=sys.stderr)
+        sys.exit(1)
+
+    fq = json.loads(final_qc_path.read_text(encoding="utf-8"))
+    raw_loaders = fq.get("loaders", [])
+    cleaned: List[Dict[str, Any]] = []
+    drop_stats = Counter()
+
+    for item in raw_loaders:
         rel_path = str(item.get("path") or "").lstrip("/")
         if rel_path.startswith("_qcom_loaders/") or rel_path.startswith("bl/"):
-            stats["dropped_bad_dir"] += 1
+            drop_stats["dropped_bad_dir"] += 1
             continue
         local_f = resolve_local_file(item, nut_root, qcom_root)
         if not local_f:
-            stats["dropped_missing"] += 1
+            drop_stats["dropped_missing"] += 1
             continue
         meta = parse_qc_metadata(local_f)
         if not meta:
-            stats["dropped_corrupt_or_encrypted"] += 1
+            drop_stats["dropped_corrupt_or_encrypted"] += 1
             continue
-        kept.append(enrich_entry(dict(item), meta))
-        stats["kept"] += 1
-    return kept, dict(stats)
+        cleaned.append(enrich_entry(dict(item), meta))
+        drop_stats["kept"] += 1
 
+    by_brand = Counter(str(x.get("brand") or "generic") for x in cleaned)
+    by_auth = Counter(str(x.get("auth_mode") or "standard") for x in cleaned)
+    pk_cnt = sum(1 for x in cleaned if len(str(x.get("pk_hash") or "")) >= 16)
+    soc_cnt = sum(1 for x in cleaned if str(x.get("soc") or "").strip())
 
-def main() -> int:
-    nut_root = Path(os.environ.get("NUT_ROOT", ".")).resolve()
-    qcom_env = os.environ.get("QCOM_LOADERS_ROOT", "").strip()
-    qcom_root = Path(qcom_env).resolve() if qcom_env and Path(qcom_env).is_dir() else None
+    fq["loaders"] = cleaned
+    fq["stats"] = {
+        **fq.get("stats", {}),
+        "deduped_qc_loaders": len(cleaned),
+        "by_brand": dict(sorted(by_brand.items(), key=lambda kv: (-kv[1], kv[0]))),
+        "by_auth_mode": dict(sorted(by_auth.items(), key=lambda kv: (-kv[1], kv[0]))),
+    }
+    final_qc_path.write_text(json.dumps(fq, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
-    main_path = nut_root / "main.json"
-    final_qc_path = nut_root / "final_qc.json"
-    report_path = nut_root / "report.txt"
-
-    report_lines: List[str] = []
-
-    if final_qc_path.is_file():
-        fq = json.loads(final_qc_path.read_text(encoding="utf-8"))
-        orig_n = len(fq.get("loaders", []))
-        cleaned, st = clean_qc_list(fq.get("loaders", []), nut_root, qcom_root)
-        fq["loaders"] = cleaned
-        by_brand = Counter(str(x.get("brand") or "generic") for x in cleaned)
-        by_auth = Counter(str(x.get("auth_mode") or "unknown") for x in cleaned)
-        fq["stats"] = {
-            **fq.get("stats", {}),
-            "total_qc_loaders": len(cleaned),
-            "deduped_qc_loaders": len(cleaned),
-            "by_brand": dict(sorted(by_brand.items())),
-            "by_auth_mode": dict(sorted(by_auth.items())),
-        }
-        final_qc_path.write_text(json.dumps(fq, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-        pk_cnt = sum(1 for x in cleaned if x.get("pk_hash"))
-        soc_cnt = sum(1 for x in cleaned if x.get("soc"))
-        report_lines.append(
-            f"[final_qc.json] {orig_n} -> {len(cleaned)} valid | PK_HASH: {pk_cnt}/{len(cleaned)} | SoC: {soc_cnt}/{len(cleaned)} | {st}"
-        )
-
+    # Sync cleaned QC loaders into main.json (grouped dict: main["qualcomm"]["loaders"][brand])
     if main_path.is_file():
         mj = json.loads(main_path.read_text(encoding="utf-8"))
-        qc_list = mj.get("qc_loaders")
-        if isinstance(qc_list, list):
-            orig_m = len(qc_list)
-            cleaned_m, st_m = clean_qc_list(qc_list, nut_root, qcom_root)
-            mj["qc_loaders"] = cleaned_m
-            if isinstance(mj.get("counts"), dict):
-                mj["counts"]["qc_loaders"] = len(cleaned_m)
-            main_path.write_text(json.dumps(mj, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-            report_lines.append(f"[main.json] qc_loaders {orig_m} -> {len(cleaned_m)} | {st_m}")
+        grouped: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+        for entry in cleaned:
+            grouped[str(entry.get("brand") or "generic")].append(entry)
+        qc_sec = mj.setdefault("qualcomm", {})
+        qc_sec["loaders"] = {b: grouped[b] for b in sorted(grouped.keys())}
+        if "count" in qc_sec:
+            qc_sec["count"] = len(cleaned)
+        if isinstance(mj.get("stats"), dict):
+            mj["stats"]["deduped_qc_loaders"] = len(cleaned)
+            if "by_brand" in mj["stats"]:
+                mj["stats"]["by_brand"] = fq["stats"]["by_brand"]
+            if "by_auth_mode" in mj["stats"]:
+                mj["stats"]["by_auth_mode"] = fq["stats"]["by_auth_mode"]
+        if prev_version > 0:
+            mj["version"] = max(prev_version + 1, int(mj.get("version") or 0))
+        main_path.write_text(json.dumps(mj, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
-    summary = "\n".join(report_lines)
+    summary = (
+        f"[enrich] final_qc: {len(raw_loaders)} -> {len(cleaned)} valid | "
+        f"PK_HASH: {pk_cnt}/{len(cleaned)} ({100.0 * pk_cnt / max(1, len(cleaned)):.1f}%) | "
+        f"SoC: {soc_cnt}/{len(cleaned)} ({100.0 * soc_cnt / max(1, len(cleaned)):.1f}%) | "
+        f"{dict(drop_stats)}"
+    )
     print(summary)
     if report_path.is_file():
         prev = report_path.read_text(encoding="utf-8").rstrip()
         report_path.write_text(prev + "\n\n--- Clean & Enrich ---\n" + summary + "\n", encoding="utf-8")
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--mode", choices=("preclean", "enrich"), default="enrich")
+    ap.add_argument("--nut-dir", default=".")
+    ap.add_argument("--qcom-dir", default="")
+    ap.add_argument("--purge-qcom-temp", action="store_true")
+    ap.add_argument("--purge-nut-bad", action="store_true")
+    ap.add_argument("--prev-version", type=int, default=0)
+    args = ap.parse_args()
+
+    nut_root = Path(args.nut_dir).resolve()
+    qcom_root = Path(args.qcom_dir).resolve() if args.qcom_dir and Path(args.qcom_dir).is_dir() else None
+
+    if args.mode == "preclean":
+        if qcom_root:
+            preclean_dir(qcom_root, "qcom_temp", purge=args.purge_qcom_temp)
+        preclean_dir(nut_root, "nut_repo", purge=args.purge_nut_bad)
+    else:
+        run_enrich(nut_root, qcom_root, args.prev_version)
     return 0
 
 
