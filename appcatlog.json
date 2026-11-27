@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-27T09:42:31Z",
+  "generated_at": "2026-11-27T10:22:38Z",
   "stats": {
     "catalog_models": 1369,
     "matched_models": 1006,
@@ -22758,18 +22758,18 @@
           "score": 94
         },
         {
-          "id": "qc_a9ea9be6031d",
-          "path": "Loaders/qualcomm/factory/sdm660/3006000000010000_b73514537ffc38a0_fhprg_peek.bin",
+          "id": "qc_933cefc3e3c0",
+          "path": "Loaders/qualcomm/factory/sdm660/3006000000010000_7e425bcb25364725_fhprg_peek.bin",
           "repo": "ZarNiTho/NUT",
-          "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm660/3006000000010000_b73514537ffc38a0_fhprg_peek.bin",
+          "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm660/3006000000010000_7e425bcb25364725_fhprg_peek.bin",
           "auth_mode": "standard",
           "score": 82
         },
         {
-          "id": "qc_3b5debb9bd11",
-          "path": "Loaders/qualcomm/factory/sdm660/3006000000010000_f8ab20526358c4fa_fhprg_peek.bin",
+          "id": "qc_a9ea9be6031d",
+          "path": "Loaders/qualcomm/factory/sdm660/3006000000010000_b73514537ffc38a0_fhprg_peek.bin",
           "repo": "ZarNiTho/NUT",
-          "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm660/3006000000010000_f8ab20526358c4fa_fhprg_peek.bin",
+          "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm660/3006000000010000_b73514537ffc38a0_fhprg_peek.bin",
           "auth_mode": "standard",
           "score": 82
         }
@@ -22991,10 +22991,10 @@
           "score": 94
         },
         {
-          "id": "qc_a9ea9be6031d",
-          "path": "Loaders/qualcomm/factory/sdm660/3006000000010000_b73514537ffc38a0_fhprg_peek.bin",
+          "id": "qc_933cefc3e3c0",
+          "path": "Loaders/qualcomm/factory/sdm660/3006000000010000_7e425bcb25364725_fhprg_peek.bin",
           "repo": "ZarNiTho/NUT",
-          "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm660/3006000000010000_b73514537ffc38a0_fhprg_peek.bin",
+          "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm660/3006000000010000_7e425bcb25364725_fhprg_peek.bin",
           "auth_mode": "standard",
           "score": 82
         }
@@ -23141,10 +23141,10 @@
           "score": 94
         },
         {
-          "id": "qc_a9ea9be6031d",
-          "path": "Loaders/qualcomm/factory/sdm660/3006000000010000_b73514537ffc38a0_fhprg_peek.bin",
+          "id": "qc_933cefc3e3c0",
+          "path": "Loaders/qualcomm/factory/sdm660/3006000000010000_7e425bcb25364725_fhprg_peek.bin",
           "repo": "ZarNiTho/NUT",
-          "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm660/3006000000010000_b73514537ffc38a0_fhprg_peek.bin",
+          "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm660/3006000000010000_7e425bcb25364725_fhprg_peek.bin",
           "auth_mode": "standard",
           "score": 82
         }
@@ -30139,6 +30139,14 @@
       "score": 82,
       "candidates": [
         {
+          "id": "qc_933cefc3e3c0",
+          "path": "Loaders/qualcomm/factory/sdm660/3006000000010000_7e425bcb25364725_fhprg_peek.bin",
+          "repo": "ZarNiTho/NUT",
+          "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm660/3006000000010000_7e425bcb25364725_fhprg_peek.bin",
+          "auth_mode": "standard",
+          "score": 82
+        },
+        {
           "id": "qc_a9ea9be6031d",
           "path": "Loaders/qualcomm/factory/sdm660/3006000000010000_b73514537ffc38a0_fhprg_peek.bin",
           "repo": "ZarNiTho/NUT",
@@ -30192,14 +30200,6 @@
           "repo": "ZarNiTho/NUT",
           "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/xiaomi/jasmine_prog_emmc_firehose_Sdm660_lite.elf",
           "auth_mode": "standard",
-          "score": 82
-        },
-        {
-          "id": "qc_3e1fe8bf085d",
-          "path": "Qualcomm-firehoses-main/Xiaomi/No Auth/MI 6X (2ND FIREHOSE)",
-          "repo": "ZarNiTho/Qualcomm_Loaders",
-          "url": "https://raw.githubusercontent.com/ZarNiTho/Qualcomm_Loaders/main/Qualcomm-firehoses-main/Xiaomi/No%20Auth/MI%206X%20%282ND%20FIREHOSE%29",
-          "auth_mode": "no_auth",
           "score": 82
         }
       ]
@@ -30260,6 +30260,14 @@
       "score": 82,
       "candidates": [
         {
+          "id": "qc_933cefc3e3c0",
+          "path": "Loaders/qualcomm/factory/sdm660/3006000000010000_7e425bcb25364725_fhprg_peek.bin",
+          "repo": "ZarNiTho/NUT",
+          "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm660/3006000000010000_7e425bcb25364725_fhprg_peek.bin",
+          "auth_mode": "standard",
+          "score": 82
+        },
+        {
           "id": "qc_a9ea9be6031d",
           "path": "Loaders/qualcomm/factory/sdm660/3006000000010000_b73514537ffc38a0_fhprg_peek.bin",
           "repo": "ZarNiTho/NUT",
@@ -30313,14 +30321,6 @@
           "repo": "ZarNiTho/Qualcomm_Loaders",
           "url": "https://raw.githubusercontent.com/ZarNiTho/Qualcomm_Loaders/main/Qualcomm-firehoses-main/Xiaomi/No%20Auth/MI%206X%20%282ND%20FIREHOSE%29",
           "auth_mode": "no_auth",
-          "score": 82
-        },
-        {
-          "id": "qc_28f4dc3cd6d0",
-          "path": "Qualcomm-firehoses-main/Xiaomi/Auth Skip, Auth Bypass/REDMI NOTE 5 (1ST FIREHOSE)",
-          "repo": "ZarNiTho/Qualcomm_Loaders",
-          "url": "https://raw.githubusercontent.com/ZarNiTho/Qualcomm_Loaders/main/Qualcomm-firehoses-main/Xiaomi/Auth%20Skip%2C%20Auth%20Bypass/REDMI%20NOTE%205%20%281ST%20FIREHOSE%29",
-          "auth_mode": "xiaomi_sig",
           "score": 82
         }
       ]
@@ -30335,6 +30335,14 @@
       "score": 82,
       "candidates": [
         {
+          "id": "qc_933cefc3e3c0",
+          "path": "Loaders/qualcomm/factory/sdm660/3006000000010000_7e425bcb25364725_fhprg_peek.bin",
+          "repo": "ZarNiTho/NUT",
+          "url": "https://raw.githubusercontent.com/ZarNiTho/NUT/main/Loaders/qualcomm/factory/sdm660/3006000000010000_7e425bcb25364725_fhprg_peek.bin",
+          "auth_mode": "standard",
+          "score": 82
+        },
+        {
           "id": "qc_a9ea9be6031d",
           "path": "Loaders/qualcomm/factory/sdm660/3006000000010000_b73514537ffc38a0_fhprg_peek.bin",
           "repo": "ZarNiTho/NUT",
@@ -30388,14 +30396,6 @@
           "repo": "ZarNiTho/Qualcomm_Loaders",
           "url": "https://raw.githubusercontent.com/ZarNiTho/Qualcomm_Loaders/main/Qualcomm-firehoses-main/Xiaomi/No%20Auth/MI%206X%20%282ND%20FIREHOSE%29",
           "auth_mode": "no_auth",
-          "score": 82
-        },
-        {
-          "id": "qc_28f4dc3cd6d0",
-          "path": "Qualcomm-firehoses-main/Xiaomi/Auth Skip, Auth Bypass/REDMI NOTE 5 (1ST FIREHOSE)",
-          "repo": "ZarNiTho/Qualcomm_Loaders",
-          "url": "https://raw.githubusercontent.com/ZarNiTho/Qualcomm_Loaders/main/Qualcomm-firehoses-main/Xiaomi/Auth%20Skip%2C%20Auth%20Bypass/REDMI%20NOTE%205%20%281ST%20FIREHOSE%29",
-          "auth_mode": "xiaomi_sig",
           "score": 82
         }
       ]
