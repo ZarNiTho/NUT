@@ -1,0 +1,80 @@
+name: Dual-Repo Loader Manifest & Catalog Builder
+
+on:
+  push:
+    branches: [ "main", "master" ]
+    paths-ignore:
+      - "final_qc.json"
+      - "spd_manifest.json"
+      - "main.json"
+      - "appcatlog.json"
+      - "report.txt"
+      - "report.json"
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-manifests:
+    name: Build Dual-Repo Manifests (NUT + Qualcomm_Loaders)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout ZarNiTho/NUT
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout ZarNiTho/Qualcomm_Loaders
+        uses: actions/checkout@v4
+        with:
+          repository: ZarNiTho/Qualcomm_Loaders
+          path: _qcom_loaders
+          fetch-depth: 1
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run Dual-Repo Manifest Indexer (.elf/.mbn/.bin/.melf)
+        run: |
+          python3 scripts/build_final_manifest.py \
+            --nut-dir . \
+            --qcom-dir _qcom_loaders \
+            --nut-repo "${{ github.repository }}" \
+            --qcom-repo "ZarNiTho/Qualcomm_Loaders" \
+            --branch "${{ github.ref_name || 'main' }}"
+
+      - name: Cleanup Temp Clone & Validate Generated JSON
+        run: |
+          rm -rf _qcom_loaders
+          python3 - <<'PY'
+          import json
+          for fn in ("final_qc.json", "spd_manifest.json", "main.json", "appcatlog.json"):
+              with open(fn, "r", encoding="utf-8") as f:
+                  data = json.load(f)
+              print(f"OK {fn}: top-keys={list(data.keys())}")
+          PY
+
+      - name: Commit & Push Manifests
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add final_qc.json spd_manifest.json main.json appcatlog.json report.txt
+          if git diff --cached --quiet; then
+            echo "Manifests already up to date."
+          else
+            git commit -m "chore: rebuild dual-repo manifests (NUT + Qualcomm_Loaders) [skip ci]"
+            git pull --rebase origin "${GITHUB_REF_NAME}" || true
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
