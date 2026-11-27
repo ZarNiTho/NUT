@@ -1,6 +1,6 @@
 DUAL-REPO UNIFIED BUILD REPORT
 ================================================================
-Generated UTC: 2026-11-27T00:53:34Z
+Generated UTC: 2026-11-27T01:12:53Z
 Raw NUT QC binaries: 4016
 Raw Qualcomm_Loaders binaries: 3133
 Deduplicated Final QC loaders: 2063
@@ -8,4 +8,4 @@ Auth breakdown: {'standard': 1893, 'edl_auth': 12, 'oppo_vip': 17, 'xiaomi_sig':
 MTK -> DA=6, Payloads=58, Preloaders=836, Targets=42
 SPD FDL bundles: 110
 Xiaomi tempblu bundles: 9, SIG files: 29
-Catalog eval: total=1396, matched=909 (match=646, need_test=263)
+Catalog eval: total=1369, matched=1006 (match=841, need_test=165)
