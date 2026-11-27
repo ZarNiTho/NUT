@@ -1,11 +1,18 @@
 DUAL-REPO UNIFIED BUILD REPORT
 ================================================================
-Generated UTC: 2026-11-27T01:12:53Z
-Raw NUT QC binaries: 4016
-Raw Qualcomm_Loaders binaries: 3133
-Deduplicated Final QC loaders: 2063
-Auth breakdown: {'standard': 1893, 'edl_auth': 12, 'oppo_vip': 17, 'xiaomi_sig': 77, 'no_auth': 64}
+Generated UTC: 2026-11-27T09:42:31Z
+Raw NUT QC binaries: 883
+Raw Qualcomm_Loaders binaries: 1882
+Deduplicated Final QC loaders: 1314
+Auth breakdown: {'standard': 1144, 'edl_auth': 12, 'oppo_vip': 17, 'xiaomi_sig': 77, 'no_auth': 64}
 MTK -> DA=6, Payloads=58, Preloaders=836, Targets=42
 SPD FDL bundles: 110
 Xiaomi tempblu bundles: 9, SIG files: 29
 Catalog eval: total=1369, matched=1006 (match=841, need_test=165)
+
+SANITIZE & MBN v6/v7 ENRICHMENT SUMMARY
+----------------------------------------------------------------
+Manifest version: v219
+Valid Firehose ELF/MBN kept: 1297
+Corrupt/Encrypted/404 rejected: 17 -> {'unknown_00000000': 1, 'ghost_or_bl_path': 16}
+Auto-enriched HWID: +198, PK_HASH: +476, Brand from OEM_ID: +17
